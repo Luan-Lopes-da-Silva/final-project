@@ -6,7 +6,7 @@ import SimulationsPDF from './Reports/Simulations/Simulations'
 import useForm1 from './src/Hooks/useStates'
 import useForm2 from './src/Hooks/useStates2'
 import useRefs from './src/Hooks/useRefs'
-import { useRef } from 'react'
+import { useRef ,useState} from 'react'
 import Link from 'next/link'
 let simulationsArray = []
 
@@ -20,6 +20,7 @@ export default function Home() {
   const conta = valorDespesa + Number(financiamento)
   const refModal = useRef()
   const refProtocolo = useRef()
+  const [status, setStatus] = useState('')
   
   
   function despesasFunction(ev){
@@ -284,6 +285,7 @@ function maxPrazos(ev){
     }
     setPrimeiraParcela(Number(parcelas[0]).toFixed(2))
     setUltimaParcela(Number(parcelas[parcelas.length-1]).toFixed(2))
+    
     }else if(amortizacao === 'PRICE' && banco=== 'bradesco' && consultor==='Sim'){
       setActive(true)
       const taxaBradesco = '10.49%'
@@ -314,7 +316,7 @@ function maxPrazos(ev){
       saldoDevedor.unshift(financiamento)
       const amort = Number(financiamento) / Number(prazo)
      
-  
+
       for(let i = 1; i<=Number(prazo); i++){
         const parcela = Number(financiamento)*(((1+contaTaxa)**Number(prazo))*contaTaxa)/((((1+contaTaxa)**prazo)-1))
         parcelas.push(parcela)
@@ -324,7 +326,7 @@ function maxPrazos(ev){
         juros: (saldoDevedor[i-1]*contaTaxa).toFixed(2),
         financiado: financiamento,
         amortizacao: (parcela - (saldoDevedor[i-1]*contaTaxa)).toFixed(2) ,
-        saldoDevedor: saldoDevedor[i]
+        saldoDevedor: saldoDevedor[i],
         }
         simulationsArray.push(simulation)  
       }
@@ -332,12 +334,14 @@ function maxPrazos(ev){
       setUltimaParcela(Number(parcelas[parcelas.length-1]).toFixed(2))
       refProtocolo.current.style.display = 'block'
       const protocoloAleatorio = gerarHexAleatorio()
+      const mensagem  = 'Vistoria de imovel'
       setProtocolo(protocoloAleatorio)
+      setStatus(mensagem)
+      console.log(status)
 
-
-      const response = await fetch("https://json-server-two-zeta.vercel.app/operations",{
+      const response = await fetch("http://localhost:3000/operations",{
         method: "POST",
-        body: JSON.stringify({parcelas,financiamento,protocoloAleatorio}),
+        body: JSON.stringify({parcelas,financiamento,protocoloAleatorio,status}),
         headers: {
           "Content-Type": "application/json"
         }
@@ -347,18 +351,7 @@ function maxPrazos(ev){
   
   return (
     <div className={style.container}>
-    <header>
-      <h1>Logo</h1>
-      <nav>
-        <ul>
-          <li>Home</li>
-          <li>Services</li>
-          <li>About us</li>
-          
-          <li><Link href={'/pesquisa'}>Pesquisar</Link></li>
-        </ul>
-      </nav>
-    </header>
+    <title>Home - Financiamento</title>
     <main className={style.main}>
       <div className={style.modal} ref={refModal}>
         <h1

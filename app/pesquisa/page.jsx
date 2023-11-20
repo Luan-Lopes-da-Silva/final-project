@@ -1,9 +1,12 @@
 'use client'
 import { useRef, useState } from 'react'
 import style from './page.module.scss'
-import { useRouter } from 'next/navigation'
-import { fetchOperacao } from '../services/operations'
 import Link from 'next/link'
+import Head from 'next/head'
+
+export const metadata = {
+  title: 'Pesquisa'
+}
 
 export default function Pesquisa(){
 const [busca,setBusca] = useState() 
@@ -15,8 +18,6 @@ const cardRef = useRef()
 const idRef = useRef()
 const [id,setId] = useState()
 
-const {push} = useRouter()
-
   async function pesquisarProtocolo(ev){
     const operations = await fetch(`${process.env.NEXT_PUBLIC_APIURL}`).then((res)=>res.json());
     const findOperation = operations.filter(operation=> operation.protocoloAleatorio === ev)
@@ -24,10 +25,10 @@ const {push} = useRouter()
     if(findOperation.length>0){
     errorMessage.current.innerText = ''
     cardRef.current.style.display = 'block'
-    parcelasRef.current.innerText = findOperation[0].parcelas.length
-    financiadoRef.current.innerText = findOperation[0].financiamento
-    protocoloRef.current.innerText = findOperation[0].protocoloAleatorio.replace(/\w{66}$/m,'...')
-    idRef.current.innerText = findOperation[0].id
+    parcelasRef.current.innerText = `Parcelas: ${findOperation[0].parcelas.length}`
+    financiadoRef.current.innerText = `Financiado: ${findOperation[0].financiamento}`
+    protocoloRef.current.innerText = `Protocolo: ${findOperation[0].protocoloAleatorio.replace(/\w{66}$/m,'...')}`
+
     setId(findOperation[0].id)
     }else{
     cardRef.current.style.display = 'none'
@@ -35,18 +36,10 @@ const {push} = useRouter()
     }
   }
 
+
   return(
     <div className={style.container}>
-    <header>
-      <h1>Logo</h1>
-      <nav>
-        <ul>
-          <li>Home</li>
-          <li>Services</li>
-          <li>About us</li>
-        </ul>
-      </nav>
-    </header>
+    <title>Pesquisar Protocolo</title>
     <main className={style.main}>
       <form className={style.form}>
         <label htmlFor=""pesquisa>Pesquisar seu processo</label>

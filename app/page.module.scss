@@ -13,6 +13,11 @@
   src: url('src/assets/SF\ Collegiate\ Solid.ttf');
 }
 
+@font-face {
+  font-family: 'Artik';
+  src: url('src/assets/artikdemoversionregular-x3k2o.ttf');
+}
+
 
 .container{
   background-color:#1B1B1B;
@@ -48,7 +53,7 @@
     padding: 20px;
     position: relative;
     .modal{
-      background-color: #D9D9D9;
+      background-color: #110F1A;
       width: 600px;
       height: 300px;
       line-height: 1.5;
@@ -58,8 +63,13 @@
       left: 35%;
       z-index: 5000;
       display: none;
+      font-family: 'Artik';
+      color: #929197;
+      border-radius: 12px;
+      border: 2px solid #AF98A3;
       p{
         margin-top: 60px;
+        font-size: 1.1rem;
       }
       h1{
         position: absolute;
