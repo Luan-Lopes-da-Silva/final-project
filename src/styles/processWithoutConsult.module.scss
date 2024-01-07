@@ -1,0 +1,124 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+
+.container{
+  padding: 40px;
+
+  section{
+  margin-bottom: 40px;
+  color: $li-titles;
+  h1{
+    font-size: 2.5rem;
+    font-family: 'Montserrat';
+    margin-bottom: 8px;
+  }
+
+  span,P{
+    display: block;
+    margin-bottom: 4px;
+    font-family: 'Roboto-M';
+  }
+  }
+
+  form{
+
+    .errorSpan{
+      display: block;
+      font-size: 0.825rem;
+      margin: 4px 0px;
+      color: $danger;
+      font-family: 'Montserrat';
+    }
+
+    
+    label{
+      display: block;
+      font-size: 1.2rem;
+      font-family: 'Garamond-M';
+      color: $label;
+      margin-bottom: 4px;
+    }
+    input{
+      display: block;
+      margin-bottom: 20px;
+      padding: 6px 12px;
+      width: 400px;
+      border-radius: 8px;
+      border: 2px solid $li-titles;
+      background-color: $bg-input;
+      outline: none;
+      color: $li-titles;
+      transition: .4s;
+      &:focus{
+      background-color: $li-titles;
+      border-color:$header-bg;
+      color: $white;  
+      }
+    }
+
+    button{
+      padding: 12px 36px;
+      background-color: $button;
+      border: 2px solid $header-bg;
+      color: $white;
+      border-radius: 8px;
+      font-family: 'QuickSand-R';
+      cursor: pointer;
+      transition: .4s;
+      &:hover{
+      background-color: $header-bg;
+      font-family: 'QuickSand-M';
+      border-color: $button;
+      }
+    }
+  }
+}

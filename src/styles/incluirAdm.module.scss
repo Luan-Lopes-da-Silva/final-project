@@ -1,0 +1,126 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$danger-hover:#A34040;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-R';
+  src: url('../../public/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+.main{
+  background-color: $li-titles;
+  display: grid;
+  grid-template-columns: 700px 1fr;
+  height: 100vh;
+  place-items: center;
+  margin: 0;
+  .firstColumn{
+    background-color:$label;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+  }
+  .form{
+    input[type = text],input[type = password]{
+      display: block;
+      margin: 4px 0px 20px 0px ;
+      width: 300px;
+      padding: 10px 8px;
+      background-color: $bg-input;
+      border-radius: 8px;
+      border: 2px solid $li-titles;
+      outline: none;
+      color: $white;
+      transition: .7s;
+      &:focus{
+        background-color: $header-bg;
+        border-color: $button;
+      }
+    }
+
+    .errorSpan{
+      display: block;
+      font-size: 0.825rem;
+      margin: 4px 0px;
+      font-weight: bold;
+      color: $danger;
+      font-family: 'Montserrat';
+    }
+  
+  label{
+    color: $white;
+    font-family: 'Garamond-M';
+    font-size: 1.2rem;
+  }
+  button{
+    padding: 12px 48px;
+    border-radius: 8px;
+    background-color: $label;
+    color: $white;
+    text-transform: uppercase;
+    border: 2px solid $header-bg;
+    margin-bottom: 20px;
+    font-family: 'QuickSand-R';
+    width: max-content;
+    margin: auto auto;
+    display: flex;
+    transition: .7s;
+    &:hover{
+    cursor: pointer;
+    background-color: $header-bg;
+    border-color: $label;
+    font-family: 'QuickSand-M';
+    }
+    }
+  }
+}

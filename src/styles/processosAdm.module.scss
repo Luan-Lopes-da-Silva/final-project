@@ -1,0 +1,106 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+.main{
+  padding: 40px;
+  h1{
+    font-size: 3rem;
+    color: $li-titles;
+    margin-bottom: 8px;
+    font-family: 'Montserrat';
+  }
+  .container{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    
+    article{
+      background-color: $button;
+      border: 2px solid $header-bg;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      gap: 12px;
+      align-items: center;
+      width: max-content;
+      div{
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        span{
+          font-size: 1.2rem;
+          color: $white;
+          font-family: 'Roboto-M';
+        }
+      }
+
+      button{
+        background-color: $label;
+        border: 2px solid $header-bg;
+        padding: 12px 36px;
+        border-radius: 8px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: .4s;
+        a{
+          text-decoration: none;
+          color: $white;
+        }
+        &:hover{
+          background-color: $li-titles;
+          border-color: $label;
+        }
+      }
+    }
+  }
+}

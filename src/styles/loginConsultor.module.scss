@@ -1,0 +1,168 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+
+.container{
+  display: grid;
+  grid-template-columns: 700px 1fr;
+  height: 100vh;
+  
+  .firstColumn{
+    background-color: $label;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    place-items: center;
+
+  }
+
+  .secondColumn{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    place-items: center;
+    place-content: center;
+    background-color: $li-titles;
+    
+    .errorSpan{
+      display: block;
+      font-size: 0.825rem;
+      margin: 4px 0px;
+      color: $danger;
+      font-family: 'Montserrat';
+    }
+    
+    input[type = text],input[type = password]{
+      display: block;
+      margin: 4px 0px 20px 0px ;
+      width: 300px;
+      padding: 10px 8px;
+      background-color: $bg-input;
+      border-radius: 8px;
+      border: 2px solid $header-bg;
+      outline: none;
+      color: $li-titles;
+      &:focus{
+        background-color: $header-bg;
+        border-color: $bg-input;
+        color: $white;
+      }
+    }
+  
+  label{
+    color: $white;
+    font-family: 'Garamond-M';
+    font-size: 1.2rem;
+  }
+  button{
+    display: flex;
+    padding: 12px 80px;
+    border-radius: 8px;
+    background-color: $button;
+    text-transform: uppercase;
+    align-items: center;
+    border: 2px solid $button-active;
+    margin-bottom: 20px;
+    font-family: 'QuickSand-R';
+    color: $white;
+    margin-right: 12px;
+    font-size: 1.1rem;
+    width: max-content;
+    margin: auto auto;
+    transition: .7s;
+    &:hover{
+    cursor: pointer;
+    font-family: 'QuickSand-M';
+    background-color: $button-active;
+    border-color: $button;
+    }
+    }
+
+    .ldsRing {
+      display: none;
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      margin-left: 110px;
+      margin-top: -15px;
+    }
+    .ldsRing div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      margin: 8px;
+      border: 8px solid $white;
+      border-radius: 50%;
+      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: $white transparent transparent transparent;
+    }
+    .ldsRing div:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    .ldsRing div:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    .ldsRing div:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+    @keyframes lds-ring {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    
+  }
+}

@@ -1,0 +1,100 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Danger';
+  src: url('../../public/dangerfont.medium.otf');
+}
+
+@font-face {
+  font-family: 'Collegiate';
+  src: url('../../public/SF\ Collegiate\ Solid.ttf');
+}
+
+@font-face {
+  font-family: 'Artik';
+  src: url('../../public/artikdemoversionregular-x3k2o.ttf');
+}
+
+.form {
+  padding: 12px;
+  span{
+    display: block;
+    font-family: 'Montserrat';
+    margin-top: 4px;
+  }
+  .avatar{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    padding: 12px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    img{
+      border-radius: 50%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border: 3px solid #d90429;
+
+    }
+    label{
+    position: absolute;
+    top: 40%;
+    z-index: 1000;
+    &:hover{
+      cursor: pointer;
+    }
+    }
+    input{
+      display: none;
+    }
+  }
+  .invisibleInputs{
+    display: none;
+  }
+  .errorSpan{
+    display: block;
+    font-size: 0.825rem;
+    margin: 4px 0px;
+    font-weight: bold;
+    color: #d90429;
+    font-family: 'Montserrat';
+  }
+  input[type = text],input[type = password]{
+    display: block;
+    margin: 4px 0px 20px 0px ;
+    width: 300px;
+    padding: 6px 8px;
+    background-color: #2C2C2C;
+    border-radius: 8px;
+    border: 2px solid #3D3D3D;
+    outline: none;
+    color: #FFFFFF;
+    &:focus{
+      color: #FFFFFF;
+      border-color: #FFFFFF;
+    }
+  }
+  label{
+    color: #FFFFFF;
+    font-family: 'Helvetica';
+  }
+
+  button{
+    padding: 8px 48px;
+    border-radius: 8px;
+    background-color: #222222;
+    color: #FFC800;
+    text-transform: uppercase;
+    border: 2px solid #363636;
+    margin-bottom: 20px;
+    font-family: 'Montserrat';
+    margin-right: 12px;
+    &:hover{
+    cursor: pointer;
+    }
+    }
+}

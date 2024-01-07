@@ -1,0 +1,19 @@
+POST https://db-indicacoes.onrender.com/indicacoes
+Content-Type: application/json
+
+{
+  "name" : "Luan",
+  "email" : "jose",
+  "telefone" : "dsa",
+  "banco" : "Bradesco",
+  "modalidade" : "SAC",
+  "parcelas" : "15",
+  "primeiraParcela" : "5",
+  "ultimaParcela" : "5",
+  "status" : "Recolhimento de Documentos",
+  "idConsultor" : "dsadasdasdas",
+  "mes" : "Dezembro"
+}
+
+### 
+GET https://db-indicacoes.onrender.com/indicacoes

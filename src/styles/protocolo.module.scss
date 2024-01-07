@@ -1,0 +1,161 @@
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Danger';
+  src: url('../../public/dangerfont.medium.otf');
+}
+
+@font-face {
+  font-family: 'Collegiate';
+  src: url('../../public/SF\ Collegiate\ Solid.ttf');
+}
+
+
+.container{
+  padding-bottom: 40px;
+  .main{
+    padding: 20px;
+    position: relative;
+
+    .section{
+      margin-bottom: 60px;
+      width: max-content;
+      align-items: center;
+      color: #fff;
+      h1,h2{
+        margin-bottom: 12px;
+      }
+      p{
+        margin-bottom: 8px;
+      }
+
+      .progress{
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+    
+
+        .progressContainer{
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          align-items: center;
+
+          .circle{
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 50%;
+            &Green{
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: green;
+            }
+          }
+
+          p{
+            text-transform: uppercase;
+            width: 150px;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+  @media(max-width:500px){
+    .container{
+      padding-bottom: 60px;
+      header{
+        h1{
+          font-size: 2rem;
+        }
+        nav{
+          ul{
+            li{
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+      .main{
+        .modal{
+          background-color: #FFF;
+          width: 600px;
+          height: 300px;
+          line-height: 1.5;
+          padding: 20px;
+          position: absolute;
+          top: 20%;
+          left: 35%;
+          z-index: 5000;
+          display: none;
+          p{
+            margin-top: 60px;
+          }
+          h1{
+            position: absolute;
+            left: 90%;
+            &:hover{
+              cursor: pointer;
+            }
+          }
+    
+          h2,
+          h3,
+          span{
+            text-align: center;
+          }
+    
+          h2{
+            margin-top: 40px;
+            margin-bottom: 20px;
+          }
+    
+          span{
+          display: block;
+          opacity: 0.8;
+          width: 350px;
+          margin: auto auto;
+          margin-bottom: 20px;
+          word-wrap: break-word;
+          }
+        }
+
+        .form{
+          input{
+            width: 200px;
+          }
+        }
+        .tableContainer{
+          margin-left: -20px;
+          font-size: 1rem;
+          .table{
+          margin-top: 60px;
+        
+          }
+          button{
+            right: 992px;
+            top: -60px;
+            font-family: 'Montserrat';
+            
+            &::after{
+              content: 'Baixar PDF';
+              display: inline-block;
+              width: 300px;
+              height:20px ;
+              margin-bottom: 20px;
+          }
+        }
+       
+      }
+      }
+      
+  }
+}

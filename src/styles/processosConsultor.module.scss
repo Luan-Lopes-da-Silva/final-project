@@ -1,0 +1,116 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+
+.container{
+  padding: 20px;
+  h1{
+    font-family: 'Montserrat';
+    font-size: 3rem;
+    color: $li-titles;
+    margin: 40px 0px;
+  }
+
+  .processContainer{
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  article{
+    background-color: $button;
+    width: max-content;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 12px; 
+    border-radius: 12px; 
+    div{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      p{
+        text-transform: uppercase;
+        font-family: 'Roboto-M';
+        color: $white;
+        font-size: 1.2rem;
+      }
+    }
+    button{
+      display: flex;
+      padding: 12px 80px;
+      border-radius: 8px;
+      background-color: $label;
+      text-transform: uppercase;
+      align-items: center;
+      border: 2px solid $header-bg;
+      font-family: 'QuickSand-R';
+      color: $white;
+      font-size: 1.1rem;
+      width: max-content;
+      margin: 20px auto;
+      transition: .7s;
+      a{
+        text-decoration: none;
+        color: inherit;
+      }
+      &:hover{
+      cursor: pointer;
+      font-family: 'QuickSand-M';
+      background-color: $header-bg;
+      border-color: $label;
+      }
+      }
+  }
+  }
+}

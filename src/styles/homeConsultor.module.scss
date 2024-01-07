@@ -1,0 +1,223 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$danger-hover:#A34040;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-R';
+  src: url('../../public/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+.container{
+  background-color: $white;
+  h1{
+    font-family: 'Montserrat';
+    font-size: 3rem;
+    color: $li-titles;
+    margin: 40px 0px;
+  }
+  padding: 40px;
+  .cards{
+    display: flex;
+    gap: 60px;
+    
+    .section{
+
+      
+     h2{
+      color: $li-titles;
+      font-size: 1.7rem;
+      font-family: 'Montserrat';
+      margin-bottom: 4px;
+     }
+
+     .card{
+     display: grid;
+     grid-template-columns: repeat(2,0.5fr);
+     gap: 60px;
+     background-color: $li-titles;
+     padding: 40px;
+     border-radius: 12px;
+    .totais{
+    color: $danger;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    p{
+      font-size: 1.2rem;
+      font-family: 'Montserrat';
+    }
+    span{
+      font-size: 2rem;
+      font-family: 'Montserrat';
+    }
+    }
+    .finalizados{
+    color: $sucess;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    p{
+      font-size: 1.2rem;
+      font-family: 'Montserrat';
+    }
+    span{
+      font-size: 2rem;
+      font-family: 'Montserrat';
+    }
+    }
+     }
+     
+      
+   
+    }
+  }
+  .section{
+
+    .tasks{
+      article{
+        display: grid;
+        position: relative;
+        background-color: $bg-input;
+        border: 2px solid $li-titles;
+        width: 600px;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 1.2rem;
+        font-family: "Montserrat";
+        height: 42px;
+        align-items: center;
+        color: $white;
+      
+        
+      button{
+        position: absolute;
+        background-color: $danger;
+        right: -220px;
+       
+
+        &:hover{
+          background-color: $danger-hover;
+        }
+      }
+      img{
+        position: absolute;
+        right: 10px;
+        transition: 0.7s;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+      span{
+      margin-top: -5px;
+      margin-bottom: 12px;
+      }
+      p{
+        display: none;
+      }
+      }
+      
+    }
+    .form{
+      display: none;
+      position: relative;
+      margin-top: 20px;
+      width: max-content;
+
+      .close{
+      position: absolute;
+      right: -90px;  
+      &:hover{
+        cursor: pointer;
+      }
+      }
+      button{
+        width: 100%;
+      }
+
+      label{
+        font-family: 'Garamond'; 
+        font-size: 1.2rem;
+        color: $label;
+      
+        }
+        input,textarea{
+          display: block;
+          background-color: $bg-input;
+          border-radius: 8px;
+          border: 2px solid $li-titles;
+          padding: 8px 16px ;
+          width: 300px;
+          margin: 8px 0px;
+          color: $white;
+          outline: none;
+          &:focus{
+            border-color: $sucess ;
+          }
+        }
+    }
+    
+    button{
+      background-color: $button;
+      padding: 12px 36px;
+      border-radius: 8px;
+      border: 2px solid $header-bg;
+      color: $white;
+      font-family: 'QuickSand-M';
+      &:hover{
+        background-color: $button-active;
+        cursor: pointer;
+      }
+     }
+  }
+}

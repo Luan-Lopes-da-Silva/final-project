@@ -1,0 +1,212 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$danger-hover:#A34040;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+$black: #000;
+$shadow: #414952;
+$shadow-process : #738594;
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat-R';
+  src: url('../../public/Montserrat-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+
+.container{
+  padding: 40px;
+  h1{
+    font-family: 'Montserrat';
+    font-size: 3rem;
+    color: $li-titles;
+    margin: 40px 0px;
+  }
+  .cards{
+    .sections{
+      display: flex;
+      gap: 60px;
+      flex-wrap: wrap;
+      .process{
+        display: flex;
+        gap: 60px;
+        width: 100%;
+        justify-content: center;
+        color: $white;
+        flex-wrap: wrap;
+        p{
+          font-size: 1.7rem;
+          font-family: 'Roboto-M';
+        }
+        article{
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          align-items: center;
+          background-color: $button;
+          border-radius: 8px;
+          border: 2px solid $header-bg;
+          padding: 40px;
+          transition: 0.2s;
+          &:hover{
+            box-shadow: 0 4px 4px $shadow-process;
+          }
+          div{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+          button{
+            font-family: 'QuickSand-R';
+            cursor: pointer;
+            padding: 12px 24px;
+            background-color: $label;
+            border-radius: 8px;
+            border: 2px solid $header-bg;
+            transition: .4s;
+            color: $white;
+            &:hover{
+            border-color: $label;
+            background-color: $header-bg;
+            font-family: 'QuickSand-M';
+            }
+          }
+        }
+      }
+      .profiles{
+        display: flex;
+        gap: 60px;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 20px;
+       
+        article{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 12px;
+          color: $white;
+          background-color: $li-titles;
+          padding: 40px;
+          font-family: 'Roboto-M';
+          transition: 0.2s;
+          border-radius: 12px;
+          &:hover{
+            box-shadow: 0 4px 4px $shadow;
+          }
+            img{
+              border-radius: 50%;
+            }
+
+            div{
+              display: flex;
+              gap: 4px;
+              align-items: center;
+              img{
+                border-radius: 0;
+              }
+            }
+
+            button{
+              font-family: 'QuickSand-R';
+              cursor: pointer;
+              background-color: $button-active;
+              color: $white;
+              border-radius: 4px;
+              border: 2px solid $button;
+              cursor: pointer;
+              padding: 8px 32px;
+              transition: .4s;
+              &:hover{
+                background-color: $button;
+                border-color: $button-active;
+                font-family: 'QuickSand-M';              
+              }
+            }
+        }
+      }
+      h3{
+        color: $black;
+        font-family: 'Montserrat';
+        font-size: 1.7rem;
+        width: 100%;
+        text-align: center;
+        margin-bottom: -30px;
+      }
+      .section{
+        h2{
+          color: $li-titles;
+          font-size: 1.7rem;
+          font-family: 'Montserrat';
+          margin-bottom: 4px;
+          width: max-content;
+        }   
+          .card{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            background-color: $li-titles;
+            border-radius: 12px;
+            color: $sucess;
+            gap: 12px;
+            font-family: 'Montserrat';
+            font-weight: bold;
+            text-align: center;
+            p{
+              font-size: 0.850rem;
+            }
+            span{
+              font-size: 1.5rem;   
+            }
+          }
+        }
+    }
+  
+  }
+}

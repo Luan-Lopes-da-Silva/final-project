@@ -1,0 +1,189 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+$decorator: #FFD700;
+$bg-icons: #181B1E;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-B';
+  src: url('../../public/Poppins-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+.container{
+  .header{
+    display: flex;
+    background-color: $label;
+    
+    nav{
+      display: flex;
+      align-items: center;
+      width: 100%;
+      justify-content: space-between;
+      padding: 12px;
+      h1{
+        color: $logo;
+        font-size: 4rem;
+        padding: 20px;
+        a{
+          text-decoration: none;
+          color: inherit;
+        }
+      }
+      ul{
+        display: flex;
+        list-style: none;
+        gap: 20px;
+      a{
+        color: $white;
+        font-size: 1.5rem;
+        font-family: 'Poppins-R';
+        text-decoration: none;
+        &:hover{
+          text-decoration: underline;
+          cursor: pointer;
+          font-family: 'Poppins-M';
+        }
+      }
+      }
+    }
+  }
+
+  .footer{
+    background-color: $label;
+    padding: 12px;
+    color: $white;
+
+    .footerContainer{
+      display: flex;
+      justify-content: space-around;
+      .icons{
+        display: flex;
+        gap: 12px;
+        
+        div{
+          margin-top: 8px;
+          width: 50px;
+          height: 50px;
+          background-color: $white;
+          border-radius: 50%;
+          padding: 12px;
+          cursor: pointer;
+          transition: .4s;
+
+          &:nth-child(1){
+            background-image:url("../../public/fbSvg.svg");
+            background-position: center center;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            &:hover{
+            background-image:url("../../public/fbSvg2.svg");  
+            }
+          }
+
+          &:nth-child(2){
+            background-image:url("../../public/igSvg.svg");
+            background-position: center center;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            &:hover{
+            background-image:url("../../public/igSvg2.svg");  
+            }
+          }
+          
+          &:nth-child(3){
+          background-image:url("../../public/linkedinSvg.svg");
+          background-position: center center;
+          background-size: 30px;
+          background-repeat: no-repeat;
+          &:hover{
+          background-image:url("../../public/linkedinSvg2.svg");  
+          }
+          }
+
+          &:nth-child(4){
+            background-image:url("../../public/ttSvg2.svg");
+            background-position: center center;
+            background-size: 30px;
+            background-repeat: no-repeat;
+            &:hover{
+            background-image:url("../../public/ttSvg.svg");  
+            }
+            }
+
+          &:hover{
+          background-color: $bg-icons;
+          }
+        }
+      }
+    }
+
+    
+    p{
+      font-family: 'Poppins-R';
+      margin-top: 8px;
+    }
+    h3{
+      position: relative;
+      font-family: 'Poppins-B';
+      width: max-content;
+      z-index: 5000;
+      &::after{
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 1px;
+        background-color: $decorator;
+        left: 0;
+        top: 80%;
+        z-index: 1;
+      }
+    }
+  }
+}

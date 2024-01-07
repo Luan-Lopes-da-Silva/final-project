@@ -1,0 +1,180 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+.container{
+  padding: 40px;
+  h1{
+    font-size: 3rem;
+    margin-bottom: 12px;
+    font-family: 'Montserrat';
+    color: $li-titles;
+  }
+ 
+  .summary{
+    display: none;
+    background-color: $header-bg;
+    position: relative;
+    width: max-content;
+    padding: 60px;
+    margin-top: 20px;
+    border-radius: 12px;
+    h2{
+    font-size: 2.4rem; 
+    margin-bottom: 12px;
+    color: $white; 
+    font-family: "Montserrat";
+    }
+    h4{
+      padding: 4px;
+      font-size: 1.3rem;
+      font-family: 'Poppins-M';
+    &:nth-child(odd){
+      background-color: $white;
+      color: $header-bg;
+    }
+    &:nth-child(even){
+      background-color: $li-titles;
+      color: $white;
+    }
+    }
+    
+    
+    .btnPdf{
+      position: absolute;
+      right: 10px;
+      background-color: $bg-input;
+      padding: 4px;
+      transition: .4s;
+      &:hover{
+        background-color: $li-titles;
+        cursor: pointer;
+      }
+    }
+  }
+  .form{
+    label{
+      display: block;
+      color: $label;
+      font-family: 'Garamond-M';
+      font-size: 1.2rem;
+    }
+    input[type='radio']{
+      width: max-content;
+      margin-top: -12px;
+    }
+
+    .errorSpan{
+      display: block;
+      font-size: 0.825rem;
+      margin: 4px 0px;
+      color: $danger;
+      font-family: 'Montserrat';
+    }
+    
+    input,select{
+      display: block;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      width: 400px;
+      padding: 6px 12px;
+      background-color: $bg-input;
+      border-radius: 8px;
+      border: 2px solid $li-titles;
+      outline: none;
+      transition: .7s;
+      color: $button;
+      &:focus{
+        background-color: $header-bg;
+        border-color:$button ;
+        color: $white;
+      }
+    }
+    .radios{
+      display: flex;
+      width: 120px;
+      justify-content: center;
+      margin-bottom: 8px;
+      .radio{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: max-content;
+      }
+    }
+    div{
+      display: flex;
+      gap: 20px;
+      button{
+        background-color: $button;
+        width: 190px;
+        padding: 12px 36px;
+        border-radius: 6px;
+        outline: none;
+        border: 2px solid $button-active;
+        font-size: 1.1rem;
+        color: $white;
+        font-family: 'QuickSand-R';
+        transition: .7s;
+        &:hover{
+          cursor: pointer;
+          font-family: 'QuickSand-M';
+          background-color: $button-active;
+          border-color: $button;
+        }
+      }
+    }
+    .outputContainer{
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+     }
+  }
+}

@@ -1,0 +1,493 @@
+$header-bg : #3C5E7C;
+$li-titles:#181B1E;
+$label: #2A343D;
+$button: #384E61;
+$button-active: #2E3740;
+$bg-input: #2A3036;
+$danger: #D62828;
+$sucess:#2BE456;
+$logo:#28A745;
+$white: #fff;
+
+@font-face {
+  font-family: 'Roboto-R' ;
+  src: url('../../public/Roboto-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Roboto-M' ;
+  src: url('../../public/Roboto-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../public/Montserrat-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-R';
+  src: url('../../public/Poppins-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Poppins-M';
+  src: url('../../public/Poppins-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-R';
+  src: url('../../public/Quicksand-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'QuickSand-M';
+  src: url('../../public/Quicksand-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Garamond-M';
+  src: url('../../public/EBGaramond-Medium.ttf');
+}
+
+
+.container{
+  background-color:$li-titles;
+  padding-bottom: 40px;
+  height: max-content;
+  .main{
+    padding: 40px;
+    position: relative;
+    .modal{
+      background-color: $header-bg;
+      width: 600px;
+      height: 300px;
+      line-height: 1.5;
+      padding: 20px;
+      position: absolute;
+      top: 70%;
+      left: 35%;
+      z-index: 5000;
+      display: none;
+      color: $li-titles;
+      border-radius: 12px;
+  
+      p{
+        margin-top: 60px;
+        font-size: 1.1rem;
+      }
+      h1{
+        position: absolute;
+        left: 90%;
+        font-family: 'Montserrat';
+        &:hover{
+          cursor: pointer;
+        }
+      }
+
+      h2,
+      h3,
+      span{
+        text-align: center;
+      }
+      h3{
+        font-family: 'Montserrat';
+      }
+      h2{
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-family: 'Montserrat';
+      }
+
+      span{
+      display: block;
+      opacity: 0.8;
+      width: 350px;
+      margin: auto auto;
+      margin-bottom: 20px;
+      word-wrap: break-word;
+      font-family: 'Roboto-R';
+      }
+    }
+    .form {
+      .errorSpan{
+        display: block;
+        font-size: 0.825rem;
+        margin: 4px 0px;
+        font-weight: bold;
+        color: $danger;
+        font-family: 'Montserrat';
+      }
+      input[type = text],select,input[type = date],input[type = checkbox]{
+        display: block;
+        margin: 4px 0px 20px 0px ;
+        width: 300px;
+        padding: 6px 8px;
+        background-color: $bg-input;
+        border-radius: 8px;
+        border: 2px solid $button;
+        outline: none;
+        color: $li-titles;
+        &:focus{
+          color: $white;
+          border-color: $bg-input;
+          background-color: $button;
+        }
+      }
+    
+    label{
+      color: $white;
+      font-family: 'Garamond-M';
+      font-size: 1.2rem;
+    }
+
+    .radioContainer{
+      display: flex;
+      margin-bottom: 20px;
+      .radio{
+        margin-top: 12px;
+        margin-right: 12px;
+        width: max-content;
+        input{
+          display: block;
+          margin: auto auto;
+        }
+      }
+    }
+   
+    .outputContainer{
+      display: none;
+     }
+    
+    }
+
+   div{
+
+    .invisibleInputs{
+      display: none;
+
+      button{
+        padding: 8px 48px;
+        border-radius: 8px;
+        background-color: $label;
+        color: $white;
+        text-transform: uppercase;
+        border: 2px solid $header-bg;
+        margin-bottom: 20px;
+        font-family: 'Montserrat';
+        margin-right: 12px;
+        transition: .4s;
+        &:hover{
+        cursor: pointer;
+        background-color: $li-titles;
+        border-color: $label;
+        }
+      }
+      label{
+        color: $white;
+        font-family: 'Garamond-M';
+        font-size: 1.2rem;
+      }
+      input{
+        display: block;
+        margin: 4px 0px 20px 0px ;
+        width: 300px;
+        padding: 6px 8px;
+        background-color: $bg-input;
+        border-radius: 8px;
+        border: 2px solid $button;
+        outline: none;
+        color: $li-titles;
+        &:focus{
+          color: $white;
+          border-color: $bg-input;
+          background-color: $button;
+        }
+      }
+    }
+    
+    .interrogationContainer{
+      display: none;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+
+      label{
+        font-family: 'Roboto-R';
+        color: $white;
+      }
+      
+      .interrogation{
+        background-color: $header-bg;
+        padding: 4px;
+        width: 18px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 0.600rem;
+        p{
+          font-family: 'Montserrat';
+          color: $white;
+         &:hover{
+          cursor: pointer;
+         } 
+        }
+      }
+    }
+    .summary{
+      position: relative;
+      display: none;
+      background-color: $header-bg;
+      position: relative;
+      width: max-content;
+      padding: 60px;
+      margin-top: 20px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      h1{
+        font-size: 3rem;
+        color: $white;
+        margin-bottom: 8px;
+      }
+      .btnPdf{
+        position: absolute;
+        right: 10px;
+        padding: 4px;
+        cursor: pointer;
+      }
+      h2{
+      font-size: 2.4rem; 
+      margin-bottom: 12px;
+      color: $white; 
+      font-family: "Montserrat";
+      }
+      h4{
+        padding: 4px;
+        font-size: 1.3rem;
+        font-family: 'Poppins-M';
+      &:nth-child(odd){
+        background-color: $white;
+        color: $header-bg;
+      }
+      &:nth-child(even){
+        background-color: $li-titles;
+        color: $white;
+      }
+    }
+    }
+   }
+
+  .btn1,.btn2,.btn3{
+    padding: 8px 48px;
+    border-radius: 8px;
+    background-color: $label;
+    color: $white;
+    text-transform: uppercase;
+    border: 2px solid $header-bg;
+    margin-bottom: 20px;
+    font-family: 'Montserrat';
+    margin-right: 12px;
+    transition: .4s;
+    &:hover{
+    cursor: pointer;
+    background-color: $li-titles;
+    border-color: $label;
+    }
+    }
+
+    .btn3{
+    display: none;
+    }
+
+    .btn2{
+    position: absolute;
+    margin-top: -56px;
+    margin-left: 180px;
+    }
+
+  }
+}
+
+@media(max-width:500px){
+  .container{
+    padding-bottom: 40px;
+    height: max-content;
+    header{
+      display: flex;
+      padding: 20px;
+      align-items: center;
+      justify-content: space-between;
+      h1{
+        font-size: 3rem;
+      }
+      nav{
+        ul{
+          list-style: none;
+          display: flex;
+          gap: 12px;
+         
+          li{
+            font-size: 0.825rem;
+            &:hover{
+              text-decoration: underline;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    .main{
+      padding: 20px;
+      position: relative;
+      .modal{
+        width: 350px;
+        height: 400px;
+        line-height: 1.5;
+        padding: 20px;
+        position: absolute;
+        top: 18%;
+        left: 5%;
+        z-index: 5000;
+        display: none;
+        p{
+          margin-top: 60px;
+        }
+        h1{
+          position: absolute;
+          left: 90%;
+          &:hover{
+            cursor: pointer;
+          }
+        }
+  
+        h2,
+        h3,
+        span{
+          text-align: center;
+        }
+  
+        h2{
+          margin-top: 40px;
+          margin-bottom: 20px;
+        }
+  
+        span{
+        display: block;
+        opacity: 0.8;
+        width: 300px;
+        margin: auto auto;
+        margin-bottom: 20px;
+        word-wrap: break-word;
+        }
+      }
+      .form {
+        .errorSpan{
+          display: block;
+          font-size: 0.825rem;
+          margin: 4px 0px;
+          font-weight: bold;
+          font-family: 'Montserrat';
+        }
+        input[type = text],select,input[type = date]{
+          display: block;
+          margin: 4px 0px 20px 0px ;
+          width: 300px;
+          padding: 6px 8px;
+          border-radius: 8px;
+          outline: none;
+        }
+      
+      label{
+        font-family: 'Helvetica';
+      }
+      .radioContainer{
+        display: flex;
+        margin-bottom: 20px;
+        .radio{
+          margin-top: 12px;
+          margin-right: 12px;
+          width: max-content;
+          input{
+            display: block;
+            margin: auto auto;
+          }
+        }
+      }
+      .outputContainer{
+       display: none;
+      }
+  
+      .interrogationContainer{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 20px;
+  
+        .interrogation{
+          padding: 2px;
+          width: 16px;
+          border-radius: 50%;
+          text-align: center;
+          font-size: 0.525rem;
+          p{
+            font-weight: bold;
+           &:hover{
+            cursor: pointer;
+           } 
+          }
+        }
+      }
+      }
+  
+      .summary{
+      position: relative;
+      display: none;
+      width: max-content;
+      padding: 32px;
+      margin-bottom: 12px;
+      h1{
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+       
+      }
+      h4{
+        padding: 4px;
+      }
+      
+  
+      .btnPdf{
+        position: absolute;
+        bottom: -4px;
+        left: 310px;
+        border: none;
+        z-index: 1000;
+        padding: 6px;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+  
+    .btn1,.btn2,.btn3{
+      padding: 8px 48px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      font-family: 'Montserrat';
+      margin-right: 12px;
+      &:hover{
+      cursor: pointer;
+      }
+      }
+  
+      .btn3{
+      display: none;
+      }
+  
+      .btn2{
+      position: absolute;
+      margin-top: -56px;
+      margin-left: 180px;
+      }
+  
+    }
+}
+}
