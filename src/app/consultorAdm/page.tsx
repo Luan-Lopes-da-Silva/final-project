@@ -55,6 +55,13 @@ export default function Home(){
     id?:number 
   }
 
+  type Task2 = {
+    name: string | null
+    task: string | null
+    idconsultor: string | null
+    id?:string 
+  }
+
 
   
   function openForm (){
@@ -91,25 +98,21 @@ export default function Home(){
         
           if (buttonElement && buttonElement.parentElement) {
             tasksContainer.current?.removeChild(buttonElement.parentElement);
-        
             try {
-              const response = await fetch(`http://localhost:3000/tasks/${buttonElement.parentElement.id}`, {
+              const response = await fetch(`https://db-tasks-1oaa.onrender.com/tasks/${buttonElement.parentElement.id}`, {
                 method: 'DELETE',
               });
-        
               if (response.ok) {
-                // Tratar a exclusão bem-sucedida
                 console.log('Tarefa excluída com sucesso!');
               } else {
-                // Tratar a falha na exclusão
                 console.error('Falha ao excluir a tarefa:', response.status);
               }
             } catch (error) {
-              // Tratar erros na requisição
               console.error('Erro ao excluir a tarefa:', error);
             }
           }
   }
+  
   const handleImageClick = async (ev: any) => {
     countTeste++;
     if (ev.currentTarget instanceof HTMLImageElement && ev.currentTarget.parentElement) {
@@ -144,7 +147,7 @@ export default function Home(){
         idConsultor: loginUser.idConsultor
       }
       
-     const createTask = await fetch(`http://localhost:3000/tasks`,{
+     const createTask = await fetch(`https://db-tasks-1oaa.onrender.com/tasks`,{
       method: 'POST',
       body: JSON.stringify(task),
       headers:{
@@ -152,11 +155,12 @@ export default function Home(){
       }
      })
 
-     const tasksDb = await fetch('http://localhost:3000/tasks')
-     const tasksConversed: Task[] = await tasksDb.json()
+     const tasksDb = await fetch('https://db-tasks-1oaa.onrender.com/tasks')
+     const tasksConversed: Task2[] = await tasksDb.json()
      
-     const filter:Task[] = tasksConversed.filter(task=>(task.idConsultor === loginUser.idConsultor))
+     const filter:Task2[] = tasksConversed.filter(task=>(task.idconsultor === loginUser.idConsultor))
      
+    
 
      const container = document.createElement('article')
       container.id = `${filter[filter.length-1].id}`
@@ -191,10 +195,10 @@ export default function Home(){
       }
       
   
-      const tasksDb = await fetch('http://localhost:3000/tasks')
-      const tasksConversed: Task[] = await tasksDb.json()
+      const tasksDb = await fetch('https://db-tasks-1oaa.onrender.com/tasks')
+      const tasksConversed: Task2[] = await tasksDb.json()
       
-      const filter:Task[] = tasksConversed.filter(task=>(task.idConsultor === loginUser.idConsultor))
+      const filter:Task2[] = tasksConversed.filter(task=>(task.idconsultor === loginUser.idConsultor))
       
   
      for(let i=0; i<filter.length; i++){

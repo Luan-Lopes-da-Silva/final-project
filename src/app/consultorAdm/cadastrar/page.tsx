@@ -3,16 +3,9 @@ import { FormEvent, useRef, useState } from "react"
 import style from '@/src/styles/cadastrarProcesso.module.scss'
 import ConsultorLayout from "@/src/components/ConsultorLayout"
 import getLocalStorage from "../../functions/getLocalStorage"
-
+import useProcess from "@/src/hooks/useProcess"
 export default function Cadastrar(){
-  const [nome,setNome] = useState('')
-  const [email,setEmail] = useState('')
-  const [telefone,setTelefone] = useState('')
-  const [modalidade,setModalidade] = useState('')
-  const [banco,setBanco] = useState('')
-  const [parcelas,setParcelas] = useState('')
-  const [imovel,setImovel] = useState('')
-  const [idConsultor,setIdConsultor] = useState('')
+  const {client,setClient,emailClient,setEmailClient,phoneClient,setPhoneClient,bank,setBank,modality,setModality,immobile,setImmobile,installments,setInstallments,idConsultant,setIdConsultant,firstInstallment,setFirstInstallment,taxs,setTaxs,lastInstallment,setLastInstallment} = useProcess()
   const spanNomeRef = useRef<HTMLParagraphElement>(null)
   const spanTelefoneRef = useRef<HTMLParagraphElement>(null)
   const spanEmailRef = useRef<HTMLParagraphElement>(null)
@@ -21,7 +14,8 @@ export default function Cadastrar(){
   const spanImovelRef = useRef<HTMLParagraphElement>(null)
   const spanConsultorRef = useRef<HTMLParagraphElement>(null)
   const spanModalidadeRef = useRef<HTMLParagraphElement>(null)
-  const [protocoloAleatorio,setProtocoloAleatorio] = useState('')
+  const installmentsArray: any[] = []
+  
   
   
   type User = {
@@ -46,7 +40,21 @@ export default function Cadastrar(){
     return hexAleatorio
   }
 
-  
+  function bankTerms(){
+    if(bank === 'Bradesco'){
+     setTaxs('6%')
+     if(spanParcelaRef.current && spanBancoRef.current){
+      spanParcelaRef.current.innerText = ''
+      spanBancoRef.current.innerText = ''
+     }
+    }else{
+      if(spanBancoRef.current){
+      spanBancoRef.current.innerText = 'Selecione um banco valido para dar continuidade'
+      console.log('Outro banco')
+      }
+    }
+    }
+
 
   async function createProcess(ev:FormEvent){
   ev.preventDefault() 
@@ -55,16 +63,19 @@ export default function Cadastrar(){
   const protocoloAleatorio = gerarHexAleatorio()
   const data = new Date()
   const numeroMes = data.getMonth()
+  const conversedTax = taxs.replace(/%/g,'')
+  const taxAcount = 1/12
+  const acountTax = Number(((Number(conversedTax)/100)+1)**taxAcount)-1
+  const amort = Number(immobile) / Number(installments)
+  const financement = (Number(immobile)*80)/100
+
   var nomesDosMeses = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
   var nomeDoMes = nomesDosMeses[numeroMes];
-  const primeiraParcela = Number(imovel) / Number(parcelas)
-  const ultimaParcela = Number(imovel) / Number(parcelas)
-  setProtocoloAleatorio(protocoloAleatorio)
   if(spanNomeRef.current && spanEmailRef.current && spanBancoRef.current && spanModalidadeRef.current && spanImovelRef.current && spanParcelaRef.current && spanConsultorRef.current && spanTelefoneRef.current && user){
-  if(nome=== '' && email === '' && telefone === '' && banco === '' && modalidade === '' && imovel === '' && parcelas === '' && idConsultor === ''){
+  if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === '' && idConsultant === ''){
   spanNomeRef.current.innerText = 'Preencha o campo corretamente'
   spanEmailRef.current.innerText = 'Preencha o campo corretamente'
   spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -73,7 +84,7 @@ export default function Cadastrar(){
   spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
   spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
   spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if(nome=== '' && email === '' && telefone === '' && banco === '' && modalidade === '' && imovel === '' && idConsultor!= user.idConsultor){
+  }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && idConsultant!= user.idConsultor){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -82,7 +93,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = 'Proibido adicionar processos a outras contas'
-  }else if(nome=== '' && email === '' && telefone === '' && banco === '' && modalidade === '' && imovel === '' && parcelas === ''){
+  }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === ''){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -91,7 +102,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanImovelRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = ''
-  }else if(nome=== '' && email === '' && telefone === '' && banco === '' && modalidade === '' && imovel === ''){
+  }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === ''){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -100,7 +111,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = ''
     spanImovelRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = ''
-  }else if(nome=== '' && email === '' && telefone === '' && banco === '' && modalidade === '' ){
+  }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' ){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -109,7 +120,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = ''
     spanImovelRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(nome=== '' && email === '' && telefone === '' && banco === '' ){
+  }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' ){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -118,7 +129,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = ''
     spanImovelRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(nome=== '' && email === '' && telefone === ''){
+  }else if(client=== '' && emailClient === '' && phoneClient === ''){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = ''
@@ -127,7 +138,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = ''
     spanImovelRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(nome=== '' && email === ''){
+  }else if(client=== '' && emailClient === ''){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = ''
@@ -136,7 +147,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = ''
     spanImovelRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(nome=== ''){
+  }else if(client=== ''){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -145,7 +156,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = ''
     spanImovelRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(email === '' && telefone === '' && banco === '' && modalidade === '' && imovel === '' && parcelas === '' && idConsultor === ''){
+  }else if(emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === '' && idConsultant === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -155,7 +166,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
 
-  }else if(email === '' && telefone === '' && banco === '' && modalidade === '' && imovel === '' && parcelas === '' ){
+  }else if(emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -164,7 +175,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = ''
-  }else if(email === '' && telefone === '' && banco === '' && modalidade === '' && imovel === '' ){
+  }else if(emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -173,7 +184,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(email === '' && telefone === '' && banco === '' && modalidade === ''){
+  }else if(emailClient === '' && phoneClient === '' && bank === '' && modality === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -182,7 +193,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(email === '' && telefone === '' && banco === '' ){
+  }else if(emailClient === '' && phoneClient === '' && bank === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -191,7 +202,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(email === '' && telefone === ''){
+  }else if(emailClient === '' && phoneClient === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = ''
@@ -201,7 +212,7 @@ export default function Cadastrar(){
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
   }
-  else if(email === ''){
+  else if(emailClient === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = ''
@@ -210,7 +221,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(telefone === '' && banco === '' && modalidade === '' && imovel === '' && parcelas === '' && idConsultor === ''){
+  }else if(phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === '' && idConsultant === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -219,7 +230,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if(telefone === '' && banco === '' && modalidade === '' && imovel === '' && parcelas === ''){
+  }else if(phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -228,7 +239,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = ''
-  }else if(telefone === '' && banco === '' && modalidade === '' && imovel === '' ){
+  }else if(phoneClient === '' && bank === '' && modality === '' && immobile === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -237,7 +248,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(telefone === '' && banco === '' && modalidade === '' ){
+  }else if(phoneClient === '' && bank === '' && modality === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -246,7 +257,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(telefone === '' && banco === ''){
+  }else if(phoneClient === '' && bank === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -255,7 +266,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(telefone === '' && banco === ''){
+  }else if(phoneClient === '' && bank === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -264,7 +275,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if( banco === '' && modalidade === '' && imovel === '' && parcelas === '' && idConsultor === ''){
+  }else if(bank === '' && modality === '' && immobile === '' && installments === '' && idConsultant === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -273,7 +284,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if( banco === '' && modalidade === '' && imovel === '' && parcelas === '' ){
+  }else if(bank === '' && modality === '' && immobile === '' && installments === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -282,7 +293,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = ''
-  }else if( banco === '' && modalidade === '' && imovel === '' ){
+  }else if(bank === '' && modality === '' && immobile === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -291,7 +302,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if( banco === '' && modalidade === '' ){
+  }else if(bank === '' && modality === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -300,7 +311,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if( banco === '' ){
+  }else if(bank === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -309,7 +320,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(modalidade === '' && imovel === '' && parcelas === '' && idConsultor === ''){
+  }else if(modality === '' && immobile === '' && installments === '' && idConsultant === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -318,7 +329,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if(modalidade === '' && imovel === '' && parcelas === ''){
+  }else if(modality === '' && immobile === '' && installments === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -327,7 +338,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = ''
-  }else if(modalidade === '' && imovel === ''){
+  }else if(modality === '' && immobile === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -336,7 +347,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(modalidade === '' ){
+  }else if(modality === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -345,7 +356,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(imovel === '' && parcelas === '' && idConsultor === ''){
+  }else if(immobile === '' && installments === '' && idConsultant === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -354,7 +365,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if(imovel === '' && parcelas === '' ){
+  }else if(immobile === '' && installments === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -363,7 +374,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = ''
-  }else if(imovel === '' ){
+  }else if(immobile === '' ){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -372,7 +383,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
-  }else if(parcelas === '' && idConsultor === ''){
+  }else if(installments === '' && idConsultant === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -381,7 +392,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if(parcelas === ''){
+  }else if(installments === ''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -390,7 +401,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
     spanConsultorRef.current.innerText = ''
-  }else if(idConsultor===''){
+  }else if(idConsultant===''){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -399,7 +410,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if(idConsultor != user.idConsultor){
+  }else if(idConsultant != user.idConsultor){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -408,6 +419,34 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = 'Proibido cadastrar processo no ID de outro usuario'
+  }else if(modality === 'PRICE'){
+    spanNomeRef.current.innerText = ''
+    spanEmailRef.current.innerText = ''
+    spanBancoRef.current.innerText = ''
+    spanTelefoneRef.current.innerText = ''
+    spanImovelRef.current.innerText = ''
+    spanModalidadeRef.current.innerText = ''
+    spanParcelaRef.current.innerText = ''
+    spanConsultorRef.current.innerText = ''
+    
+    for(let i = 1; i<=Number(installments); i++){
+      const installment = Number(financement)*(((1+acountTax)**Number(installments))*acountTax)/((((1+acountTax)**Number(installments))-1))
+      installmentsArray.push(installment)
+    }
+
+    const userDb = await fetch(`${url}/processos`,{
+      method: 'POST',
+      body: JSON.stringify(
+        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.nome,emailConsultor:user.email,telefoneConsultor:user.telefone,idConsultor:idConsultant,mesInicio:nomeDoMes,
+        mesFinalizado:'',protocoloAleatorio,message:'',juros:taxs}
+      ),
+      headers:{
+        'Content-Type': "application/json"
+      }
+    })
+    setTimeout(() => {
+      alert('Processo cadastrado com sucesso!')
+    }, 2000);
   }else{
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
@@ -417,11 +456,17 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = ''
+   
+    for(let i = 1; i<=Number(installments); i++){
+      const installment = (((5-Number([i])+1)*acountTax)+1)*amort
+      installmentsArray.push(installment)
+  }
+
     const userDb = await fetch(`${url}/processos`,{
       method: 'POST',
       body: JSON.stringify(
-        {nomeCliente:nome,emailCliente:email,telefoneCliente:telefone,banco,amortizacao:modalidade,valorImovel:imovel,numeroParcelas:parcelas,primeiraParcela,ultimaParcela,etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.nome,emailConsultor:user.email,telefoneConsultor:user.telefone,idConsultor,mesInicio:nomeDoMes,
-        mesFinalizado:'',protocoloAleatorio,message:'',juros:'6%'}
+        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.nome,emailConsultor:user.email,telefoneConsultor:user.telefone,idConsultor:idConsultant,mesInicio:nomeDoMes,
+        mesFinalizado:'',protocoloAleatorio,message:'',juros:taxs}
       ),
       headers:{
         'Content-Type': "application/json"
@@ -430,14 +475,13 @@ export default function Cadastrar(){
     setTimeout(() => {
       alert('Processo cadastrado com sucesso!')
     }, 2000);
+    
   }
   }
 
   }
   return(
     <ConsultorLayout>
-
-   
     <title>Cadastrar Processo</title>
     <div className={style.container}>
       <h1>Cadastro de processo</h1>
@@ -446,23 +490,23 @@ export default function Cadastrar(){
         <p ref={spanNomeRef} className={style.errorSpan}></p>
         <input 
         type="text" 
-        value={nome}
-        onChange={(ev)=>setNome(ev.currentTarget.value)}
+        value={client}
+        onChange={(ev)=>setClient(ev.currentTarget.value)}
         />
         <label htmlFor="">Email</label>
         <p ref={spanEmailRef} className={style.errorSpan}></p>
         <input 
         type="text" 
-        value={email}
-        onChange={(ev)=>setEmail(ev.currentTarget.value)}
+        value={emailClient}
+        onChange={(ev)=>setEmailClient(ev.currentTarget.value)}
         />
 
         <label htmlFor="">Telefone</label>
         <p ref={spanTelefoneRef} className={style.errorSpan}></p>
         <input 
         type="text" 
-        value={telefone}
-        onChange={(ev)=>setTelefone(ev.currentTarget.value)}
+        value={phoneClient}
+        onChange={(ev)=>setPhoneClient(ev.currentTarget.value)}
         />
 
         <label htmlFor="banco">Banco</label>
@@ -470,8 +514,9 @@ export default function Cadastrar(){
         <select 
         name="banco" 
         id="banco"
-        value={banco}
-        onChange={(ev)=>setBanco(ev.currentTarget.value)}
+        value={bank}
+        onChange={(ev)=>setBank(ev.currentTarget.value)}
+        onClick={bankTerms}
         >
           <option value="Selecione um banco">Selecione um banco</option>
           <option value="Bradesco">Bradesco</option>
@@ -487,30 +532,30 @@ export default function Cadastrar(){
         <p ref={spanModalidadeRef} className={style.errorSpan}></p>
         <input 
         type="text" 
-        value={modalidade}
-        onChange={(ev)=>setModalidade(ev.currentTarget.value)}
+        value={modality}
+        onChange={(ev)=>setModality(ev.currentTarget.value)}
         />
        
         <label htmlFor="">Valor Imovel</label>
         <p ref={spanImovelRef} className={style.errorSpan}></p>
         <input 
         type="text" 
-        value={imovel}
-        onChange={(ev)=>setImovel(ev.currentTarget.value)}
+        value={immobile}
+        onChange={(ev)=>setImmobile(ev.currentTarget.value)}
         />
         <label htmlFor="">Numero de parcelas</label>
         <p ref={spanParcelaRef} className={style.errorSpan}></p>
         <input 
         type="text" 
-        value={parcelas}
-        onChange={(ev)=>setParcelas(ev.currentTarget.value)}
+        value={installments}
+        onChange={(ev)=>setInstallments(ev.currentTarget.value)}
         />
         <label htmlFor="">ID do Consultor</label>
         <p ref={spanConsultorRef} className={style.errorSpan}></p>
         <input 
         type="text" 
-        value={idConsultor}
-        onChange={(ev)=>setIdConsultor(ev.currentTarget.value)}
+        value={idConsultant}
+        onChange={(ev)=>setIdConsultant(ev.currentTarget.value)}
         />
         <button>Cadastrar</button>
       </form>

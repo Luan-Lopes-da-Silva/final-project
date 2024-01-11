@@ -7,6 +7,7 @@ import Image from "next/image";
 import {z} from 'zod'
 import {useForm} from "react-hook-form"
 import {zodResolver} from "@hookform/resolvers/zod"
+import emailJs from '@emailjs/browser'
 
 
 export default function RegisterPageAdm(){
@@ -72,7 +73,6 @@ export default function RegisterPageAdm(){
   const generatePassword = gerarHexAleatorio()
 
 
-
     async function createAdm(data:createUserFormData){
     const admDb = await fetch(`http://localhost:3000/adms`,{
           method: "POST",
@@ -83,6 +83,14 @@ export default function RegisterPageAdm(){
             "Content-Type": "application/json"
             }
         })  
+        const templateParams = {
+          to_name: data.name,
+          email : data.email
+        }
+
+        emailJs.send("service_7mjjz9h","template_new2y9z",templateParams,"EwswvU46-v2AATS3K").then((res)=>{
+        console.log('Email Enviado', res.status,res.text)
+        })
         alert('Cadastro feito com sucesso')
     }
 

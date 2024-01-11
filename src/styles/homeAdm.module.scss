@@ -109,6 +109,7 @@ $shadow-process : #738594;
             border: 2px solid $header-bg;
             transition: .4s;
             color: $white;
+            
             &:hover{
             border-color: $label;
             background-color: $header-bg;
@@ -161,6 +162,10 @@ $shadow-process : #738594;
               cursor: pointer;
               padding: 8px 32px;
               transition: .4s;
+              a{
+                text-decoration: none;
+                color: inherit;
+              }
               &:hover{
                 background-color: $button;
                 border-color: $button-active;

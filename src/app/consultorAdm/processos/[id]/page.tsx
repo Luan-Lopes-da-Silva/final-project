@@ -2,6 +2,7 @@
 import React from "react"
 import { ChangeEvent, FormEvent, useEffect ,useRef, useState} from "react"
 import style from '../../../../styles/processoConsultor.module.scss'
+import emailJs from '@emailjs/browser'
 
 import ConsultorLayout from "@/src/components/ConsultorLayout"
 interface ProcessProps{
@@ -73,7 +74,8 @@ const Process:React.FC<ProcessProps> = ({params})=>{
   const userLocal = getLocalStorage() 
   const operation = await fetch(`${url}/processos/${params.id}`)
   const conversedOperation = await operation.json()
-
+  
+ 
 
   if(refBanco.current && refValor.current && refParcelas.current && refNome.current && refEmail.current && clienteEmail.current && clienteNome.current && clienteTelefone.current && firstCircle.current && secondCircle.current && thirdCircle.current && fourthCircle.current && refTelefone.current && messageRef.current){
     refBanco.current.innerText = `Banco: ${conversedOperation[0].banco}`
@@ -135,7 +137,7 @@ const Process:React.FC<ProcessProps> = ({params})=>{
       thirdCircle.current.style.backgroundColor = 'Green'
       fourthCircle.current.style.backgroundColor = 'Red'
       messageRef.current.innerText = conversedOperation[0].message
-     }else if(conversedOperation[0].etapa === 'Emissao do Contrato' && conversedOperation[0].status === 'Aceita'){
+     }else if(conversedOperation[0].etapa === 'Emissao do Contrato' &&     conversedOperation[0].status === 'Aceita'){
       firstCircle.current.style.backgroundColor = 'Green'
       secondCircle.current.style.backgroundColor = 'Green'
       thirdCircle.current.style.backgroundColor = 'Green'
@@ -204,7 +206,21 @@ const Process:React.FC<ProcessProps> = ({params})=>{
         "Content-Type": "application/json"
       }
       })
-      location.reload()
+      const operation = await fetch(`${url}/processos/${params.id}`)
+      const conversedOperation = await operation.json()
+      if(messageRef.current){
+        const templateParams = {
+          to_name : conversedOperation[0].nomecliente,
+          cliente:conversedOperation[0].emailcliente,
+          consultor:conversedOperation[0].nomeconsultor,
+          etapa : 'Emissão do Contrato',
+          status : 'Aceita',
+          message : messageRef.current.innerText
+        }
+        emailJs.send("service_9borhco","template_ije200f",templateParams,"cdlEsrcoJqfdlXB6x").then((res)=>{
+          console.log('Email Enviado', res.status, res.text)
+        })
+      }
   }else{
     const userDb = await fetch(`${url}/processos/${params.id}`,{
       method: "PUT",
@@ -220,13 +236,30 @@ const Process:React.FC<ProcessProps> = ({params})=>{
         "Content-Type": "application/json"
       }
       })
-      location.reload()
+
+    const operation = await fetch(`${url}/processos/${params.id}`)
+    const conversedOperation = await operation.json()
+  
+      if(messageRef.current){
+        const templateParams = {
+          to_name : conversedOperation[0].nomecliente,
+          cliente:conversedOperation[0].emailcliente,
+          consultor:conversedOperation[0].nomeconsultor,
+          etapa : etapa,
+          status : status,
+          message : messageRef.current.innerText
+        }
+          emailJs.send("service_9borhco","template_ije200f",templateParams,"cdlEsrcoJqfdlXB6x").then((res)=>{
+            console.log('Email Enviado', res.status, res.text)
+          })
+
+      }
   }
   }
 
   return(
   <ConsultorLayout>
-  <title>Chegagem de Processo </title>
+  <title>Checagem de Processo </title>
   <div className={style.geralContainer}>
   <div className={style.section}>
     <h1>Dados do Imovel</h1>

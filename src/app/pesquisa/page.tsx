@@ -23,6 +23,7 @@ const parcelasRef = useRef<HTMLParagraphElement>(null)
 const imovelRef = useRef<HTMLParagraphElement>(null)
 const taxsRef = useRef<HTMLParagraphElement>(null)
 const errorMessage = useRef<HTMLParagraphElement>(null)
+const refBank = useRef<HTMLDivElement>(null)
 const cardRef = useRef<HTMLDivElement>(null)
 const idRef = useRef<HTMLParagraphElement>(null)
 const [id,setId] = useState()
@@ -32,7 +33,7 @@ const [id,setId] = useState()
   const dbProcess = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/processos`)
   const jsonProcess:any[] = await dbProcess.json()
   const filterProcess = jsonProcess.filter((process)=>process.protocoloaleatorio === busca)
-    if(taxsRef.current && parcelasRef.current && imovelRef.current && cardRef.current && errorMessage.current ){
+    if(taxsRef.current && parcelasRef.current && imovelRef.current && cardRef.current && errorMessage.current && refBank.current){
     if(filterProcess.length<1 ){
       errorMessage.current.innerText = 'Nenhum processo foi encontrado'
     }else{
@@ -43,17 +44,18 @@ const [id,setId] = useState()
       bankImg.width = 90
       bankImg.height = 90
       bankImg.alt = 'Bank name svg'
-      if(filterProcess[0].banco === 'bradesco'){
+      if(filterProcess[0].banco === 'Bradesco'){
       bankImg.src = bradescoSvg.src
       }else if(filterProcess[0].banco === 'santander'){
       bankImg.src = santanderSvg.src
       }else if(filterProcess[0].banco === 'banco do brasil'){
-        bankImg.src = bbSvg.src
+      bankImg.src = bbSvg.src
       }else if(filterProcess[0].banco === 'itau'){
-        bankImg.src = itauSvg.src
+      bankImg.src = itauSvg.src
       }else{
       bankImg.src = caixaSvg.src
       }
+      refBank.current.append(bankImg)
       
       const divTax = document.createElement('div')
       const img = document.createElement('img')
@@ -112,10 +114,10 @@ const [id,setId] = useState()
       </form>
       <p ref={errorMessage} className={style.errorSpan}></p>
       <div className={style.card} ref={cardRef}>
+      <div ref={refBank}></div>
       <p ref={taxsRef}></p>
       <p ref={imovelRef}></p>
       <p ref={parcelasRef}></p>
-
       <button><Link href={`pesquisa/${id}`}>Ver mais</Link></button>
       </div>
     </main>

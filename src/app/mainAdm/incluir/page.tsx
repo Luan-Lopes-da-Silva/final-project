@@ -5,6 +5,11 @@ import LayoutRegister from "@/src/components/LayoutRegister";
 import style from '../../../styles/incluirAdm.module.scss'
 import registerSvg from '@/public/registerSvg.svg'
 import Image from "next/image";
+import { Consultor } from "../../types/types";
+
+import getLocalStorage, { getAdmLocalStorage } from "../../functions/getLocalStorage";
+import emailJs from '@emailjs/browser'
+
 
 export default function IncluirConsultores(){
   const [nome,setNome] = useState('')
@@ -14,7 +19,7 @@ export default function IncluirConsultores(){
   const refEmail = useRef<HTMLParagraphElement>(null)
   const refTelefone = useRef<HTMLParagraphElement>(null)
 
-  
+  getLocalStorage
   function gerarHexAleatorio(){
     const caracteresHex = '0123456789ABCDEFGHIJKLMNOPRSTUVWXYZ'
     let hexAleatorio = '#'
@@ -36,22 +41,12 @@ export default function IncluirConsultores(){
       }
       return hexAleatorio
       }
-    
-      type User = {
-        nome: string,
-        telefone: string,
-        email: string,
-        senha: string,
-        idConsultor: string,
-        role: string,
-        memberSince: string,
-        id: number
-      }
 
+      
   async function createConsultor(ev:FormEvent){
     ev.preventDefault()
-    const users = await fetch('http://localhost:3000/consultores')
-    const usersJson:User[] = await users.json()
+    const users = await fetch('https://consultant-db.onrender.com/consultants')
+    const usersJson:Consultor[] = await users.json()
     const filter = usersJson.filter(user=>(user.email === email))
     const hexAleatorio = gerarHexAleatorio()
     const passwordAleatory = randomPassword()
@@ -81,21 +76,35 @@ export default function IncluirConsultores(){
         refEmail.current.innerText = 'Email ja utilizado'
         refTelefone.current.innerText= ''
        }else{
+        const admLocal = getAdmLocalStorage()
+        if(admLocal){
         refNome.current.innerText= ''
         refEmail.current.innerText= ''
         refTelefone.current.innerText= ''
     
-        const criarUser = await fetch(`http://localhost:3000/consultores`,{
+        const criarUser = await fetch(`https://consultant-db.onrender.com/consultants`,{
           method: "POST",
           body: JSON.stringify(
-            {nome,telefone,email,senha:passwordAleatory,idConsultor:hexAleatorio,avatar:'',role: 'Consultor',memberSince: new Date()}
+            {name:nome,phone:telefone,email,password:passwordAleatory,idConsultant:hexAleatorio,avatar:'',role: 'Consultor',memberSince: new Date(),
+            idResponsibleAdm: admLocal[0].idAdm
+          }
           ),
           headers:{
             "Content-Type": "application/json"
           }
         })
+        const templateParams = {
+          to_name : nome,
+          admResponsavell : admLocal[0].name,
+          senha : passwordAleatory,
+          email : email
+        }
+        emailJs.send("service_7mjjz9h","template_ije200f",templateParams,"EwswvU46-v2AATS3K").then((res)=>{
+          console.log('Email Enviado', res.status, res.text)
+        })
         alert('Usuario criado com sucesso')
        }
+      }
     }
     
   }

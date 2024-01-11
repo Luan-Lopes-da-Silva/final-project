@@ -9,9 +9,9 @@ import Image from "next/image"
 
 type User = {
   nome:string
-  id:number
+  id:string
   telefone:string
-  senha?: string
+  password?: string
   email:string
   idConsultor: string
   avatar: string,
@@ -29,10 +29,10 @@ export default function Login(){
 
   async function checkUser(ev:FormEvent){
     ev.preventDefault()
-    const response = await fetch('http://localhost:3000/consultores')
+    const response = await fetch('https://consultant-db.onrender.com/consultants')
     const responseJson:User[] = await response.json()
     const filter:User[] = responseJson.filter(usuario=>(usuario.email === email)) 
-    const filter1 = filter.filter(usuario=>(usuario.senha === senha))
+    const filter1 = filter.filter(usuario=>(usuario.password === senha))
    if(errorEmailRef.current && errorSenhaRef.current && refButton.current && refLoading.current){
     if(filter.length<1 && filter1.length<1){
       errorEmailRef.current.innerText = 'Email incorreto'

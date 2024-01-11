@@ -35,14 +35,9 @@ export default function LayoutConsultorDashBoard({
   const refFunction = useRef<HTMLParagraphElement>(null)
   const refSpanConsultor = useRef<HTMLParagraphElement>(null)
    
-
-
-  
-   
     useEffect(()=>{    
       try {
       const user = getLocalStorage()
-      console.log(user)
       if(refLink.current && refSpanConsultor.current && refNome.current && refMembro.current && refRanking.current && refFunction.current && refAvatar.current && refAvatarAside.current && nameOnRef.current && user){
         refLink.current.href = `/consultorAdm/perfil/${user.id}`
         refSpanConsultor.current.innerText = `ID CONSULTOR : ${user.idConsultor}`
