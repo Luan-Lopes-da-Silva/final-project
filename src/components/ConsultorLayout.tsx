@@ -29,7 +29,7 @@ export default function ConsultorLayout({
     email: string
     id: number
     idconsultant: string
-    nome: string
+    name: string
     telefone: string
     role: string
     memberSince: string
@@ -44,7 +44,7 @@ export default function ConsultorLayout({
           email:  'Undefined',
           id: 12,
           idconsultant: 'Undefined',
-          nome: 'Undefined',
+          name: 'Undefined',
           telefone: 'Undefined',
           memberSince: 'Undefined',
           role: 'Undefined'
@@ -67,7 +67,7 @@ export default function ConsultorLayout({
       if(refLink.current && refSpanConsultor.current && nameOnRef.current && refAvatar.current){
         refLink.current.href = `/consultorAdm/perfil/${user.id}`
         refSpanConsultor.current.innerText = `ID CONSULTOR : ${user.idconsultant}`
-        nameOnRef.current.innerText = `${user.nome}`
+        nameOnRef.current.innerText = `${user.name}`
 
         if(user.avatar!='' ){
           refAvatar.current.style.backgroundImage = `url(${user.avatar})`
