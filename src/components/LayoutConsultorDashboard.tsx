@@ -38,14 +38,15 @@ export default function LayoutConsultorDashBoard({
     useEffect(()=>{    
       try {
       const user = getLocalStorage()
+      console.log(user)
       if(refLink.current && refSpanConsultor.current && refNome.current && refMembro.current && refRanking.current && refFunction.current && refAvatar.current && refAvatarAside.current && nameOnRef.current && user){
         refLink.current.href = `/consultorAdm/perfil/${user.id}`
-        refSpanConsultor.current.innerText = `ID CONSULTOR : ${user.idConsultor}`
+        refSpanConsultor.current.innerText = `ID CONSULTOR : ${user.idconsultant}`
         
-        const newDate = new Date(user.memberSince)
+        const newDate = new Date(user.membersince)
 
-        refNome.current.innerText = `${user.nome}`
-        nameOnRef.current.innerText = `${user.nome}`
+        refNome.current.innerText = `${user.name}`
+        nameOnRef.current.innerText = `${user.name}`
         refMembro.current.innerText = `${newDate.toLocaleString('pt-BR',{timeZone:'UTC'}).substring(0,10)}`
         refRanking.current.innerText = 'Indefinido'
         refFunction.current.innerText = `${user.role}`

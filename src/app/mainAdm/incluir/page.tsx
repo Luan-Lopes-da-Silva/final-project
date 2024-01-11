@@ -50,6 +50,7 @@ export default function IncluirConsultores(){
     const filter = usersJson.filter(user=>(user.email === email))
     const hexAleatorio = gerarHexAleatorio()
     const passwordAleatory = randomPassword()
+    const date = new Date()
     if(refNome.current && refEmail.current && refTelefone.current){
       if(nome=== '' && email === ''  && telefone === '' ){
         refNome.current.innerText= 'Preencha o campo'
@@ -85,8 +86,8 @@ export default function IncluirConsultores(){
         const criarUser = await fetch(`https://consultant-db.onrender.com/consultants`,{
           method: "POST",
           body: JSON.stringify(
-            {name:nome,phone:telefone,email,password:passwordAleatory,idConsultant:hexAleatorio,avatar:'',role: 'Consultor',memberSince: new Date(),
-            idResponsibleAdm: admLocal[0].idAdm
+            {idConsultant :hexAleatorio, name:nome,email,password:passwordAleatory,phone: telefone, role:'Consultor',
+            memberSince:date,avatar:'',idResponsibleAdm: admLocal[0].idadm
           }
           ),
           headers:{
@@ -99,7 +100,7 @@ export default function IncluirConsultores(){
           senha : passwordAleatory,
           email : email
         }
-        emailJs.send("service_7mjjz9h","template_ije200f",templateParams,"EwswvU46-v2AATS3K").then((res)=>{
+        emailJs.send("service_7mjjz9h","template_mmz9uak",templateParams,"EwswvU46-v2AATS3K").then((res)=>{
           console.log('Email Enviado', res.status, res.text)
         })
         alert('Usuario criado com sucesso')

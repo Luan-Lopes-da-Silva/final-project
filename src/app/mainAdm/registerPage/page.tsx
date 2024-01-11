@@ -13,7 +13,7 @@ import emailJs from '@emailjs/browser'
 export default function RegisterPageAdm(){
   const checkEmail = async (email: string): Promise<boolean> => {
     try {
-      const dbUsers = await fetch(`http://localhost:3000/adms`);
+      const dbUsers = await fetch(`https://db-adm.onrender.com/adms`);
       const dbUsersConversed:UserAdm[] = await dbUsers.json();
       const userWithEmail = dbUsersConversed.find((user) => user.email === email);
       return Boolean(userWithEmail); 
@@ -74,7 +74,7 @@ export default function RegisterPageAdm(){
 
 
     async function createAdm(data:createUserFormData){
-    const admDb = await fetch(`http://localhost:3000/adms`,{
+    const admDb = await fetch(`https://db-adm.onrender.com/adms`,{
           method: "POST",
           body: JSON.stringify(
             {name:data.name,email:data.email,password:data.password,phone:data.password,idAdm:generatePassword,role:'Adm',memberSince: new Date(), avatar: ''}

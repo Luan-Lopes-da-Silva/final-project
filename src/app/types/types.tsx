@@ -24,19 +24,19 @@ export type Consultor = {
     avatar: string
     email: string
     id: number
-    idConsultor: string
-    nome: string
-    telefone: string
+    idconsultant: string
+    name: string
+    phone: string
     role: string
-    memberSince: string
-    responseAdm:string
+    membersince: string
+    responsibleAdm:string
 }
 
 export type Adm = {
     name: string
     email: string
     password: string
-    idAdm: string
+    idadm: string
     role: string
 }
 

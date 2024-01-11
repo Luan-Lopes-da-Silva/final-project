@@ -18,7 +18,7 @@ export default function LoginPage(){
   })
 
   const checkEmail = async (email: string): Promise<boolean> =>{
-    const dbAdms = await fetch(`http://localhost:3000/adms`)
+    const dbAdms = await fetch(`https://db-adm.onrender.com/adms`)
     const dbAdmsConversed: User[] = await dbAdms.json()
     const emailFind = dbAdmsConversed.filter((adm)=> adm.email === email)
     if(emailFind.length<1){
@@ -31,7 +31,7 @@ export default function LoginPage(){
   }
 
   const checkPassword = async (password:string): Promise<boolean> =>{
-      const dbAdms = await fetch(`http://localhost:3000/adms`);
+      const dbAdms = await fetch(`https://db-adm.onrender.com/adms`);
       const dbAdmsConversed: User[] = await dbAdms.json();
       const userLocal = localStorage.getItem('email')
       const user = dbAdmsConversed.filter((adm) => adm.email === userLocal);
@@ -75,7 +75,7 @@ export default function LoginPage(){
   })
 
   const loginUser = async(data:UserAdm) => {
-    const response = await fetch(`http://localhost:3000/adms`)
+    const response = await fetch(`https://db-adm.onrender.com/adms`)
     const jsonResponse: User[] = await response.json()
     const findInDb = jsonResponse.filter((adm)=>adm.email === data.email)
       localStorage.setItem('Usuario Logado',JSON.stringify(findInDb))

@@ -84,7 +84,7 @@ export default function Cadastrar(){
   spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
   spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
   spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && idConsultant!= user.idConsultor){
+  }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && idConsultant!= user.idconsultant){
     spanNomeRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
     spanBancoRef.current.innerText = 'Preencha o campo corretamente'
@@ -410,7 +410,7 @@ export default function Cadastrar(){
     spanModalidadeRef.current.innerText = ''
     spanParcelaRef.current.innerText = ''
     spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
-  }else if(idConsultant != user.idConsultor){
+  }else if(idConsultant != user.idconsultant){
     spanNomeRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
     spanBancoRef.current.innerText = ''
@@ -437,7 +437,7 @@ export default function Cadastrar(){
     const userDb = await fetch(`${url}/processos`,{
       method: 'POST',
       body: JSON.stringify(
-        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.nome,emailConsultor:user.email,telefoneConsultor:user.telefone,idConsultor:idConsultant,mesInicio:nomeDoMes,
+        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.name,emailConsultor:user.email,telefoneConsultor:user.phone,idConsultor:idConsultant,mesInicio:nomeDoMes,
         mesFinalizado:'',protocoloAleatorio,message:'',juros:taxs}
       ),
       headers:{
@@ -465,7 +465,7 @@ export default function Cadastrar(){
     const userDb = await fetch(`${url}/processos`,{
       method: 'POST',
       body: JSON.stringify(
-        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.nome,emailConsultor:user.email,telefoneConsultor:user.telefone,idConsultor:idConsultant,mesInicio:nomeDoMes,
+        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.name,emailConsultor:user.email,telefoneConsultor:user.phone,idConsultor:idConsultant,mesInicio:nomeDoMes,
         mesFinalizado:'',protocoloAleatorio,message:'',juros:taxs}
       ),
       headers:{

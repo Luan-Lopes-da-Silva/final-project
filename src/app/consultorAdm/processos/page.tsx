@@ -18,7 +18,7 @@ type User = {
   avatar: string
   email: string
   id: number
-  idConsultor: string
+  idconsultant: string
   nome: string
   telefone: string
   role: string
@@ -30,7 +30,7 @@ banco: string,
 email: string,
 etapa: string,
 id: string,
-idconsultor: string,
+idconsultant: string,
 imovel:string,
 mes: string,
 message: string,
@@ -55,7 +55,7 @@ function getLocalStorage(): User  {
     avatar: 'Undefined',
     email:  'Undefined',
     id: 12,
-    idConsultor: 'Undefined',
+    idconsultant: 'Undefined',
     nome: 'Undefined',
     telefone: 'Undefined',
     memberSince: 'Undefined',
@@ -84,10 +84,8 @@ export default function Processos(){
   const url = process.env.NEXT_PUBLIC_APIURL
   const operations = await fetch(`${url}/processos`)
   const operationsJson:any[] = await operations.json()
-  const operationsOfUser = operationsJson.filter(operation=>(operation.idconsultor === localUser.idConsultor))
+  const operationsOfUser = operationsJson.filter(operation=>(operation.idconsultor === localUser.idconsultant))
   if(refContainer.current){
-
- 
   if(operationsOfUser.length>0){
     for(let i=0; i<operationsOfUser.length;i++){
       const processContainer = document.createElement('article')

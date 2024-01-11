@@ -8,15 +8,15 @@ import Image from "next/image"
 
 
 type User = {
-  nome:string
+  name:string
   id:string
-  telefone:string
+  phone:string
   password?: string
   email:string
-  idConsultor: string
+  idconsultant: string
   avatar: string,
   role: string,
-  memberSince: string
+  membersince: string
 }
 
 export default function Login(){
@@ -47,13 +47,13 @@ export default function Login(){
       errorSenhaRef.current.innerText = 'Senha incorreto'
       }else{
        const user:User = {
-         nome: filter[0].nome,
+         name: filter[0].name,
          id: filter[0].id,
          email:filter[0].email   ,
-         idConsultor: filter[0].idConsultor,
+         idconsultant: filter[0].idconsultant,
          avatar: filter[0].avatar,
-         telefone: filter[0].telefone,
-         memberSince: filter[0].memberSince,
+         phone: filter[0].phone,
+         membersince: filter[0].membersince,
          role: filter[0].role
          }
          

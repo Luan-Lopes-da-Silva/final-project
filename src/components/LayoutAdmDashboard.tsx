@@ -36,9 +36,9 @@ export default function LayoutAdminDashboard({
     name: string
     email: string
     phone: string
-    idAdm: string
+    idadm: string
     id: number
-    memberSince: string
+    membersince: string
     role: string
     avatar: string
   }
@@ -59,10 +59,10 @@ export default function LayoutAdminDashboard({
     if(refLink.current && refSpanConsultor.current && refNome.current && nameOnRef.current && refRanking.current && refMembro.current && refFunction.current && refAvatar.current && refAvatarAside.current){
 
     
-      const newDate = new Date(userLocal[0].memberSince)
+      const newDate = new Date(userLocal[0].membersince)
 
       refLink.current.href = `/mainAdm/perfil/${userLocal[0].id}`
-      refSpanConsultor.current.innerText = `ID ADM : ${userLocal[0].idAdm}`
+      refSpanConsultor.current.innerText = `ID ADM : ${userLocal[0].idadm}`
       refNome.current.innerText = userLocal[0].name
       nameOnRef.current.innerText = userLocal[0].name
       refRanking.current.innerText = 'indefinido'
