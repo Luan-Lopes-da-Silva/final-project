@@ -218,7 +218,9 @@ const Process:React.FC<ProcessProps> = ({params})=>{
           message : messageRef.current.innerText
         }
         emailJs.send("service_9borhco","template_ije200f",templateParams,"cdlEsrcoJqfdlXB6x").then((res)=>{
-          console.log('Email Enviado', res.status, res.text)
+          if(res.status === 200){
+            location.reload()
+          }
         })
       }
   }else{
@@ -250,7 +252,9 @@ const Process:React.FC<ProcessProps> = ({params})=>{
           message : messageRef.current.innerText
         }
           emailJs.send("service_9borhco","template_ije200f",templateParams,"cdlEsrcoJqfdlXB6x").then((res)=>{
-            console.log('Email Enviado', res.status, res.text)
+            if(res.status === 200){
+              location.reload()
+            }
           })
 
       }

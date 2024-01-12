@@ -70,12 +70,12 @@ export default function ProcessPage({params}:any){
 
   async function designateProcess(ev:FormEvent){
   ev.preventDefault()
-  const dbConsults = await fetch('http://localhost:3000/consultores')
-  const conversedDb:Consult[] = await dbConsults.json() 
-  const filterConsult = conversedDb.filter((consult)=>consult.idConsultor === search)
-  const dbAdms = await fetch('http://localhost:3000/adms')
-  const conversedAdms:Adm[] = await dbAdms.json()
-  const filterAdm = conversedAdms.filter((adm)=>adm.idAdm === search)
+  const dbConsults = await fetch('https://consultant-db.onrender.com/consultants')
+  const conversedDb:any[] = await dbConsults.json() 
+  const filterConsult = conversedDb.filter((consult)=>consult.idconsultant === search)
+  const dbAdms = await fetch('https://db-adm.onrender.com/adms')
+  const conversedAdms:any[] = await dbAdms.json()
+  const filterAdm = conversedAdms.filter((adm)=>adm.idadm === search)
   
   if(filterAdm.length>0){
     if(errorSpanRef.current){
@@ -86,7 +86,7 @@ export default function ProcessPage({params}:any){
           {nomeConsultor:filterAdm[0].name, 
             telefoneConsultor:filterAdm[0].phone,
             emailConsultor:filterAdm[0].email,
-          idConsultor:filterAdm[0].idAdm,
+          idConsultor:filterAdm[0].idadm,
           etapa: 'Recolhimento de Documentos',
           status: 'Em andamento'
           }
@@ -107,8 +107,8 @@ export default function ProcessPage({params}:any){
       const inputProcess = await fetch(`https://db-indicacoes.onrender.com/processos/${params.id}`,{
         method: "PATCH",
         body:JSON.stringify(
-          {nomeConsultor:filterConsult[0].nome, telefoneConsultor:filterConsult[0].telefone,emailConsultor:filterConsult[0].email,
-          idConsultor:filterConsult[0].idConsultor,
+          {nomeConsultor:filterConsult[0].name, telefoneConsultor:filterConsult[0].phone,emailConsultor:filterConsult[0].email,
+          idConsultor:filterConsult[0].idconsultant,
           etapa: 'Recolhimento de Documentos',
           status: 'Em andamento'
           }
@@ -117,7 +117,7 @@ export default function ProcessPage({params}:any){
           "Content-Type": "application/json"
         }
       })
-      alert(`O processo foi designado ao consultor ${filterConsult[0].nome} com sucesso`)
+      alert(`O processo foi designado ao consultor ${filterConsult[0].name} com sucesso`)
       setTimeout(() => {    
       window.location.href = '/mainAdm/processos'
       }, 1000);

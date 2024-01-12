@@ -40,3 +40,16 @@ export type Adm = {
     role: string
 }
 
+export type ConsultantDB = {
+id: string
+email: string
+idconsultant: string
+idresponsibleadm: string
+membersince : string
+name : string
+password : string
+phone : string
+role : string
+avatar: string
+}
+

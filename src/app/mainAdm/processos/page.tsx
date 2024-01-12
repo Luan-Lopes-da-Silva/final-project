@@ -124,8 +124,7 @@ export default function Processos(){
       button.innerHTML = `<a href = processWithoutConsult/${responseJson[i].id}>Checar processo</a>`
     }else if(responseJson[i].nomeconsultor === localUser[0].name){
       button.innerHTML = `<a href = processAdm/${responseJson[i].id}>Checar processo</a>`
-    }
-    else{
+    }else{
       button.innerHTML = `<a href = processoOrganico/${responseJson[i].id}>Checar processo</a>`
     }
     

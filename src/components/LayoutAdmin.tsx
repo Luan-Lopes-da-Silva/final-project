@@ -31,7 +31,7 @@ export default function LayoutAdmin({
     name: string
     email: string
     phone: string
-    idAdm: string
+    idadm: string
     id: number
     memberSince: string
     role: string
@@ -52,7 +52,7 @@ export default function LayoutAdmin({
     try {
     const userLocal: User[] = getLocalStorage()
     if(refSpanConsultor.current && nameOnRef.current && refAvatar.current ){
-      refSpanConsultor.current.innerText = userLocal[0].idAdm
+      refSpanConsultor.current.innerText = userLocal[0].idadm
       nameOnRef.current.innerText = userLocal[0].name
       if(userLocal[0].avatar!='' ){
         refAvatar.current.style.backgroundImage = `url(${userLocal[0].avatar})`
