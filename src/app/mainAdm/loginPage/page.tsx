@@ -56,6 +56,7 @@ export default function LoginPage(){
   phone: string
   idAdm: string
   id: number
+  position: string
   }
   
   const createLoginAdmSchema = z.object({

@@ -2,6 +2,8 @@
 import LayoutAdmin from "@/src/components/LayoutAdmin";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import style from '@/src/styles/processWithoutConsult.module.scss'
+import emailJs from '@emailjs/browser'
+
 
 export default function ProcessPage({params}:any){
   const nomeClienteRef = useRef<HTMLSpanElement>(null)
@@ -76,6 +78,8 @@ export default function ProcessPage({params}:any){
   const dbAdms = await fetch('https://db-adm.onrender.com/adms')
   const conversedAdms:any[] = await dbAdms.json()
   const filterAdm = conversedAdms.filter((adm)=>adm.idadm === search)
+  const fetchApi = await fetch(`https://db-indicacoes.onrender.com/processos/${params.id}`)
+  const fetchConverse = await fetchApi.json()
   
   if(filterAdm.length>0){
     if(errorSpanRef.current){
@@ -95,13 +99,23 @@ export default function ProcessPage({params}:any){
           "Content-Type": "application/json"
         }
       })
-      alert(`O processo foi designado ao consultor ${filterAdm[0].name} com sucesso`)
-      setTimeout(() => {    
-      window.location.href = '/mainAdm/processos'
-      }, 1000);
+
+      const templateParams = {
+        from_name : 'Pedido aceito',
+        to_name : fetchConverse[0].nomecliente,
+        cliente : fetchConverse[0].emailcliente,
+        email: filterAdm[0].email
+      }
+      emailJs.send("service_9borhco","template_7knjm3o",templateParams,"cdlEsrcoJqfdlXB6x").then((res)=>{
+        alert(`O processo foi designado ao consultor ${filterAdm[0].name} com sucesso`)
+        if(res.status === 200){
+          setTimeout(() => {    
+            window.location.href = '/mainAdm/processos'
+            }, 1000);
+        }
+      })   
     }
   }else if(filterConsult.length>0){
-    console.log(filterConsult)
     if(errorSpanRef.current){
       errorSpanRef.current.innerText = ''  
       const inputProcess = await fetch(`https://db-indicacoes.onrender.com/processos/${params.id}`,{
@@ -117,10 +131,25 @@ export default function ProcessPage({params}:any){
           "Content-Type": "application/json"
         }
       })
-      alert(`O processo foi designado ao consultor ${filterConsult[0].name} com sucesso`)
-      setTimeout(() => {    
-      window.location.href = '/mainAdm/processos'
-      }, 1000);
+      
+      console.log(fetchConverse)
+      const templateParams = {
+        from_name : 'Pedido aceito',
+        to_name : fetchConverse[0].nomecliente,
+        cliente : fetchConverse[0].emailcliente,
+        email: filterConsult[0].email
+      }
+      emailJs.send("service_9borhco","template_7knjm3o",templateParams,"cdlEsrcoJqfdlXB6x").then((res)=>{
+        alert(`O processo foi designado ao consultor ${filterConsult[0].name} com sucesso`)
+        if(res.status === 200){
+          setTimeout(() => {    
+            window.location.href = '/mainAdm/processos'
+            }, 1000);
+        }
+      })   
+      
+      
+   
     } 
   }
   else if(filterConsult.length<1){

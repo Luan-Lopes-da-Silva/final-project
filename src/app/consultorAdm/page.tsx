@@ -239,9 +239,10 @@ export default function Home(){
             'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
           ];
           var nomeDoMes = nomesDosMeses[numeroMes];
-          const filterTotal: Process[] = processosJson.filter(process=>(process.idconsultor === loginUser.idConsultor))
+          const filterTotal: Process[] = processosJson.filter(process=>(process.idconsultor === loginUser.idconsultant))
           const totalMensal =filterTotal.filter(process=>(process.mesinicio === nomeDoMes))
           const mensalFinalizado = filterTotal.filter(process=>(process.mesfinalizado === nomeDoMes))
+          console.log(mensalFinalizado)
           const totalFinalizados = filterTotal.filter(process=> (process.status === 'Aceita'))
           if(refFinalizados.current && refFinalizadosTotais.current && refProcessos.current && refProcessosTotais.current){
             if(filterTotal.length<1){

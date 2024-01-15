@@ -87,7 +87,7 @@ export default function IncluirConsultores(){
           method: "POST",
           body: JSON.stringify(
             {idConsultant :hexAleatorio, name:nome,email,password:passwordAleatory,phone: telefone, role:'Consultor',
-            memberSince:date,avatar:'',idResponsibleAdm: admLocal[0].idadm
+            memberSince:date,avatar:'',idResponsibleAdm: admLocal.idadm,position : ''
           }
           ),
           headers:{
@@ -96,7 +96,7 @@ export default function IncluirConsultores(){
         })
         const templateParams = {
           to_name : nome,
-          admResponsavell : admLocal[0].name,
+          admResponsavell : admLocal.name,
           senha : passwordAleatory,
           email : email
         }

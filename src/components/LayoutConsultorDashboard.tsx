@@ -48,7 +48,7 @@ export default function LayoutConsultorDashBoard({
         refNome.current.innerText = `${user.name}`
         nameOnRef.current.innerText = `${user.name}`
         refMembro.current.innerText = `${newDate.toLocaleString('pt-BR',{timeZone:'UTC'}).substring(0,10)}`
-        refRanking.current.innerText = 'Indefinido'
+        refRanking.current.innerText = `${user.position}`
         refFunction.current.innerText = `${user.role}`
         
         if(user.avatar!='' ){

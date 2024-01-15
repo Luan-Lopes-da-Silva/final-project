@@ -30,6 +30,7 @@ export type Consultor = {
     role: string
     membersince: string
     responsibleAdm:string
+    position: number
 }
 
 export type Adm = {

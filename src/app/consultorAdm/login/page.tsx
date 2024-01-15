@@ -16,7 +16,8 @@ type User = {
   idconsultant: string
   avatar: string,
   role: string,
-  membersince: string
+  membersince: string,
+  position: string
 }
 
 export default function Login(){
@@ -54,7 +55,8 @@ export default function Login(){
          avatar: filter[0].avatar,
          phone: filter[0].phone,
          membersince: filter[0].membersince,
-         role: filter[0].role
+         role: filter[0].role,
+         position: filter[0].position
          }
          
          refButton.current.style.display = 'none'

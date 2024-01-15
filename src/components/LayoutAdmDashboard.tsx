@@ -30,6 +30,7 @@ export default function LayoutAdminDashboard({
   const refAvatarAside = useRef<HTMLParagraphElement>(null)
   const refNome = useRef<HTMLParagraphElement>(null)
   const refMembro = useRef<HTMLParagraphElement>(null)
+  
 
 
   type User = {
@@ -41,6 +42,7 @@ export default function LayoutAdminDashboard({
     membersince: string
     role: string
     avatar: string
+    position: number
   }
   
   function getLocalStorage(): any  {
@@ -53,19 +55,21 @@ export default function LayoutAdminDashboard({
     }
   }
 
+
+
   useEffect(()=>{
     try {
-    const userLocal: User[] = getLocalStorage()
+    const userLocal:User[] = getLocalStorage()
+   
     if(refLink.current && refSpanConsultor.current && refNome.current && nameOnRef.current && refRanking.current && refMembro.current && refFunction.current && refAvatar.current && refAvatarAside.current){
 
     
       const newDate = new Date(userLocal[0].membersince)
-
       refLink.current.href = `/mainAdm/perfil/${userLocal[0].id}`
       refSpanConsultor.current.innerText = `ID ADM : ${userLocal[0].idadm}`
       refNome.current.innerText = userLocal[0].name
       nameOnRef.current.innerText = userLocal[0].name
-      refRanking.current.innerText = 'indefinido'
+      refRanking.current.innerText = `${userLocal[0].position}`
       refMembro.current.innerText = `${newDate.toLocaleString('pt-BR',{timeZone: 'UTC'}).substring(0,10)}`
       refFunction.current.innerText = userLocal[0].role
 
