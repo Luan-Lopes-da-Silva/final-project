@@ -29,16 +29,19 @@ export default function Home(){
 
 
   const refSection = useRef<HTMLBodyElement>(null)
+  const lastFiveProcessRef = useRef<HTMLBodyElement>(null)
   useEffect(()=>{
   const userLocal = getLocalStorage()
   const url = process.env.NEXT_PUBLIC_APIURL
   async function topThree(){
   const consultants = await fetch ('https://consultant-db.onrender.com/consultants')
   const consultantArray:any[] = await consultants.json()
+  const adms = await fetch("https://db-adm.onrender.com/adms")
+  const admsArray:any[] = await adms.json()
   const getProcess = await fetch(`${url}/processos`)
   const processArray:any[] = await getProcess.json()
-  const filterTotal = processArray.filter(process=>(process.mesinicio !== ''))
-  const filterFinisheds = processArray.filter(process=>(process.mesfinalizado !== ''))
+  const filterTotal = processArray.filter(process=>(process.mesinicio != ''))
+  const filterFinisheds = processArray.filter(process=>(process.mesfinalizado != ''))
   const consultantsGroup = filterFinisheds.reduce((acc,con)=>{
     const id = con.idconsultor
 
@@ -78,9 +81,11 @@ export default function Home(){
       const article = document.createElement('article')
       const p = document.createElement('p')
       p.innerText = consultoresClassificados[i][0].nomeconsultor
-
+      
       const filterFinisheds = consultoresClassificados[i].filter(process=>(process.mesfinalizado!=''))
-      const filterNotFinished = consultoresClassificados[i].filter(process=>(process.mesinicio!=''))
+      console.log(filterFinisheds.length)
+      const filterNotFinished = consultoresClassificados2[i].filter(process=>(process.emailconsultor === consultoresClassificados[i][0].emailconsultor))
+    
      
 
       
@@ -94,7 +99,7 @@ export default function Home(){
 
   
      let element = consultoresClassificados[i]
-      console.log()
+    
      if(consultoresClassificados[i] === element){
      index = i
       if(element[0].role === 'Adm'){
@@ -136,9 +141,18 @@ export default function Home(){
       imgFinishProcess.height = 16
       imgFinishProcess.src = finishProcess.src
       divFinishedProcess.append(imgFinishProcess,pFinishedProcess)
-    
+      const filterId = consultantArray.filter(consultant=>(consultant.idconsultant === consultoresClassificados[i][0].idconsultor))
+      const filter = filterId.filter(consultant=>(consultant.id))
       const btn = document.createElement('button')
-      btn.innerHTML = '<a href="">VER PERFIL</a>'
+      if(filter.length>0){
+        btn.innerHTML = `<a href="mainAdm/consultor/${filter[0].id}">VER PERFIL</a>`
+      }else{
+        const filterIdAdm = admsArray.filter(adm=>(adm.email === consultoresClassificados[i][0].emailconsultor))
+        console.log()
+        btn.innerHTML = `<a href="mainAdm/adm/${filterIdAdm[0].id}">VER PERFIL</a>`
+
+      }
+      
     
       article.append(p,imgAvatar,divTotalProcess,divFinishedProcess,btn)
     
@@ -249,8 +263,65 @@ export default function Home(){
       refSection.current.append(p)
     }
   }
+  }
 
+  async function lastFiveProcess(){
+  const processDb = await fetch(`${url}/processos`)
+  const conversedProcess:any[] = await processDb.json()
   
+  for(let i = conversedProcess.length -5; i<conversedProcess.length;i++){
+    const article = document.createElement('article')
+    article.id = conversedProcess[i].id
+    
+    const bankImg = document.createElement('img')
+    bankImg.width = 90
+    bankImg.height = 90
+    bankImg.alt = 'Bank Svg'
+
+    if(conversedProcess[i].banco === 'bradesco' || conversedProcess[i].banco === 'Bradesco'){
+      bankImg.src = itauSvg.src
+    }
+
+    const divTaxs = document.createElement('div')
+    const imgTaxs = document.createElement('img')
+    imgTaxs.width = 26
+    imgTaxs.height = 26
+    imgTaxs.alt = 'taxs svg'
+    imgTaxs.src = taxSvg.src
+    const taxsP = document.createElement('p')
+    taxsP.innerText = `${conversedProcess[i].juros} JUROS/A`
+    console.log(conversedProcess[i])
+    
+    const divImmobile = document.createElement('div')
+    const imgImmobile = document.createElement('img')
+    imgImmobile.width = 26
+    imgImmobile.height = 26
+    imgImmobile.alt = 'immobile svg'
+    imgImmobile.src = houseSvg.src
+    const immobileP = document.createElement('p')
+    immobileP.innerText = `R$ ${conversedProcess[i].valorimovel}`
+
+    const divTerms = document.createElement('div')
+    const imgTerms = document.createElement('img')
+    imgTerms.width = 26
+    imgTerms.height = 26
+    imgTerms.alt = 'terms svg'
+    imgTerms.src = billsSvg.src
+    const termsP = document.createElement('p')
+    termsP.innerText = `${conversedProcess[i].numeroparcelas} PARCELAS`
+    
+
+    divTerms.append(imgTerms,termsP)
+    divTaxs.append(imgTaxs,taxsP)
+    divImmobile.append(imgImmobile,immobileP)
+
+    const button = document.createElement('button')
+    button.innerHTML = `<a href="/pesquisa/${conversedProcess[i].id}">CHECAR PROCESSO</a>`
+    article.append(bankImg,divTaxs,divImmobile,divTerms,button)
+    if(lastFiveProcessRef.current){
+      lastFiveProcessRef.current.append(article)
+    }
+  }
   }
 
   function calculateTotalProcessFinished(consultant:any){
@@ -261,6 +332,7 @@ export default function Home(){
     return consultant.reduce((total:any,c:any)=>total+c.mesinicio,0)
   }
   topThree()
+  lastFiveProcess()
   })
   return(
     <LayoutAdminDashboard>
@@ -347,7 +419,7 @@ export default function Home(){
           <section className={style.profiles} ref={refSection}>
           </section>
           <h3>ULTIMOS 5 PROCESSOS CADASTRADOS</h3>
-          <section className={style.process}>
+          <section className={style.process} ref={lastFiveProcessRef}>
             <article>
               <Image
               width={90}
