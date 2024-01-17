@@ -10,28 +10,18 @@ import billsSvg from '@/public/billsSvg.svg'
 import itauSvg from '@/public/itauSvg.svg'
 import LayoutAdminDashboard from "@/src/components/LayoutAdmDashboard";
 import { useEffect, useRef } from "react";
-import getLocalStorage from "../functions/getLocalStorage";
+import { createCardConsultant } from "@/src/utils/createCards";
+
 
 export default function Home(){
 
   
-  type User = {
-    name: string
-    email: string
-    phone: string
-    idadm: string
-    id: number
-    membersince: string
-    role: string
-    avatar: string
-    position: number
-  }
+
 
 
   const refSection = useRef<HTMLBodyElement>(null)
   const lastFiveProcessRef = useRef<HTMLBodyElement>(null)
   useEffect(()=>{
-  const userLocal = getLocalStorage()
   const url = process.env.NEXT_PUBLIC_APIURL
   async function topThree(){
   const consultants = await fetch ('https://consultant-db.onrender.com/consultants')
@@ -78,28 +68,15 @@ export default function Home(){
   let index = -1
   if(consultoresClassificados.length>0){
     for (let i = 0; i<consultoresClassificados.length; i++){
-      const article = document.createElement('article')
-      const p = document.createElement('p')
-      p.innerText = consultoresClassificados[i][0].nomeconsultor
-      
       const filterFinisheds = consultoresClassificados[i].filter(process=>(process.mesfinalizado!=''))
-      console.log(filterFinisheds.length)
       const filterNotFinished = consultoresClassificados2[i].filter(process=>(process.emailconsultor === consultoresClassificados[i][0].emailconsultor))
-    
-     
+      const searchConsultant = consultantArray.filter(consultant=>(consultant.name === consultoresClassificados[i][0].nomeconsultor))
 
       
-      const searchConsultant = consultantArray.filter(consultant=>(consultant.name === p.innerText))
-  
-    
-    
-      const imgAvatar = document.createElement('img')
-      imgAvatar.width = 90
-      imgAvatar.height = 90
+      const createCard = await createCardConsultant(consultoresClassificados[i][0].nomeconsultor,searchConsultant[0].avatar,`${filterNotFinished.length}`,`${filterFinisheds.length}`,'http://localhost:3001/mainAdm',consultoresClassificados[i][0].idconsultor,consultoresClassificados[i][0].emailconsultor,'')
 
-  
      let element = consultoresClassificados[i]
-    
+
      if(consultoresClassificados[i] === element){
      index = i
       if(element[0].role === 'Adm'){
@@ -116,143 +93,31 @@ export default function Home(){
       }) 
       }
      }
-      if(searchConsultant[0].avatar === ''){
-      imgAvatar.src = defaultAvatar.src
-      }else{
-      imgAvatar.src = searchConsultant[0].avatar
-      }
-     
-     
-      const divTotalProcess = document.createElement('div')
-      const imgTotalProcess = document.createElement('img')
-      const pTotalProcess = document.createElement('p')
-      pTotalProcess.innerText =`+ ${filterNotFinished.length} processos totais`
-      imgTotalProcess.width = 16
-      imgTotalProcess.height = 16
-      imgTotalProcess.src = totalProcess.src
-      divTotalProcess.append(imgTotalProcess,pTotalProcess)
-      
-      const divFinishedProcess = document.createElement('div')
-      const imgFinishProcess = document.createElement('img')
-      const pFinishedProcess = document.createElement('p')
-      pFinishedProcess.innerText =`+ ${filterFinisheds.length} processos finalizados`
-    
-      imgFinishProcess.width = 16
-      imgFinishProcess.height = 16
-      imgFinishProcess.src = finishProcess.src
-      divFinishedProcess.append(imgFinishProcess,pFinishedProcess)
-      const filterId = consultantArray.filter(consultant=>(consultant.idconsultant === consultoresClassificados[i][0].idconsultor))
-      const filter = filterId.filter(consultant=>(consultant.id))
-      const btn = document.createElement('button')
-      if(filter.length>0){
-        btn.innerHTML = `<a href="mainAdm/consultor/${filter[0].id}">VER PERFIL</a>`
-      }else{
-        const filterIdAdm = admsArray.filter(adm=>(adm.email === consultoresClassificados[i][0].emailconsultor))
-        console.log()
-        btn.innerHTML = `<a href="mainAdm/adm/${filterIdAdm[0].id}">VER PERFIL</a>`
-
-      }
-      
-    
-      article.append(p,imgAvatar,divTotalProcess,divFinishedProcess,btn)
-    
       if(refSection.current){
-      refSection.current.append(article)
+      refSection.current.append(createCard)
       }
       }
   }else if(consultoresClassificados2.length>0){
-    for (let i = 0; i<consultoresClassificados.length; i++){
-      const article = document.createElement('article')
-      const p = document.createElement('p')
-      p.innerText = consultoresClassificados[i][0].nomeconsultor
-    
+    for (let i = 0; i<consultoresClassificados.length; i++){    
      const filterNotFinished = consultoresClassificados[i].filter(process=>(process.mesinicio!=''))
-     
-     const searchConsultant = consultantArray.filter(consultant=>(consultant.nome === p.innerText))
-    
-     
-    
-      const imgAvatar = document.createElement('img')
-      imgAvatar.width = 90
-      imgAvatar.height = 90
 
+     const searchConsultant = consultantArray.filter(consultant=>(consultant.nome === consultoresClassificados[i][0].nomeconsultor))
       
-      
-      if(searchConsultant[0].avatar === ''){
-      imgAvatar.src = defaultAvatar.src
-      }else{
-      imgAvatar.src = searchConsultant[0].avatar
-      }
-     
-     
-      const divTotalProcess = document.createElement('div')
-      const imgTotalProcess = document.createElement('img')
-      const pTotalProcess = document.createElement('p')
-      pTotalProcess.innerText =`+ ${filterNotFinished.length} processos totais`
-      imgTotalProcess.width = 16
-      imgTotalProcess.height = 16
-      imgTotalProcess.src = totalProcess.src
-      divTotalProcess.append(imgTotalProcess,pTotalProcess)
-      
-      const divFinishedProcess = document.createElement('div')
-      const imgFinishProcess = document.createElement('img')
-      const pFinishedProcess = document.createElement('p')
-      pFinishedProcess.innerText =`+ 0 processos finalizados`
-    
-      imgFinishProcess.width = 16
-      imgFinishProcess.height = 16
-      imgFinishProcess.src = finishProcess.src
-      divFinishedProcess.append(imgFinishProcess,pFinishedProcess)
-    
-      const btn = document.createElement('button')
-      btn.innerHTML = '<a href="">VER PERFIL</a>'
-    
-      article.append(p,imgAvatar,divTotalProcess,divFinishedProcess,btn)
+      const createCard = await createCardConsultant(consultoresClassificados2[i][0].nomeconsultor,searchConsultant[0].avatar,`${filterNotFinished.length}`,`0`,'http://localhost:3001/mainAdm',consultoresClassificados2[i][0].idconsultor,consultoresClassificados2[i][0].emailconsultor,'')
     
       if(refSection.current){
-      refSection.current.append(article)
+      refSection.current.append(createCard)
       }
       }
   }else if(consultoresClassificados.length<1 && consultoresClassificados2.length<1){
     for(let i = 0; i<4; i++){
-      const article = document.createElement('article')
-      const p = document.createElement('p')
-      p.innerText = processArray[i].nomeconsultor
+      const totalProcessForConsultant = processArray.filter(process=>(process.nomeconsultor === processArray[i].nomeconsultor))
+  
+      const searchConsultant = consultantArray.filter(consultant=>(consultant.nome === consultoresClassificados[i][0].nomeconsultor))
     
-     const totalProcessForConsultant = processArray.filter(process=>(process.nomeconsultor === p.innerText))
-    
-      const imgAvatar = document.createElement('img')
-      imgAvatar.width = 90
-      imgAvatar.height = 90
-    
-     
-     
-      const divTotalProcess = document.createElement('div')
-      const imgTotalProcess = document.createElement('img')
-      const pTotalProcess = document.createElement('p')
-      pTotalProcess.innerText =`+ ${totalProcessForConsultant.length} processos totais`
-      imgTotalProcess.width = 16
-      imgTotalProcess.height = 16
-      imgTotalProcess.src = totalProcess.src
-      divTotalProcess.append(imgTotalProcess,pTotalProcess)
-      
-      const divFinishedProcess = document.createElement('div')
-      const imgFinishProcess = document.createElement('img')
-      const pFinishedProcess = document.createElement('p')
-      pFinishedProcess.innerText =`+ ${consultoresClassificados[i].length} processos finalizados`
-    
-      imgFinishProcess.width = 16
-      imgFinishProcess.height = 16
-      imgFinishProcess.src = finishProcess.src
-      divFinishedProcess.append(imgFinishProcess,pFinishedProcess)
-    
-      const btn = document.createElement('button')
-      btn.innerHTML = '<a href="">VER PERFIL</a>'
-    
-      article.append(p,imgAvatar,divTotalProcess,divFinishedProcess,btn)
-    
+      const createCard = await createCardConsultant(consultoresClassificados[i][0].nomeconsultor,searchConsultant[0].avatar,`${totalProcessForConsultant.length}`,`${consultoresClassificados[i].length}`,'http://localhost:3001/mainAdm',consultoresClassificados2[i][0].idconsultor,consultoresClassificados2[i][0].emailconsultor,'')
       if(refSection.current){
-      refSection.current.append(article)
+      refSection.current.append(createCard)
       }
     }
   }else{
@@ -290,7 +155,6 @@ export default function Home(){
     imgTaxs.src = taxSvg.src
     const taxsP = document.createElement('p')
     taxsP.innerText = `${conversedProcess[i].juros} JUROS/A`
-    console.log(conversedProcess[i])
     
     const divImmobile = document.createElement('div')
     const imgImmobile = document.createElement('img')

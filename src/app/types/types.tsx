@@ -20,6 +20,7 @@ export type ProcessBD ={
     message: string
 }
 
+
 export type Consultor = {
     avatar: string
     email: string
@@ -52,5 +53,12 @@ password : string
 phone : string
 role : string
 avatar: string
+position: string
 }
 
+export type Task = {
+id: string
+name: string
+task : string
+idconsultor : string
+}

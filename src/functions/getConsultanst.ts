@@ -19,3 +19,11 @@ return array
  return consultantConversed
 }
 }
+
+export async function deleteConsultant(id:string){
+  try {
+    console.log('Deletado com sucesso' + id)
+  } catch (error) {
+    console.error('Erro ao excluir consultor', error)
+  }
+}
