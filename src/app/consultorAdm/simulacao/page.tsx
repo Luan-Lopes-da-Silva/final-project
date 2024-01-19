@@ -9,12 +9,12 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 
 
 type Simulation = {
-  parcelas : string
-  valorParcela: string
-  juros: string
-  financiado: string
-  amortizacao: string
-  saldoDevedor: Number
+  installments : string
+  installmentValue: string
+  taxs: string
+  financied: string
+  amortization: string
+  dueBalance: Number
 }
 
 let simulationsArray:Simulation[] = []
@@ -22,192 +22,192 @@ let simulationsArray:Simulation[] = []
 
 export default function Simulacao(){
 
-  const [imovel,setImovel] = useState('')
-  const [despesas,setDespesas] = useState('')
-  const [amortizacao,setAmortizacao] = useState('')
-  const [aniversario , setAniversario] = useState('')
-  const [entrada,setEntrada] = useState('')
-  const [banco,setBanco] = useState('')
-  const [financiamento,setFinanciamento] = useState('')
-  const [prazo,setPrazo] = useState('')
-  const [juros,setJuros] = useState('')
+  const [immobile,setImmobile] = useState('')
+  const [expanses,setExpanses] = useState('')
+  const [amortization,setAmortization] = useState('')
+  const [birthday , setBirthday] = useState('')
+  const [prohibited,setProhibited] = useState('')
+  const [bank,setBank] = useState('')
+  const [financement,setFinancement] = useState('')
+  const [terms,setTerms] = useState('')
+  const [taxs,setTaxs] = useState('')
   const [active,setActive] = useState(true)
-  const saldoDevedor: Number[] = []
-  const parcelas: Number[] = []
-  const [primeiraParcela,setPrimeiraParcela] = useState('')
-  const [ultimaParcela,setUltimaParcela] = useState('')
-  const btnLimpar = useRef<HTMLButtonElement>(null)
+  const dueBalance: Number[] = []
+  const installments: Number[] = []
+  const [firstInstallment,setFirstInstallment] = useState('')
+  const [lastInstallment,setLastInstallment] = useState('')
+  const cleanBtn = useRef<HTMLButtonElement>(null)
   const btnRef = useRef<HTMLButtonElement>(null)
   const outputRef = useRef<HTMLInputElement>(null)
   const mensage = useRef<HTMLParagraphElement>(null)
-  const mensageAmortizacao = useRef<HTMLParagraphElement>(null)
-  const mensageBanco = useRef<HTMLParagraphElement>(null)
-  const mensageAniversario = useRef<HTMLParagraphElement>(null)
-  const mensageDespesa = useRef<HTMLParagraphElement>(null)
-  const mensageEntrada = useRef<HTMLParagraphElement>(null)
-  const mensageJuros = useRef<HTMLParagraphElement>(null)
-  const mensageParcela = useRef<HTMLParagraphElement>(null)
-  const mensagePorcentagemFinanciamento = useRef<HTMLParagraphElement>(null)
+  const amortMessage = useRef<HTMLParagraphElement>(null)
+  const bankMessage = useRef<HTMLParagraphElement>(null)
+  const birthdayMessage = useRef<HTMLParagraphElement>(null)
+  const expanseMessage = useRef<HTMLParagraphElement>(null)
+  const prohibitedMessage = useRef<HTMLParagraphElement>(null)
+  const taxsMessage = useRef<HTMLParagraphElement>(null)
+  const installmentMessage = useRef<HTMLParagraphElement>(null)
+  const financementPercentMessage = useRef<HTMLParagraphElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const refResumo = useRef<HTMLDivElement>(null)
-  const inputAniversario= useRef<HTMLInputElement>(null)
-  const valorDespesa = Number(imovel)*0.05
-  const conta = valorDespesa + Number(financiamento)
+  const summaryRef = useRef<HTMLDivElement>(null)
+  const inputBirthday= useRef<HTMLInputElement>(null)
+  const expanseValue = Number(immobile)*0.05
+  const account = expanseValue + Number(financement)
 
-  function limparCampos(){
-    setImovel('')
-    setFinanciamento('')
-    setEntrada('')
-    setPrazo('')
-    setBanco('')
-    setJuros('')
-    setAniversario('')
-    setAmortizacao('')
-    setDespesas('')
+  function cleanFields(){
+    setImmobile('')
+    setFinancement('')
+    setProhibited('')
+    setTerms('')
+    setBank('')
+    setTaxs('')
+    setBirthday('')
+    setAmortization('')
+    setExpanses('')
     simulationsArray  = []
-    if (outputRef.current && refResumo.current && inputAniversario.current) {
+    if (outputRef.current && summaryRef.current && inputBirthday.current) {
       outputRef.current.style.display = 'none'
-      refResumo.current.style.display = 'none'
-      inputAniversario.current.focus()
+      summaryRef.current.style.display = 'none'
+      inputBirthday.current.focus()
     }
 }
 
-  function despesasFunction(ev:ChangeEvent<HTMLInputElement>){
-      const maxFinanciamento = Number(imovel)*0.080 
-      if(ev.currentTarget.value==='Sim' && conta>maxFinanciamento){
-        setDespesas(ev.currentTarget.value)
-        if(outputRef.current && mensagePorcentagemFinanciamento.current && inputRef.current){
+  function expansesFunction(ev:ChangeEvent<HTMLInputElement>){
+      const maxFinancement = Number(immobile)*0.080 
+      if(ev.currentTarget.value==='Sim' && account>maxFinancement){
+        setExpanses(ev.currentTarget.value)
+        if(outputRef.current && financementPercentMessage.current && inputRef.current){
           outputRef.current.style.display = 'block'
-          mensagePorcentagemFinanciamento.current.innerText = 'Porcentagem máxima de financiamento atingida abaixe o valor'
+          financementPercentMessage.current.innerText = 'Porcentagem máxima de financement atingida abaixe o valor'
           inputRef.current.focus()
         }
-      }else if(ev.currentTarget.value === 'Sim' && conta<maxFinanciamento){
-        setDespesas(ev.currentTarget.value)
-        if(outputRef.current && mensagePorcentagemFinanciamento.current && inputRef.current){
+      }else if(ev.currentTarget.value === 'Sim' && account<maxFinancement){
+        setExpanses(ev.currentTarget.value)
+        if(outputRef.current && financementPercentMessage.current && inputRef.current){
           outputRef.current.style.display = 'block'
-          mensagePorcentagemFinanciamento.current.innerText = ''
+          financementPercentMessage.current.innerText = ''
           
         }
       }else{
-        setDespesas(ev.currentTarget.value)
-        if(outputRef.current && mensagePorcentagemFinanciamento.current){
+        setExpanses(ev.currentTarget.value)
+        if(outputRef.current && financementPercentMessage.current){
           outputRef.current.style.display = 'none'
-          mensagePorcentagemFinanciamento.current.innerText = ''
+          financementPercentMessage.current.innerText = ''
         }
       }
     }
     
-    function checkIdade(ev:ChangeEvent<HTMLInputElement>){
-      const nascimento = ev.currentTarget.value
-      const nascimentoConvertido = new Date(nascimento).getFullYear()
-      const anoAtual = new Date().getFullYear()
-      setAniversario(ev.currentTarget.value)
-      if(mensageAniversario.current){
-        if(anoAtual-nascimentoConvertido>80){
-        mensageAniversario.current.innerText = 'Idade acima do permitido para financiamento.'
-      }else if(anoAtual-nascimentoConvertido<18){
-        mensageAniversario.current.innerText = 'Idade abaixo do permitido para financiamento.'
+    function checkAge(ev:ChangeEvent<HTMLInputElement>){
+      const born = ev.currentTarget.value
+      const conversedBorn = new Date(born).getFullYear()
+      const currentYear = new Date().getFullYear()
+      setBirthday(ev.currentTarget.value)
+      if(birthdayMessage.current){
+        if(currentYear-conversedBorn>80){
+        birthdayMessage.current.innerText = 'Idade acima do permitido para financement.'
+      }else if(currentYear-conversedBorn<18){
+        birthdayMessage.current.innerText = 'Idade abaixo do permitido para financement.'
       }else{
-        mensageAniversario.current.innerText = ''
+        birthdayMessage.current.innerText = ''
       }
       } 
     }
    
     function checkField(ev:React.KeyboardEvent<HTMLInputElement>){
-    const valorEntrada = (Number(imovel)*20) /100
+    const prohibtedValue = (Number(immobile)*20) /100
     
   
     const target = ev.currentTarget
   
     if (target.value === '' || target.value === '0') {
-      if (mensageEntrada.current) {
-        mensageEntrada.current.innerText = 'Preencha esse campo corretamente';
+      if (prohibitedMessage.current) {
+        prohibitedMessage.current.innerText = 'Preencha esse campo corretamente';
       }
-    } else if (target.name === 'prohibited' && Number(target.value) < valorEntrada) {
-      if (mensageEntrada.current) {
-        mensageEntrada.current.innerText = `Valor mínimo de entrada R$ ${valorEntrada},00`;
+    } else if (target.name === 'prohibited' && Number(target.value) < prohibtedValue) {
+      if (prohibitedMessage.current) {
+        prohibitedMessage.current.innerText = `Valor mínimo de entrada R$ ${prohibtedValue},00`;
       }
     } else {
-      if (mensageEntrada.current) {
-        mensageEntrada.current.innerText = '';
+      if (prohibitedMessage.current) {
+        prohibitedMessage.current.innerText = '';
       }
     }
    }
   
-   function checkSistema(ev:ChangeEvent<HTMLInputElement>){
-    setAmortizacao(ev.currentTarget.value)
-    if(mensageAmortizacao.current){
+   function checkSistem(ev:ChangeEvent<HTMLInputElement>){
+    setAmortization(ev.currentTarget.value)
+    if(amortMessage.current){
       if(ev.currentTarget.value === 'Selecione seu sistema de amortização'){
-        mensageAmortizacao.current.innerText = 'Selecione um sistema'
+        amortMessage.current.innerText = 'Selecione um sistema'
         }else{
-        mensageAmortizacao.current.innerText = ''
+        amortMessage.current.innerText = ''
         }
     }
    }
   
   
-  function maxPrazos(ev:React.KeyboardEvent<HTMLInputElement>){
+  function maxTerms(ev:React.KeyboardEvent<HTMLInputElement>){
     const target = ev.currentTarget 
-    const nascimentoConvertido = new Date(aniversario).getFullYear()
-    const anoAtual = new Date().getFullYear()
-    const conta = (anoAtual-nascimentoConvertido) + Number(target.value)/12
-    setPrazo(target.value)
-    if(mensageParcela.current){
+    const conversedBorn = new Date(birthday).getFullYear()
+    const currentYear = new Date().getFullYear()
+    const account = (currentYear-conversedBorn) + Number(target.value)/12
+    setTerms(target.value)
+    if(installmentMessage.current){
       if(Number(target.value)<3){
-        mensageParcela.current.innerText = 'Numero minimo de parcelas 12'
+        installmentMessage.current.innerText = 'Numero minimo de parcelas 12'
       }
-      else if(banco === 'bradesco' && Number(target.value)>420){
-       mensageParcela.current.innerText = 'Numero maximo de parcelas 420'
-      }else if(banco === 'bradesco' && conta>80){
-      const sobra = (conta-80)*12 
-      mensageParcela.current.innerText = `Devido as politicas do banco seu novo limite de parcelas é ${420-Number(sobra.toFixed(0))}`
+      else if(bank === 'bradesco' && Number(target.value)>420){
+       installmentMessage.current.innerText = 'Numero maximo de parcelas 420'
+      }else if(bank === 'bradesco' && account>80){
+      const sobra = (account-80)*12 
+      installmentMessage.current.innerText = `Devido as politicas do bank seu novo limite de parcelas é ${420-Number(sobra.toFixed(0))}`
       }else{
-       mensageParcela.current.innerText = ''
+       installmentMessage.current.innerText = ''
       }
     }
   }
 
   function minValues(ev:React.KeyboardEvent<HTMLInputElement>){
     const target = ev.currentTarget 
-    const valorEntrada = (Number(target.value)*20) /100
-    if(mensage.current && mensageEntrada.current && mensageParcela.current && mensagePorcentagemFinanciamento.current){
+    const prohibtedValue = (Number(target.value)*20) /100
+    if(mensage.current && prohibitedMessage.current && installmentMessage.current && financementPercentMessage.current){
       if(Number(target.value) < 50){
         mensage.current.innerText = 'Valor minimo de imovel R$ 40,000'
       }else{
         mensage.current.innerText = ''
-        mensagePorcentagemFinanciamento.current.innerText = ''
-        mensageEntrada.current.innerText = ''
-        mensageParcela.current.innerText = ''
-        const financiamento = (Number(target.value) * 80) / 100
-        setFinanciamento(`${financiamento}`)
-        setEntrada(`${valorEntrada}`)
+        financementPercentMessage.current.innerText = ''
+        prohibitedMessage.current.innerText = ''
+        installmentMessage.current.innerText = ''
+        const financement = (Number(target.value) * 80) / 100
+        setFinancement(`${financement}`)
+        setProhibited(`${prohibtedValue}`)
       }
     }
   }
 
   function maxValue(ev:React.KeyboardEvent<HTMLInputElement>){
     const target = ev.currentTarget 
-    const porcentagem = (Number(target.value)/Number(imovel)) * 100 
-    if(mensagePorcentagemFinanciamento.current){
-      if(porcentagem>80){
-        mensagePorcentagemFinanciamento.current.innerText = 'Porcentagem máxima de financiamento atingida abaixe o valor'
+    const percent = (Number(target.value)/Number(immobile)) * 100 
+    if(financementPercentMessage.current){
+      if(percent>80){
+        financementPercentMessage.current.innerText = 'Porcentagem máxima de financiamento atingida abaixe o valor'
         }else{
-        mensagePorcentagemFinanciamento.current.innerText = ''
+        financementPercentMessage.current.innerText = ''
         }
     }
   }
 
-  function bancoPrazo(ev:ChangeEvent<HTMLSelectElement>){
+  function termBank(ev:ChangeEvent<HTMLSelectElement>){
     const target = ev.currentTarget
-    setBanco(target.value)
-    if(mensageBanco.current && mensageJuros.current && mensageParcela.current){
+    setBank(target.value)
+    if(bankMessage.current && taxsMessage.current && installmentMessage.current){
         if(target.value === 'bradesco'){
-          setJuros('6%')
-          mensageParcela.current.innerText = ''
-          mensageJuros.current.innerText = ''
-          mensageBanco.current.innerText = ''
+          setTaxs('6%')
+          installmentMessage.current.innerText = ''
+          taxsMessage.current.innerText = ''
+          bankMessage.current.innerText = ''
         }else{
-          mensageBanco.current.innerText = 'Selecione um banco valido para dar continuidade'
+          bankMessage.current.innerText = 'Selecione um baco valido para dar continuidade'
           console.log('Outro banco')
         }
     }
@@ -217,197 +217,193 @@ export default function Simulacao(){
 
     async function createSimulation(ev:FormEvent){
       ev.preventDefault()
-      const jurosConvertido = juros.replace(/%/g,'')
+      const taxsConvertido = taxs.replace(/%/g,'')
       const taxaConta = 1/12
-      const contaTaxa = Number(((Number(jurosConvertido)/100)+1)**taxaConta)-1
+      const accountTaxa = Number(((Number(taxsConvertido)/100)+1)**taxaConta)-1
    
-      const nascimento = new Date(aniversario).getFullYear()
-      const anoAtual = new Date().getFullYear()
-      const conta = (anoAtual-nascimento) + Number(prazo)/12
-      const valorEntrada = (Number(imovel)*20) /100
-      const porcentagem = (Number(financiamento)/Number(imovel)) * 100
+      const born = new Date(birthday).getFullYear()
+      const currentYear = new Date().getFullYear()
+      const account = (currentYear-born) + Number(terms)/12
+      const prohibtedValue = (Number(immobile)*20) /100
+      const percent = (Number(financement)/Number(immobile)) * 100
      
-      if(banco === 'Selecione um banco'){
-        if(mensageBanco.current && mensageJuros.current){
-          mensageBanco.current.innerText = 'Selecione um banco valido para dar continuidade'
-          mensageJuros.current.innerText = 'Preencha a taxa de juros'
+      if(bank === 'Selecione um bank'){
+        if(bankMessage.current && taxsMessage.current){
+          bankMessage.current.innerText = 'Selecione um banco valido para dar continuidade'
+          taxsMessage.current.innerText = 'Preencha a taxa de taxs'
         }
       } 
-      else if(aniversario === ''){
-        if(mensageAniversario.current){
-          mensageAniversario.current.innerText = 'Preencha com sua data de nascimento para dar continuidade.'
+      else if(birthday === ''){
+        if(birthdayMessage.current){
+          birthdayMessage.current.innerText = 'Preencha com sua data de born para dar continuidade.'
         }
-      }else if(anoAtual-nascimento>80){
-        if(mensageAniversario.current){
-        mensageAniversario.current.innerText = 'Idade acima do permitido para financiamento.'
+      }else if(currentYear-born>80){
+        if(birthdayMessage.current){
+        birthdayMessage.current.innerText = 'Idade acima do permitido para financiamento.'
         }
-      }else if(anoAtual-nascimento<18){
-        if(mensageAniversario.current){ 
-        mensageAniversario.current.innerText = 'Idade abaixo do permitido para financiamento.'
+      }else if(currentYear-born<18){
+        if(birthdayMessage.current){ 
+        birthdayMessage.current.innerText = 'Idade abaixo do permitido para financiamento.'
         }
       }
-      else if(financiamento === '' && imovel === ''){
-        if(mensage.current && mensagePorcentagemFinanciamento.current && mensageEntrada.current && mensageBanco.current && mensageJuros.current && mensageAniversario.current){
+      else if(financement === '' && immobile === ''){
+        if(mensage.current && financementPercentMessage.current && prohibitedMessage.current && bankMessage.current && taxsMessage.current && birthdayMessage.current){
         mensage.current.innerText = 'Preencha o valor do imovel'
-        mensagePorcentagemFinanciamento.current.innerText = 'Preencha o valor do financiamento'
-        mensageEntrada.current.innerText = 'Preencha o valor de entrada'
-        mensageBanco.current.innerText = ''
-        mensageJuros.current.innerText = ''
-        mensageAniversario.current.innerText = ''
+        financementPercentMessage.current.innerText = 'Preencha o valor do financiamento'
+        prohibitedMessage.current.innerText = 'Preencha o valor de entrada'
+        bankMessage.current.innerText = ''
+        taxsMessage.current.innerText = ''
+        birthdayMessage.current.innerText = ''
         }
-      }else if(financiamento === `${0}` && imovel === `${0}`){
-        if(mensage.current && mensagePorcentagemFinanciamento.current && mensageEntrada.current && mensageBanco.current && mensageJuros.current && mensageAniversario.current){
-        mensageEntrada.current.innerText = 'Preencha o valor de entrada'
-        mensage.current.innerText = 'Preencha o valor do imovel'
-        mensagePorcentagemFinanciamento.current.innerText = 'Preencha o valor do financiamento'
-        mensageEntrada.current.innerText = 'Preencha o valor de entrada'
-        mensageBanco.current.innerText = ''
-        mensageJuros.current.innerText = ''
-        mensageAniversario.current.innerText = ''
+      }else if(financement === `${0}` && immobile === `${0}`){
+        if(mensage.current && financementPercentMessage.current && prohibitedMessage.current && bankMessage.current && taxsMessage.current && birthdayMessage.current){
+        prohibitedMessage.current.innerText = 'Preencha o valor de entrada'
+        mensage.current.innerText = 'Preencha o valor do immobile'
+        financementPercentMessage.current.innerText = 'Preencha o valor do financement'
+        prohibitedMessage.current.innerText = 'Preencha o valor de prohibited'
+        bankMessage.current.innerText = ''
+        taxsMessage.current.innerText = ''
+        birthdayMessage.current.innerText = ''
         }
-      }else if(imovel === `${0}`){
+      }else if(immobile === `${0}`){
         if(mensage.current){
-          mensage.current.innerText = 'Preencha o valor do imovel'
+          mensage.current.innerText = 'Preencha o valor do immobile'
         }
-      }else if(financiamento === `${0}`){
-        if(mensagePorcentagemFinanciamento.current){
-          mensagePorcentagemFinanciamento.current.innerText = 'Preencha o valor do financiamento'
+      }else if(financement === `${0}`){
+        if(financementPercentMessage.current){
+          financementPercentMessage.current.innerText = 'Preencha o valor do financement'
         }
-      }else if(prazo === ''){
-        if(mensageParcela.current){
-          mensageParcela.current.innerText = 'Preencha o numero de parcelas'
+      }else if(terms === ''){
+        if(installmentMessage.current){
+          installmentMessage.current.innerText = 'Preencha o numero de installments'
         }
-      }else if(entrada === '') {
-        if(mensageEntrada.current){
-          mensageEntrada.current.innerText = 'Preencha o valor de entrada'
+      }else if(prohibited === '') {
+        if(prohibitedMessage.current){
+          prohibitedMessage.current.innerText = 'Preencha o valor de prohibited'
         }
-      }else if(porcentagem>80){
-        if(mensagePorcentagemFinanciamento.current){
-          mensagePorcentagemFinanciamento.current.innerText = 'Porcentagem máxima de financiamento atingida abaixe o valor'
+      }else if(percent>80){
+        if(financementPercentMessage.current){
+          financementPercentMessage.current.innerText = 'Porcentagem máxima de financement atingida abaixe o valor'
         }
-      }else if(banco === 'bradesco' && Number(prazo)>420){
-        if(mensageParcela.current){
-          mensageParcela.current.innerText = 'Numero de parcelas acima do limite pra esse banco'
+      }else if(bank === 'bradesco' && Number(terms)>420){
+        if(installmentMessage.current){
+          installmentMessage.current.innerText = 'Numero de installments acima do limite pra esse bank'
         }
-      }else if(Number(entrada)<Number(valorEntrada)){
-        if(mensageEntrada.current){
-          mensageEntrada.current.innerText = `Valor minimo de entrada R$ ${valorEntrada},00`
+      }else if(Number(prohibited)<Number(prohibtedValue)){
+        if(prohibitedMessage.current){
+          prohibitedMessage.current.innerText = `Valor minimo de prohibited R$ ${prohibtedValue},00`
         }
-      }else if(juros === ''){
-        if(mensageJuros.current){
-          mensageJuros.current.innerText = 'Preencha a taxa de juros de acordo com o seu banco.'
+      }else if(taxs === ''){
+        if(taxsMessage.current){
+          taxsMessage.current.innerText = 'Preencha a taxa de taxs de acordo com o seu bank.'
         }
-      }else if(Number(prazo)<3){
-        if(mensageParcela.current){
-        mensageParcela.current.innerText = 'Numero de parcelas mininimas é 12.'
+      }else if(Number(terms)<3){
+        if(installmentMessage.current){
+        installmentMessage.current.innerText = 'Numero de installments mininimas é 12.'
       }
-      }else if(banco === 'bradesco' && conta>80){
-        const sobra = (conta-80)*12 
-        if(mensageParcela.current){
-          mensageParcela.current.innerText = `Devido as politicas do banco seu novo limite de parcelas é ${420-Number(sobra.toFixed(0))}`
+      }else if(bank === 'bradesco' && account>80){
+        const sobra = (account-80)*12 
+        if(installmentMessage.current){
+          installmentMessage.current.innerText = `Devido as politicas do bank seu novo limite de installments é ${420-Number(sobra.toFixed(0))}`
         }
-      }else if(amortizacao === 'Selecione seu sistema de amortização'){
-        if(mensageAmortizacao.current){
-          mensageAmortizacao.current.innerText = 'Selecione um sistema '
+      }else if(amortization === 'Selecione seu sistema de amortização'){
+        if(amortMessage.current){
+          amortMessage.current.innerText = 'Selecione um sistema '
         }
-      }else if(despesas === ''){
-        if(mensageDespesa.current){
-          mensageDespesa.current.innerText = 'Selecione uma alternativa'
+      }else if(expanses === ''){
+        if(expanseMessage.current){
+          expanseMessage.current.innerText = 'Selecione uma alternativa'
         }
 
-      }else if(amortizacao === 'SAC' && banco=== 'bradesco'){
+      }else if(amortization === 'SAC' && bank=== 'bradesco'){
         setActive(false)
-        if( refResumo.current && mensageAmortizacao.current && mensagePorcentagemFinanciamento.current && mensageParcela.current && mensageEntrada.current && mensageAniversario.current && mensageJuros.current && mensageDespesa.current && mensageBanco.current){
-        refResumo.current.style.display = 'block'
-        mensagePorcentagemFinanciamento.current.innerText = ''
-        mensageParcela.current.innerText = ''
-        mensageEntrada.current.innerText = ''
-        mensageBanco.current.innerText = ''
-        mensageAniversario.current.innerText = ''
-        mensageJuros.current.innerText = ''
-        mensageAmortizacao.current.innerText = ''
-        mensageDespesa.current.innerText = ''
+        if( summaryRef.current && amortMessage.current && financementPercentMessage.current && installmentMessage.current && prohibitedMessage.current && birthdayMessage.current && taxsMessage.current && expanseMessage.current && bankMessage.current){
+        summaryRef.current.style.display = 'block'
+        financementPercentMessage.current.innerText = ''
+        installmentMessage.current.innerText = ''
+        prohibitedMessage.current.innerText = ''
+        bankMessage.current.innerText = ''
+        birthdayMessage.current.innerText = ''
+        taxsMessage.current.innerText = ''
+        amortMessage.current.innerText = ''
+        expanseMessage.current.innerText = ''
         const values:Number[] = []
-        values.push(Number(financiamento))
+        values.push(Number(financement))
         
-        for(let i = 1; i<=Number(prazo); i++){
-          values.push(Number(financiamento) / Number(prazo))
+        for(let i = 1; i<=Number(terms); i++){
+          values.push(Number(financement) / Number(terms))
         }
   
         const result = values.reduce((acc,cur)=>{
-          saldoDevedor.push(Number((Number(acc)-Number(cur)).toFixed(2)))
+          dueBalance.push(Number((Number(acc)-Number(cur)).toFixed(2)))
           return Number(acc)-Number(cur)
         })
   
-        const amort = Number(financiamento) / Number(prazo)
+        const amort = Number(financement) / Number(terms)
        
     
-        for(let i = 1; i<=Number(prazo); i++){
-          const parcela = (((5-Number([i])+1)*contaTaxa)+1)*amort
-          parcelas.push(parcela)
+        for(let i = 1; i<=Number(terms); i++){
+          const installment = (((5-Number([i])+1)*accountTaxa)+1)*amort
+          installments.push(installment)
           var simulation = {
-          parcelas:`Parcela ${i}`,
-          valorParcela: parcela.toFixed(2),
-          juros: (parcela-amort).toFixed(2),
-          financiado: financiamento,
-          amortizacao: amort.toFixed(2),
-          saldoDevedor: saldoDevedor[i-1],
+          installments:`Parcela ${i}`,
+          installmentValue: installment.toFixed(2),
+          taxs: (installment-amort).toFixed(2),
+          financied: financement,
+          amortization: amort.toFixed(2),
+          dueBalance: dueBalance[i-1],
           }
           simulationsArray.push(simulation)   
       }
-      setPrimeiraParcela(Number(parcelas[0]).toFixed(2))
-      setUltimaParcela(Number(parcelas[parcelas.length-1]).toFixed(2))
+      setFirstInstallment(Number(installments[0]).toFixed(2))
+      setLastInstallment(Number(installments[installments.length-1]).toFixed(2))
     }
-      }else if(amortizacao === 'PRICE' && banco=== 'bradesco'){ 
+      }else if(amortization === 'PRICE' && bank=== 'bradesco'){ 
       setActive(true)
-      if(refResumo.current && mensageAmortizacao.current && mensagePorcentagemFinanciamento.current && mensageParcela.current && mensageEntrada.current && mensageAniversario.current && mensageJuros.current && mensageDespesa.current && mensageBanco.current){
-      refResumo.current.style.display = 'block'
-      mensagePorcentagemFinanciamento.current.innerText = ''
-      mensageParcela.current.innerText = ''
-      mensageEntrada.current.innerText = ''
-      mensageBanco.current.innerText = ''
-      mensageAniversario.current.innerText = ''
-      mensageJuros.current.innerText = ''
-      mensageAmortizacao.current.innerText = ''
-      mensageDespesa.current.innerText = ''
+      if(summaryRef.current && amortMessage.current && financementPercentMessage.current && installmentMessage.current && prohibitedMessage.current && birthdayMessage.current && taxsMessage.current && expanseMessage.current && bankMessage.current){
+      summaryRef.current.style.display = 'block'
+      financementPercentMessage.current.innerText = ''
+      installmentMessage.current.innerText = ''
+      prohibitedMessage.current.innerText = ''
+      bankMessage.current.innerText = ''
+      birthdayMessage.current.innerText = ''
+      taxsMessage.current.innerText = ''
+      amortMessage.current.innerText = ''
+      expanseMessage.current.innerText = ''
       const values = []
-      values.push(Number(financiamento))
+      values.push(Number(financement))
       
     
-      for(let i = 1; i<=Number(prazo); i++){
-        values.push(Number(financiamento) / Number(prazo))
+      for(let i = 1; i<=Number(terms); i++){
+        values.push(Number(financement) / Number(terms))
       }
 
 
       const result = values.reduce((acc,cur)=>{
-        saldoDevedor.push(Number((Number(acc)-Number(cur)).toFixed(2)))
+        dueBalance.push(Number((Number(acc)-Number(cur)).toFixed(2)))
         return acc-cur
       })
-      saldoDevedor.unshift(Number(financiamento))
-      const amort = Number(financiamento) / Number(prazo)
+      dueBalance.unshift(Number(financement))
+      const amort = Number(financement) / Number(terms)
     
 
-      for(let i = 1; i<=Number(prazo); i++){
-        const parcela = Number(financiamento)*(((1+contaTaxa)**Number(prazo))*contaTaxa)/((((1+contaTaxa)**Number(prazo))-1))
-        parcelas.push(parcela)
+      for(let i = 1; i<=Number(terms); i++){
+        const installment = Number(financement)*(((1+accountTaxa)**Number(terms))*accountTaxa)/((((1+accountTaxa)**Number(terms))-1))
+        installments.push(installment)
         var simulation = {
-        parcelas:`Parcela ${i}`,
-        valorParcela: parcela.toFixed(2),
-        juros: (Number(saldoDevedor[i-1])*contaTaxa).toFixed(2),
-        financiado: financiamento,
-        amortizacao: (parcela - (Number(saldoDevedor[i-1])*contaTaxa)).toFixed(2) ,
-        saldoDevedor: saldoDevedor[i],
+        installments:`Parcela ${i}`,
+        installmentValue: installment.toFixed(2),
+        taxs: (Number(dueBalance[i-1])*accountTaxa).toFixed(2),
+        financied: financement,
+        amortization: (installment - (Number(dueBalance[i-1])*accountTaxa)).toFixed(2) ,
+        dueBalance: dueBalance[i],
         
         }
         simulationsArray.push(simulation)  
       }
 
-      const nascimentoConvertido = new Date(aniversario).getFullYear()
-      const anoAtual = new Date().getFullYear()
-      const idade = anoAtual-nascimentoConvertido
-
-      setPrimeiraParcela(Number(parcelas[0]).toFixed(2))
-      setUltimaParcela(Number(parcelas[parcelas.length-1]).toFixed(2))
+      setFirstInstallment(Number(installments[0]).toFixed(2))
+      setLastInstallment(Number(installments[installments.length-1]).toFixed(2))
     
     }
         
@@ -420,150 +416,150 @@ export default function Simulacao(){
   return(
    <ConsultorLayout>
     <title>Simulação - Consultor</title>
-     <div className={style.container}>
+     <div className={style.accountiner}>
         <h1>Simulação</h1>
         <form className={style.form} onSubmit={(ev)=>createSimulation(ev)}>
-          <label htmlFor="birthday">Data de nascimento</label>
-          <p ref={mensageAniversario} className={style.errorSpan}></p>
+          <label htmlFor="birthday">Data de born</label>
+          <p ref={birthdayMessage} className={style.errorSpan}></p>
           <input 
           type="date" 
           name="birthday" 
           id="birthday"
-          value={aniversario}
-          ref={inputAniversario}
-          onChange={(ev)=>checkIdade(ev)}
+          value={birthday}
+          ref={inputBirthday}
+          onChange={(ev)=>checkAge(ev)}
           />
           <label htmlFor="bank">Banco</label>
-          <p ref={mensageBanco} className={style.errorSpan}></p>
+          <p ref={bankMessage} className={style.errorSpan}></p>
           <select 
           name="bank" 
           id="bank"
-          value={banco}
-          onChange={(ev)=>bancoPrazo(ev)}
+          value={bank}
+          onChange={(ev)=>termBank(ev)}
           >
-            <option value="selecione um banco">Selecione um banco</option>
+            <option value="selecione um bank">Selecione um bank</option>
             <option value="bradesco">Bradesco</option>
             <option value="santander">Santander</option>
           </select>
   
-          <label htmlFor="house">Valor do imovel</label>
+          <label htmlFor="house">Valor do immobile</label>
           <p ref={mensage} className={style.errorSpan}></p>
           <input 
           type="text" 
           name="house" 
           id="house"
-          value={imovel} 
-          onChange={(ev)=>setImovel(ev.currentTarget.value)}
+          value={immobile} 
+          onChange={(ev)=>setImmobile(ev.currentTarget.value)}
           onKeyUp={(ev)=>minValues(ev)}
           />
-          <label htmlFor="financiment">Valor do financiamento</label>
-          <p ref={mensagePorcentagemFinanciamento} className={style.errorSpan}></p>
+          <label htmlFor="financiment">Valor do financement</label>
+          <p ref={financementPercentMessage} className={style.errorSpan}></p>
           <input 
           type="text" 
           name="financement" 
           id="financement" 
           ref={inputRef}
-          value={financiamento}
-          onChange={(ev)=>setFinanciamento(ev.currentTarget.value)}
+          value={financement}
+          onChange={(ev)=>setFinancement(ev.currentTarget.value)}
           onKeyUp={(ev)=>maxValue(ev)}
           />
-          <label htmlFor="prohibited">Valor da entrada</label>
-          <p ref={mensageEntrada} className={style.errorSpan}></p>
+          <label htmlFor="prohibited">Valor da prohibited</label>
+          <p ref={prohibitedMessage} className={style.errorSpan}></p>
           <input 
           type="text" 
           name="prohibited" 
           id="prohibited" 
-          value={entrada}
-          onChange={(ev)=>setEntrada(ev.currentTarget.value)}
+          value={prohibited}
+          onChange={(ev)=>setProhibited(ev.currentTarget.value)}
           onKeyUp={(ev)=>checkField(ev)}
           />
         
           <label htmlFor="term">Prazo</label>
-          <p ref={mensageParcela} className={style.errorSpan}></p>
+          <p ref={installmentMessage} className={style.errorSpan}></p>
           <input 
           type="text" 
           name="term" 
           id="term" 
-          value={prazo}
-          onChange={(ev)=>setPrazo(ev.currentTarget.value)}
-          onKeyUp={(ev)=>maxPrazos(ev)}
+          value={terms}
+          onChange={(ev)=>setTerms(ev.currentTarget.value)}
+          onKeyUp={(ev)=>maxTerms(ev)}
           />
           <label htmlFor="amort">Sistema de Amortização</label>
-          <p ref={mensageAmortizacao} className={style.errorSpan}></p>
+          <p ref={amortMessage} className={style.errorSpan}></p>
           <input 
           type="text" 
           name="amort" 
           id="amort"
-          value={amortizacao}
-          onChange={(ev)=>checkSistema(ev)}
+          value={amortization}
+          onChange={(ev)=>checkSistem(ev)}
           />
           <label htmlFor="taxs">Taxas de Juros</label>
-          <p ref={mensageJuros} className={style.errorSpan}></p>
+          <p ref={taxsMessage} className={style.errorSpan}></p>
           <input 
           type="text" 
           name="taxs" 
           id="taxs" 
-          value={juros}
-          onChange={(ev)=>setJuros(ev.currentTarget.value)}
+          value={taxs}
+          onChange={(ev)=>setTaxs(ev.currentTarget.value)}
           />
-          <label htmlFor="expanses">Incluir despesas?</label>
-          <p ref={mensageDespesa} className={style.errorSpan}></p>
+          <label htmlFor="expanses">Incluir expanses?</label>
+          <p ref={expanseMessage} className={style.errorSpan}></p>
           <div className={style.radios}>
           <div className={style.radio}>
             <label htmlFor="sim">Sim</label>
             <input
             type="radio"
-            name="despesas"
+            name="expanses"
             value={'Sim'}
-            checked={despesas === 'Sim'}
-            onChange={(ev)=>despesasFunction(ev)}
+            checked={expanses === 'Sim'}
+            onChange={(ev)=>expansesFunction(ev)}
             />
           </div>
           <div className={style.radio}>
             <label htmlFor="nao">Não</label>
             <input
             type="radio"
-            name="despesas"
+            name="expanses"
             value={'Não'}
-            checked={despesas === 'Não'}
-            onChange={(ev)=>despesasFunction(ev)}
+            checked={expanses === 'Não'}
+            onChange={(ev)=>expansesFunction(ev)}
             />
           </div>
           </div>
           <div className={style.outputContainer} ref={outputRef}>
-          <label htmlFor="despesas">Despesas</label>
+          <label htmlFor="expanses">Despesas</label>
           <input 
           type="text" 
           className={style.outputRef}
-          value={valorDespesa}
+          value={expanseValue}
           />
         </div>
           <div>
             <button ref={btnRef}>SIMULAR</button>
-            <button onClick={limparCampos} ref={btnLimpar}>LIMPAR</button>
+            <button onClick={cleanFields} ref={cleanBtn}>LIMPAR</button>
           </div>
         </form>
 
         {active === true?(
-      <div className={style.summary} ref={refResumo}>
-        <h2>Resumo do financiamento</h2>
-        <h4>Valor Imovel: R$ {imovel}</h4>
-        <h4>Valor Financiamento: R$ {financiamento}</h4>
-        <h4>Valor Entrada: R$ {entrada}</h4>
+      <div className={style.summary} ref={summaryRef}>
+        <h2>Resumo do financement</h2>
+        <h4>Valor Imovel: R$ {immobile}</h4>
+        <h4>Valor Financiamento: R$ {financement}</h4>
+        <h4>Valor Entrada: R$ {prohibited}</h4>
         <h4>Renda Minima: (NÃO INFORMADO)</h4>
-        {despesas === 'Sim'?(
-          <h4>Despesas: R$ {Number(valorDespesa).toFixed(2)}</h4>
+        {expanses === 'Sim'?(
+          <h4>Despesas: R$ {Number(expanseValue).toFixed(2)}</h4>
         ):(
           <h4>Despesas: (NÃO INFORMADO)</h4>
         )}
         <h4>Vistoria: R$ 2.114,03</h4>
-        <h4>Valor Total Financiado: R$ {Number(conta).toFixed(2)}</h4>
-        <h4>Prazo: {prazo} meses</h4>
-        <h4>Primeira Parcela: R$ {primeiraParcela}</h4>
-        <h4>Ultima Parcela: R$ {ultimaParcela}</h4>
+        <h4>Valor Total Financiado: R$ {Number(account).toFixed(2)}</h4>
+        <h4>Prazo: {terms} meses</h4>
+        <h4>Primeira Parcela: R$ {firstInstallment}</h4>
+        <h4>Ultima Parcela: R$ {lastInstallment}</h4>
         <h4>Valor CET: (NÃO INFORMADO)</h4> 
         <h4>Valor CESH: (NÃO INFORMADO)</h4> 
-        <h4>Taxa Efetiva: {juros}</h4> 
+        <h4>Taxa Efetiva: {taxs}</h4> 
         <h4>Taxa Nominal: (NÃO INFORMADO)</h4> 
         <button className={style.btnPdf}>
     <Image
@@ -576,25 +572,25 @@ export default function Simulacao(){
     </button> 
     </div>
       ):(
-      <div className={style.summary} ref={refResumo}>
-      <h2>Resumo do financiamento</h2>
-      <h4>Valor Imovel: R$ {imovel}</h4>
-      <h4>Valor Financiamento: R$ {financiamento}</h4>
-      <h4>Valor Entrada: R$ {entrada}</h4>
+      <div className={style.summary} ref={summaryRef}>
+      <h2>Resumo do financement</h2>
+      <h4>Valor Imovel: R$ {immobile}</h4>
+      <h4>Valor Financiamento: R$ {financement}</h4>
+      <h4>Valor Entrada: R$ {prohibited}</h4>
       <h4>Renda Minima: (NÃO INFORMADO)</h4>
-      {despesas === 'Sim'?(
-          <h4>Despesas: R$ {Number(valorDespesa).toFixed(2)}</h4>
+      {expanses === 'Sim'?(
+          <h4>Despesas: R$ {Number(expanseValue).toFixed(2)}</h4>
       ):(
           <h4>Despesas: (NÃO INFORMADO)</h4>
       )}
       <h4>Vistoria: R$ 2.114,03</h4>
-      <h4>Valor Total Financiado: R$ {Number(financiamento).toFixed(2)}</h4>
-      <h4>Prazo: {prazo} meses</h4>
-      <h4>Primeira Parcela: R$ {primeiraParcela}</h4>
-      <h4>Ultima Parcela: R$ {ultimaParcela}</h4>
+      <h4>Valor Total Financiado: R$ {Number(financement).toFixed(2)}</h4>
+      <h4>Prazo: {terms} meses</h4>
+      <h4>Primeira Parcela: R$ {firstInstallment}</h4>
+      <h4>Ultima Parcela: R$ {lastInstallment}</h4>
       <h4>Valor CET: (NÃO INFORMADO)</h4>
       <h4>Valor CESH: (NÃO INFORMADO)</h4>
-      <h4>Taxa Efetiva: {juros}</h4>
+      <h4>Taxa Efetiva: {taxs}</h4>
       <h4>Taxa Nominal: (NÃO INFORMADO)</h4>
       <button 
       className={style.btnPdf}

@@ -6,28 +6,19 @@ import getLocalStorage from "../../functions/getLocalStorage"
 import useProcess from "@/src/hooks/useProcess"
 export default function Cadastrar(){
   const {client,setClient,emailClient,setEmailClient,phoneClient,setPhoneClient,bank,setBank,modality,setModality,immobile,setImmobile,installments,setInstallments,idConsultant,setIdConsultant,firstInstallment,setFirstInstallment,taxs,setTaxs,lastInstallment,setLastInstallment} = useProcess()
-  const spanNomeRef = useRef<HTMLParagraphElement>(null)
-  const spanTelefoneRef = useRef<HTMLParagraphElement>(null)
+  const spanNameRef = useRef<HTMLParagraphElement>(null)
+  const spanPhoneRef = useRef<HTMLParagraphElement>(null)
   const spanEmailRef = useRef<HTMLParagraphElement>(null)
-  const spanBancoRef = useRef<HTMLParagraphElement>(null)
-  const spanParcelaRef = useRef<HTMLParagraphElement>(null)
-  const spanImovelRef = useRef<HTMLParagraphElement>(null)
-  const spanConsultorRef = useRef<HTMLParagraphElement>(null)
-  const spanModalidadeRef = useRef<HTMLParagraphElement>(null)
+  const spanBankRef = useRef<HTMLParagraphElement>(null)
+  const spanTermRef = useRef<HTMLParagraphElement>(null)
+  const spanImmobileRef = useRef<HTMLParagraphElement>(null)
+  const spanConsultantRef = useRef<HTMLParagraphElement>(null)
+  const spanModalityRef = useRef<HTMLParagraphElement>(null)
   const installmentsArray: any[] = []
   
   
   
-  type User = {
-    avatar: string
-    email: string
-    id: number
-    idConsultor: string
-    nome: string
-    telefone: string
-    role: string
-    memberSince: string
-  }
+
 
   function gerarHexAleatorio(){
     const caracteresHex = '0123456789ABCDEFGHIJKLMNOPRSTUVWXYZ'
@@ -43,13 +34,13 @@ export default function Cadastrar(){
   function bankTerms(){
     if(bank === 'Bradesco'){
      setTaxs('6%')
-     if(spanParcelaRef.current && spanBancoRef.current){
-      spanParcelaRef.current.innerText = ''
-      spanBancoRef.current.innerText = ''
+     if(spanTermRef.current && spanBankRef.current){
+      spanTermRef.current.innerText = ''
+      spanBankRef.current.innerText = ''
      }
     }else{
-      if(spanBancoRef.current){
-      spanBancoRef.current.innerText = 'Selecione um banco valido para dar continuidade'
+      if(spanBankRef.current){
+      spanBankRef.current.innerText = 'Selecione um banco valido para dar continuidade'
       console.log('Outro banco')
       }
     }
@@ -62,372 +53,372 @@ export default function Cadastrar(){
   const user = getLocalStorage()
   const protocoloAleatorio = gerarHexAleatorio()
   const data = new Date()
-  const numeroMes = data.getMonth()
+  const numberMonth = data.getMonth()
   const conversedTax = taxs.replace(/%/g,'')
   const taxAcount = 1/12
   const acountTax = Number(((Number(conversedTax)/100)+1)**taxAcount)-1
   const amort = Number(immobile) / Number(installments)
   const financement = (Number(immobile)*80)/100
 
-  var nomesDosMeses = [
+  var nameOfMonths = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
-  var nomeDoMes = nomesDosMeses[numeroMes];
-  if(spanNomeRef.current && spanEmailRef.current && spanBancoRef.current && spanModalidadeRef.current && spanImovelRef.current && spanParcelaRef.current && spanConsultorRef.current && spanTelefoneRef.current && user){
+  var nameOfMonth = nameOfMonths[numberMonth];
+  if(spanNameRef.current && spanEmailRef.current && spanBankRef.current && spanModalityRef.current && spanImmobileRef.current && spanTermRef.current && spanConsultantRef.current && spanPhoneRef.current && user){
   if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === '' && idConsultant === ''){
-  spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+  spanNameRef.current.innerText = 'Preencha o campo corretamente'
   spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-  spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-  spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-  spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-  spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-  spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-  spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
+  spanBankRef.current.innerText = 'Preencha o campo corretamente'
+  spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+  spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+  spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+  spanTermRef.current.innerText = 'Preencha o campo corretamente'
+  spanConsultantRef.current.innerText = 'Preencha o campo corretamente'
   }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && idConsultant!= user.idconsultant){
-    spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+    spanNameRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = 'Proibido adicionar processos a outras contas'
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = 'Proibido adicionar processos a outras contas'
   }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === ''){
-    spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+    spanNameRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = ''
   }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === ''){
-    spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+    spanNameRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = ''
   }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' && modality === '' ){
-    spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+    spanNameRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(client=== '' && emailClient === '' && phoneClient === '' && bank === '' ){
-    spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+    spanNameRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(client=== '' && emailClient === '' && phoneClient === ''){
-    spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+    spanNameRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(client=== '' && emailClient === ''){
-    spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+    spanNameRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(client=== ''){
-    spanNomeRef.current.innerText = 'Preencha o campo corretamente'
+    spanNameRef.current.innerText = 'Preencha o campo corretamente'
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === '' && idConsultant === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = 'Preencha o campo corretamente'
 
   }else if(emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = ''
   }else if(emailClient === '' && phoneClient === '' && bank === '' && modality === '' && immobile === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(emailClient === '' && phoneClient === '' && bank === '' && modality === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(emailClient === '' && phoneClient === '' && bank === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(emailClient === '' && phoneClient === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }
   else if(emailClient === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = 'Preencha o campo corretamente'
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === '' && idConsultant === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = 'Preencha o campo corretamente'
   }else if(phoneClient === '' && bank === '' && modality === '' && immobile === '' && installments === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = ''
   }else if(phoneClient === '' && bank === '' && modality === '' && immobile === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(phoneClient === '' && bank === '' && modality === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(phoneClient === '' && bank === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(phoneClient === '' && bank === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = 'Preencha o campo corretamente'
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = 'Preencha o campo corretamente'
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(bank === '' && modality === '' && immobile === '' && installments === '' && idConsultant === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = 'Preencha o campo corretamente'
   }else if(bank === '' && modality === '' && immobile === '' && installments === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = ''
   }else if(bank === '' && modality === '' && immobile === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(bank === '' && modality === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(bank === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = 'Preencha o campo corretamente'
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = 'Preencha o campo corretamente'
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(modality === '' && immobile === '' && installments === '' && idConsultant === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = 'Preencha o campo corretamente'
   }else if(modality === '' && immobile === '' && installments === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = ''
   }else if(modality === '' && immobile === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(modality === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = 'Preencha o campo corretamente'
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = 'Preencha o campo corretamente'
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(immobile === '' && installments === '' && idConsultant === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = 'Preencha o campo corretamente'
   }else if(immobile === '' && installments === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = ''
   }else if(immobile === '' ){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = 'Preencha o campo corretamente'
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = 'Preencha o campo corretamente'
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
   }else if(installments === '' && idConsultant === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = 'Preencha o campo corretamente'
   }else if(installments === ''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = 'Preencha o campo corretamente'
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = 'Preencha o campo corretamente'
+    spanConsultantRef.current.innerText = ''
   }else if(idConsultant===''){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = 'Preencha o campo corretamente'
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = 'Preencha o campo corretamente'
   }else if(idConsultant != user.idconsultant){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = 'Proibido cadastrar processo no ID de outro usuario'
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = 'Proibido cadastrar processo no ID de outro usuario'
   }else if(modality === 'PRICE'){
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
     
     for(let i = 1; i<=Number(installments); i++){
       const installment = Number(financement)*(((1+acountTax)**Number(installments))*acountTax)/((((1+acountTax)**Number(installments))-1))
@@ -437,7 +428,7 @@ export default function Cadastrar(){
     const userDb = await fetch(`${url}/processos`,{
       method: 'POST',
       body: JSON.stringify(
-        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.name,emailConsultor:user.email,telefoneConsultor:user.phone,idConsultor:idConsultant,mesInicio:nomeDoMes,
+        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.name,emailConsultor:user.email,telefoneConsultor:user.phone,idConsultor:idConsultant,mesInicio:nameOfMonth,
         mesFinalizado:'',protocoloAleatorio,message:'',juros:taxs}
       ),
       headers:{
@@ -448,14 +439,14 @@ export default function Cadastrar(){
       alert('Processo cadastrado com sucesso!')
     }, 2000);
   }else{
-    spanNomeRef.current.innerText = ''
+    spanNameRef.current.innerText = ''
     spanEmailRef.current.innerText = ''
-    spanBancoRef.current.innerText = ''
-    spanTelefoneRef.current.innerText = ''
-    spanImovelRef.current.innerText = ''
-    spanModalidadeRef.current.innerText = ''
-    spanParcelaRef.current.innerText = ''
-    spanConsultorRef.current.innerText = ''
+    spanBankRef.current.innerText = ''
+    spanPhoneRef.current.innerText = ''
+    spanImmobileRef.current.innerText = ''
+    spanModalityRef.current.innerText = ''
+    spanTermRef.current.innerText = ''
+    spanConsultantRef.current.innerText = ''
    
     for(let i = 1; i<=Number(installments); i++){
       const installment = (((5-Number([i])+1)*acountTax)+1)*amort
@@ -465,7 +456,7 @@ export default function Cadastrar(){
     const userDb = await fetch(`${url}/processos`,{
       method: 'POST',
       body: JSON.stringify(
-        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.name,emailConsultor:user.email,telefoneConsultor:user.phone,idConsultor:idConsultant,mesInicio:nomeDoMes,
+        {nomeCliente:client,emailCliente:emailClient,telefoneCliente:phoneClient,banco:bank,amortizacao:modality,valorImovel:immobile,numeroParcelas:installments,primeiraParcela: Number(installmentsArray[0]).toFixed(2),ultimaParcela:Number(installmentsArray[installmentsArray.length-1]).toFixed(2),etapa:'Recolhimento de Documentos',status:'Em Andamento',nomeConsultor:user.name,emailConsultor:user.email,telefoneConsultor:user.phone,idConsultor:idConsultant,mesInicio:nameOfMonth,
         mesFinalizado:'',protocoloAleatorio,message:'',juros:taxs}
       ),
       headers:{
@@ -487,7 +478,7 @@ export default function Cadastrar(){
       <h1>Cadastro de processo</h1>
       <form onSubmit={(ev)=>createProcess(ev)} className={style.form}>
       <label htmlFor="">Nome Cliente</label>
-        <p ref={spanNomeRef} className={style.errorSpan}></p>
+        <p ref={spanNameRef} className={style.errorSpan}></p>
         <input 
         type="text" 
         value={client}
@@ -502,7 +493,7 @@ export default function Cadastrar(){
         />
 
         <label htmlFor="">Telefone</label>
-        <p ref={spanTelefoneRef} className={style.errorSpan}></p>
+        <p ref={spanPhoneRef} className={style.errorSpan}></p>
         <input 
         type="text" 
         value={phoneClient}
@@ -510,7 +501,7 @@ export default function Cadastrar(){
         />
 
         <label htmlFor="banco">Banco</label>
-        <p ref={spanBancoRef} className={style.errorSpan}></p>
+        <p ref={spanBankRef} className={style.errorSpan}></p>
         <select 
         name="banco" 
         id="banco"
@@ -529,7 +520,7 @@ export default function Cadastrar(){
        
 
         <label htmlFor="">Modalidade</label>
-        <p ref={spanModalidadeRef} className={style.errorSpan}></p>
+        <p ref={spanModalityRef} className={style.errorSpan}></p>
         <input 
         type="text" 
         value={modality}
@@ -537,21 +528,21 @@ export default function Cadastrar(){
         />
        
         <label htmlFor="">Valor Imovel</label>
-        <p ref={spanImovelRef} className={style.errorSpan}></p>
+        <p ref={spanImmobileRef} className={style.errorSpan}></p>
         <input 
         type="text" 
         value={immobile}
         onChange={(ev)=>setImmobile(ev.currentTarget.value)}
         />
         <label htmlFor="">Numero de parcelas</label>
-        <p ref={spanParcelaRef} className={style.errorSpan}></p>
+        <p ref={spanTermRef} className={style.errorSpan}></p>
         <input 
         type="text" 
         value={installments}
         onChange={(ev)=>setInstallments(ev.currentTarget.value)}
         />
         <label htmlFor="">ID do Consultor</label>
-        <p ref={spanConsultorRef} className={style.errorSpan}></p>
+        <p ref={spanConsultantRef} className={style.errorSpan}></p>
         <input 
         type="text" 
         value={idConsultant}

@@ -6,21 +6,21 @@ import LayoutClient from '@/src/components/LayoutClient'
 
 export default function Post({params}:any) {
 
-  const refBanco = useRef<HTMLHeadingElement>(null)
+  const bankRef = useRef<HTMLHeadingElement>(null)
   const refWithoutConsult  = useRef<HTMLHeadingElement>(null)
-  const refParcelas = useRef<HTMLHeadingElement>(null)
-  const refValor = useRef<HTMLHeadingElement>(null)
-  const refEmail = useRef<HTMLHeadingElement>(null)
-  const refNome = useRef<HTMLHeadingElement>(null)
+  const installmentsRef = useRef<HTMLHeadingElement>(null)
+  const valueRef = useRef<HTMLHeadingElement>(null)
+  const emailRef = useRef<HTMLHeadingElement>(null)
+  const nameRef = useRef<HTMLHeadingElement>(null)
   const refStatus = useRef<HTMLDivElement>(null)
-  const refTelefone = useRef<HTMLHeadingElement>(null)
+  const phoneRef = useRef<HTMLHeadingElement>(null)
   const firstCircle = useRef<HTMLDivElement>(null)
   const secondCircle = useRef<HTMLDivElement>(null)
   const thirdCircle = useRef<HTMLDivElement>(null)
   const fourthCircle = useRef<HTMLDivElement>(null)
-  const clienteNome = useRef<HTMLHeadingElement>(null)
-  const clienteTelefone = useRef<HTMLHeadingElement>(null)
-  const clienteEmail = useRef<HTMLHeadingElement>(null)
+  const clientName = useRef<HTMLHeadingElement>(null)
+  const clientPhone = useRef<HTMLHeadingElement>(null)
+  const clientEmail = useRef<HTMLHeadingElement>(null)
   const messageRef = useRef<HTMLHeadingElement>(null)
   
     
@@ -39,18 +39,18 @@ export default function Post({params}:any) {
             refWithoutConsult.current.innerText = 'Ainda no aguardo do aceite do pedido por um consultor' 
             refStatus.current.style.display = 'none'
           }
-        }else if(refBanco.current && refValor.current && refParcelas.current && refNome.current && refEmail.current && clienteEmail.current && clienteNome.current && clienteTelefone.current && firstCircle.current && secondCircle.current && thirdCircle.current && fourthCircle.current && refTelefone.current && messageRef.current){
-          refBanco.current.innerText = `Banco: ${dadosJson[0].banco}`
-          refValor.current.innerText = `Valor: ${dadosJson[0].valorimovel}`
-          refParcelas.current.innerText = `Parcelas: ${dadosJson[0].numeroparcelas}`
+        }else if(bankRef.current && valueRef.current && installmentsRef.current && nameRef.current && emailRef.current && clientEmail.current && clientName.current && clientPhone.current && firstCircle.current && secondCircle.current && thirdCircle.current && fourthCircle.current && phoneRef.current && messageRef.current){
+          bankRef.current.innerText = `Banco: ${dadosJson[0].banco}`
+          valueRef.current.innerText = `Valor: ${dadosJson[0].valorimovel}`
+          installmentsRef.current.innerText = `Parcelas: ${dadosJson[0].numeroparcelas}`
         
-          refNome.current.innerText = `Nome : ${dadosJson[0].nomeconsultor}`
-          refEmail.current.innerText = `Email : ${dadosJson[0].emailconsultor}`
-          refTelefone.current.innerText = `Telefone : ${dadosJson[0].telefoneconsultor}`
+          nameRef.current.innerText = `Nome : ${dadosJson[0].nomeconsultor}`
+          emailRef.current.innerText = `Email : ${dadosJson[0].emailconsultor}`
+          phoneRef.current.innerText = `Telefone : ${dadosJson[0].telefoneconsultor}`
         
-          clienteNome.current.innerText = `Nome : ${dadosJson[0].nomecliente}`
-          clienteEmail.current.innerText = `Email : ${dadosJson[0].emailcliente}`
-          clienteTelefone.current.innerText = `Telefone : ${dadosJson[0].telefonecliente}`
+          clientName.current.innerText = `Nome : ${dadosJson[0].nomecliente}`
+          clientEmail.current.innerText = `Email : ${dadosJson[0].emailcliente}`
+          clientPhone.current.innerText = `Telefone : ${dadosJson[0].telefonecliente}`
         
           
         
@@ -121,22 +121,22 @@ export default function Post({params}:any) {
     <title>Checagem de processo</title>
   <div className={style.section}>
     <h1>Dados do Imovel</h1>
-    <h3 ref={refBanco}></h3>
-    <h3 ref={refParcelas}></h3>
-    <h3 ref={refValor}></h3>
+    <h3 ref={bankRef}></h3>
+    <h3 ref={installmentsRef}></h3>
+    <h3 ref={valueRef}></h3>
   </div>
   <div className={style.section}>
     <h1>Dados do Proponente</h1>
-    <h3 ref={clienteNome}></h3>
-    <h3 ref={clienteEmail}></h3>
-    <h3 ref={clienteTelefone}></h3>
+    <h3 ref={clientName}></h3>
+    <h3 ref={clientEmail}></h3>
+    <h3 ref={clientPhone}></h3>
   </div>
   <div className={style.section}>
     <h1>Dados do Consultor</h1>
     <h2 ref={refWithoutConsult}></h2>
-    <h3 ref={refNome}></h3>
-    <h3 ref={refEmail}></h3>
-    <h3 ref={refTelefone}></h3>
+    <h3 ref={nameRef}></h3>
+    <h3 ref={emailRef}></h3>
+    <h3 ref={phoneRef}></h3>
   </div>
   <div className={style.section}>
     <h1>Status do Processo</h1>

@@ -18,22 +18,21 @@ export const metadata = {
 }
 
 export default function Pesquisa(){
-const [busca,setBusca] = useState('') 
-const parcelasRef = useRef<HTMLParagraphElement>(null)
-const imovelRef = useRef<HTMLParagraphElement>(null)
+const [search,setSearch] = useState('') 
+const installmentsRef = useRef<HTMLParagraphElement>(null)
+const immobileRef = useRef<HTMLParagraphElement>(null)
 const taxsRef = useRef<HTMLParagraphElement>(null)
 const errorMessage = useRef<HTMLParagraphElement>(null)
 const refBank = useRef<HTMLDivElement>(null)
 const cardRef = useRef<HTMLDivElement>(null)
-const idRef = useRef<HTMLParagraphElement>(null)
 const [id,setId] = useState()
 
   async function pesquisarProtocolo(ev:any){
   ev.preventDefault()
   const dbProcess = await fetch(`${process.env.NEXT_PUBLIC_APIURL}/processos`)
   const jsonProcess:any[] = await dbProcess.json()
-  const filterProcess = jsonProcess.filter((process)=>process.protocoloaleatorio === busca)
-    if(taxsRef.current && parcelasRef.current && imovelRef.current && cardRef.current && errorMessage.current && refBank.current){
+  const filterProcess = jsonProcess.filter((process)=>process.protocoloaleatorio === search)
+    if(taxsRef.current && installmentsRef.current && immobileRef.current && cardRef.current && errorMessage.current && refBank.current){
     if(filterProcess.length<1 ){
       errorMessage.current.innerText = 'Nenhum processo foi encontrado'
     }else{
@@ -77,7 +76,7 @@ const [id,setId] = useState()
       const spanHouse = document.createElement('span')
       spanHouse.innerText = `R$ ${filterProcess[0].valorimovel}`
       divHouse.append(imgHouse,spanHouse)
-      imovelRef.current.appendChild(divHouse)
+      immobileRef.current.appendChild(divHouse)
   
       const divBills = document.createElement('div')
       const imgBills = document.createElement('img')
@@ -88,7 +87,7 @@ const [id,setId] = useState()
       const spanBills = document.createElement('span')
       spanBills.innerText = `${filterProcess[0].numeroparcelas} PARCELAS`
       divBills.append(imgBills,spanBills)
-      parcelasRef.current.appendChild(divBills)
+      installmentsRef.current.appendChild(divBills)
     }
   }
     
@@ -107,8 +106,8 @@ const [id,setId] = useState()
         type="text" 
         name='pesquisa' 
         id='pesquisa'
-        value={busca}
-        onChange={(ev)=> setBusca(ev.currentTarget.value)}
+        value={search}
+        onChange={(ev)=> setSearch(ev.currentTarget.value)}
         />
         <button>PESQUISAR</button>
       </form>
@@ -116,8 +115,8 @@ const [id,setId] = useState()
       <div className={style.card} ref={cardRef}>
       <div ref={refBank}></div>
       <p ref={taxsRef}></p>
-      <p ref={imovelRef}></p>
-      <p ref={parcelasRef}></p>
+      <p ref={immobileRef}></p>
+      <p ref={installmentsRef}></p>
       <button><Link href={`pesquisa/${id}`}>Ver mais</Link></button>
       </div>
     </main>

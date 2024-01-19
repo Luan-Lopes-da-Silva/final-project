@@ -22,30 +22,30 @@ type User = {
 
 export default function Login(){
   const [email,setEmail] = useState('')
-  const [senha,setSenha] = useState('')
+  const [password,setPassword] = useState('')
   const refLoading = useRef<HTMLDivElement>(null)
   const refButton = useRef<HTMLButtonElement>(null)
   const errorEmailRef = useRef<HTMLParagraphElement>(null)
-  const errorSenhaRef = useRef<HTMLParagraphElement>(null)
+  const errorPasswordRef = useRef<HTMLParagraphElement>(null)
 
   async function checkUser(ev:FormEvent){
     ev.preventDefault()
     const response = await fetch('https://consultant-db.onrender.com/consultants')
     const responseJson:User[] = await response.json()
     const filter:User[] = responseJson.filter(usuario=>(usuario.email === email)) 
-    const filter1 = filter.filter(usuario=>(usuario.password === senha))
-   if(errorEmailRef.current && errorSenhaRef.current && refButton.current && refLoading.current){
+    const filter1 = filter.filter(usuario=>(usuario.password === password))
+   if(errorEmailRef.current && errorPasswordRef.current && refButton.current && refLoading.current){
     if(filter.length<1 && filter1.length<1){
       errorEmailRef.current.innerText = 'Email incorreto'
-      errorSenhaRef.current.innerText = 'Senha incorreto'
+      errorPasswordRef.current.innerText = 'Senha incorreto'
       console.log('Email e senha errados')
       }else if(filter.length<1 && filter1.length>0){
       console.log('Email errado e senha certo')
       errorEmailRef.current.innerText = 'Email incorreto'
-      errorSenhaRef.current.innerText = ''
+      errorPasswordRef.current.innerText = ''
       }else if(filter.length>0 && filter1.length<1){
       errorEmailRef.current.innerText = ''
-      errorSenhaRef.current.innerText = 'Senha incorreto'
+      errorPasswordRef.current.innerText = 'Senha incorreto'
       }else{
        const user:User = {
          name: filter[0].name,
@@ -62,7 +62,7 @@ export default function Login(){
          refButton.current.style.display = 'none'
          refLoading.current.style.display = 'inline-block'
          errorEmailRef.current.innerText = ''
-         errorSenhaRef.current.innerText = ''
+         errorPasswordRef.current.innerText = ''
          setTimeout(()=>{
            window.location.href = '/consultorAdm'
          },1000)
@@ -94,11 +94,11 @@ export default function Login(){
         onChange={(ev)=>setEmail(ev.currentTarget.value)}
         />
         <label htmlFor="">Senha</label>
-        <p className={style.errorSpan} ref={errorSenhaRef}></p>
+        <p className={style.errorSpan} ref={errorPasswordRef}></p>
         <input 
         type="password" 
-        value={senha}
-        onChange={(ev)=>setSenha(ev.currentTarget.value)}
+        value={password}
+        onChange={(ev)=>setPassword(ev.currentTarget.value)}
         />
         <button ref={refButton}>Login</button>
         <div className={style.ldsRing} ref={refLoading}><div></div><div></div><div></div><div></div></div>

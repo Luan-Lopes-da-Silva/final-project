@@ -32,7 +32,7 @@ export default function Processos(){
     status: string
     nomeconsultor: string
     telefoneconsultor : string
-    idconsultor: string
+    idconsultant: string
     protocoloaleatorio: string
     id: number
     message: string
@@ -53,7 +53,7 @@ export default function Processos(){
     }
   }
   useEffect(()=>{
-  const test = async () =>{
+  const renderProcess = async () =>{
   const localUser:UserAdm[] = getLocalStorage()
   const response = await fetch('https://db-indicacoes.onrender.com/processos')
   const responseJson: Process[] = await response.json()
@@ -135,7 +135,7 @@ export default function Processos(){
     }
     }
   }
-  test()
+  renderProcess()
   
   },[])
   return(

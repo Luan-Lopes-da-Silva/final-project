@@ -6,31 +6,16 @@ import emailJs from '@emailjs/browser'
 
 
 export default function ProcessPage({params}:any){
-  const nomeClienteRef = useRef<HTMLSpanElement>(null)
-  const emailClienteRef = useRef<HTMLSpanElement>(null)
-  const telefoneClienteRef = useRef<HTMLSpanElement>(null)
-  const valorImovelRef = useRef<HTMLSpanElement>(null)
-  const parcelasRef = useRef<HTMLSpanElement>(null)
-  const primeiraParcelaRef = useRef<HTMLSpanElement>(null)
-  const ultimaParcelaRef = useRef<HTMLSpanElement>(null)
-  const modalidadeRef = useRef<HTMLSpanElement>(null)
+  const clientNameRef = useRef<HTMLSpanElement>(null)
+  const clientEmailRef = useRef<HTMLSpanElement>(null)
+  const clientPhoneRef = useRef<HTMLSpanElement>(null)
+  const immobileValueRef = useRef<HTMLSpanElement>(null)
+  const installmentsRef = useRef<HTMLSpanElement>(null)
+  const firstInstallmentRef = useRef<HTMLSpanElement>(null)
+  const lastInstallmentRef = useRef<HTMLSpanElement>(null)
+  const modalityRef = useRef<HTMLSpanElement>(null)
   const errorSpanRef = useRef<HTMLSpanElement>(null)
   const [search,setSearch] = useState('')
-
-  type Consult = {
-    nome: string
-    telefone: string
-    email: string
-    idConsultor: string
-  }
-
-  type Adm = {
-    name: string
-    phone: string
-    email: string
-    idAdm: string
-  }
-
 
   type Process ={
     nomecliente: string
@@ -51,19 +36,20 @@ export default function ProcessPage({params}:any){
     protocoloAleatorio: string
     id: number
   }
+
   async function getProcess(){
    try {
     const dbResponse = await fetch(`https://db-indicacoes.onrender.com/processos/${params.id}`)
     const responseJson:Process[] = await dbResponse.json()
-    if(nomeClienteRef.current && emailClienteRef.current && telefoneClienteRef.current && valorImovelRef.current && parcelasRef.current && primeiraParcelaRef.current && ultimaParcelaRef.current && modalidadeRef.current){
-    nomeClienteRef.current.innerText = `Nome do cliente: ${responseJson[0].nomecliente}`  
-    emailClienteRef.current.innerText = `Email do cliente: ${responseJson[0].emailcliente}`
-    telefoneClienteRef.current.innerText = `Telefone do cliente: ${responseJson[0].telefonecliente}`
-    valorImovelRef.current.innerText = `Valor do imovel: ${responseJson[0].valorimovel}`
-    parcelasRef.current.innerText = `Numero de parcelas: ${responseJson[0].numeroparcelas}`
-    primeiraParcelaRef.current.innerText = `Valor da primeira parcela: ${responseJson[0].primeiraparcela}`
-    ultimaParcelaRef.current.innerText = `Valor da ultima parcela: ${responseJson[0].ultimaparcela}`
-    modalidadeRef.current.innerText = `Sistema de amortização: ${responseJson[0].amortizacao}`
+    if(clientNameRef.current && clientEmailRef.current && clientPhoneRef.current && immobileValueRef.current && installmentsRef.current && firstInstallmentRef.current && lastInstallmentRef.current && modalityRef.current){
+    clientNameRef.current.innerText = `Nome do cliente: ${responseJson[0].nomecliente}`  
+    clientEmailRef.current.innerText = `Email do cliente: ${responseJson[0].emailcliente}`
+    clientPhoneRef.current.innerText = `Telefone do cliente: ${responseJson[0].telefonecliente}`
+    immobileValueRef.current.innerText = `Valor do imovel: ${responseJson[0].valorimovel}`
+    installmentsRef.current.innerText = `Numero de parcelas: ${responseJson[0].numeroparcelas}`
+    firstInstallmentRef.current.innerText = `Valor da primeira parcela: ${responseJson[0].primeiraparcela}`
+    lastInstallmentRef.current.innerText = `Valor da ultima parcela: ${responseJson[0].ultimaparcela}`
+    modalityRef.current.innerText = `Sistema de amortização: ${responseJson[0].amortizacao}`
     }
    } catch (error) {
    console.log(error)
@@ -172,17 +158,17 @@ export default function ProcessPage({params}:any){
       <div className={style.container}>
         <section>
           <h1>Dados do proponente</h1>
-          <span ref={nomeClienteRef}></span>
-          <span ref={emailClienteRef}></span>
-          <span ref={telefoneClienteRef}></span>
+          <span ref={clientNameRef}></span>
+          <span ref={clientEmailRef}></span>
+          <span ref={clientPhoneRef}></span>
         </section>
         <section>
           <h1>Dados do imóvel</h1>
-          <span ref={valorImovelRef}></span>
-          <span ref={parcelasRef}></span>
-          <span ref={primeiraParcelaRef}></span>
-          <span ref={ultimaParcelaRef}></span>
-          <span ref={modalidadeRef}></span>
+          <span ref={immobileValueRef}></span>
+          <span ref={installmentsRef}></span>
+          <span ref={firstInstallmentRef}></span>
+          <span ref={lastInstallmentRef}></span>
+          <span ref={modalityRef}></span>
         </section>
         <section>
           <h1>Dados do consultor</h1>

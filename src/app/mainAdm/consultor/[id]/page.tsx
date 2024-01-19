@@ -7,8 +7,6 @@ import Image from "next/image"
 import style from '@/src/styles/consultorDetails.module.scss'
 import { getConsultantFromId } from "@/src/functions/getConsultanst"
 export default function Page({params}:any){
-  const profileSection = useRef<HTMLBodyElement>(null)
-  const refId = useRef<HTMLHeadingElement>(null)
   const refAvatar = useRef<HTMLImageElement>(null)
   const refName = useRef<HTMLHeadingElement>(null)
   const refMemberSince = useRef<HTMLHeadingElement>(null)

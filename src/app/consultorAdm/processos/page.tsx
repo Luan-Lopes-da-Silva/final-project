@@ -25,29 +25,6 @@ type User = {
   memberSince: string
 }
 
-type Process = {
-banco: string,
-email: string,
-etapa: string,
-id: string,
-idconsultant: string,
-imovel:string,
-mes: string,
-message: string,
-valorimovel:string,
-numeroparcelas:string,
-nomecliente:string
-modalidade:string,
-name: string,
-parcelas: number,
-primeiraparcela: number,
-ultimaparcela: number,
-protocoloaleatorio : string,
-status: string,
-telefone: string
-}
-
-
 
 function getLocalStorage(): User  {
   const dataString = localStorage.getItem('Usuario Logado')

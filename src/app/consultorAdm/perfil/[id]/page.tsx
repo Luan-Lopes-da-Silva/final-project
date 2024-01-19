@@ -14,11 +14,6 @@ export default function Page({params}:any){
   const refForm = useRef<HTMLFormElement>(null)
   const divAvatar = useRef<HTMLDivElement>(null)
   const [avatar,setAvatar] = useState('')
-  const [name,setName] = useState('')
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
-  const [confirmPassword,setConfirmPassword] = useState('')
-
 
   function changeInfosProfile(){
 
@@ -26,12 +21,14 @@ export default function Page({params}:any){
 
   const changeInfosSchema = z.object({
   name:z.string()
-  .min(1,"O nome é obrigatorio"),
+  .min(1,"O nome é obrigatorio."),
   email: z.string()
-  .min(1,"O email é obrigatorio")
-  .email("O formato do email é invalido"),
+  .min(1,"O email é obrigatorio.")
+  .email("O formato do email é invalido."),
   password:z.string()
-  .min(1,"Senha é obrigatoria")
+  .min(1,"Senha é obrigatoria."),
+  confirmPassword:z.string()
+  .min(1,"A confirmação é obrigatoria.")
   })
 
   type createChangeInfoData = z.infer<typeof changeInfosSchema>
@@ -91,10 +88,7 @@ return(
   <label htmlFor="confirmPassword">Confirmação senha</label>
   <input 
   type="text" 
-  name="confirmPassword" 
-  id="confirmPassword"
-  value={confirmPassword}
-  onChange={(ev)=>setConfirmPassword(ev.currentTarget.value)}
+  {...register('confirmPassword')}
   />
   <button>FAZER ALTERAÇÕES</button>
   </form>

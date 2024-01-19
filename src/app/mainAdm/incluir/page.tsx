@@ -12,34 +12,33 @@ import emailJs from '@emailjs/browser'
 
 
 export default function IncluirConsultores(){
-  const [nome,setNome] = useState('')
+  const [name,setName] = useState('')
   const [email,setEmail] = useState('')
-  const [telefone,setTelefone] = useState('')
-  const refNome = useRef<HTMLParagraphElement>(null)
+  const [phone,setPhone] = useState('')
+  const refName = useRef<HTMLParagraphElement>(null)
   const refEmail = useRef<HTMLParagraphElement>(null)
-  const refTelefone = useRef<HTMLParagraphElement>(null)
+  const refPhone = useRef<HTMLParagraphElement>(null)
 
-  getLocalStorage
-  function gerarHexAleatorio(){
-    const caracteresHex = '0123456789ABCDEFGHIJKLMNOPRSTUVWXYZ'
-    let hexAleatorio = '#'
+  function generateAleatoryHex(){
+    const hexCharacter = '0123456789ABCDEFGHIJKLMNOPRSTUVWXYZ'
+    let aleatoryHex = '#'
   
     for (let i = 0; i<8; i++){
-      const indiceAleatorio = Math.floor(Math.random()* caracteresHex.length)
-      hexAleatorio += caracteresHex.charAt(indiceAleatorio)
+      const aleatoryIndex = Math.floor(Math.random()* hexCharacter.length)
+      aleatoryHex += hexCharacter.charAt(aleatoryIndex)
     }
-    return hexAleatorio
+    return aleatoryHex
     }
 
     function randomPassword(){
-      const caracteresHex = '0123456789ABCDEFGHIJKLMNOPRSTUVWXYZ'
-      let hexAleatorio = ''
+      const hexCharacter = '0123456789ABCDEFGHIJKLMNOPRSTUVWXYZ'
+      let aleatoryHex = ''
     
       for (let i = 0; i<8; i++){
-        const indiceAleatorio = Math.floor(Math.random()* caracteresHex.length)
-        hexAleatorio += caracteresHex.charAt(indiceAleatorio)
+        const aleatoryIndex = Math.floor(Math.random()* hexCharacter.length)
+        aleatoryHex += hexCharacter.charAt(aleatoryIndex)
       }
-      return hexAleatorio
+      return aleatoryHex
       }
 
       
@@ -48,45 +47,45 @@ export default function IncluirConsultores(){
     const users = await fetch('https://consultant-db.onrender.com/consultants')
     const usersJson:Consultor[] = await users.json()
     const filter = usersJson.filter(user=>(user.email === email))
-    const hexAleatorio = gerarHexAleatorio()
+    const aleatoryHex = generateAleatoryHex()
     const passwordAleatory = randomPassword()
     const date = new Date()
-    if(refNome.current && refEmail.current && refTelefone.current){
-      if(nome=== '' && email === ''  && telefone === '' ){
-        refNome.current.innerText= 'Preencha o campo'
+    if(refName.current && refEmail.current && refPhone.current){
+      if(name=== '' && email === ''  && phone === '' ){
+        refName.current.innerText= 'Preencha o campo'
         refEmail.current.innerText= 'Preencha o campo'
-        refTelefone.current.innerText= 'Preencha o campo'
-        }else if(nome=== '' && email === '' ){
-        refNome.current.innerText= 'Preencha o campo'
+        refPhone.current.innerText= 'Preencha o campo'
+        }else if(name=== '' && email === '' ){
+        refName.current.innerText= 'Preencha o campo'
         refEmail.current.innerText= 'Preencha o campo'
-        refTelefone.current.innerText= ''
-        }else if(nome=== ''){
-        refNome.current.innerText= 'Preencha o campo'
+        refPhone.current.innerText= ''
+        }else if(name=== ''){
+        refName.current.innerText= 'Preencha o campo'
         refEmail.current.innerText= ''
-        refTelefone.current.innerText= ''
-       }else if(email === ''  && telefone === ''){
-        refNome.current.innerText= ''
+        refPhone.current.innerText= ''
+       }else if(email === ''  && phone === ''){
+        refName.current.innerText= ''
         refEmail.current.innerText= 'Preencha o campo'
-        refTelefone.current.innerText= 'Preencha o campo'
+        refPhone.current.innerText= 'Preencha o campo'
        }else if(email === '' ){
-        refNome.current.innerText= ''
+        refName.current.innerText= ''
         refEmail.current.innerText= 'Preencha o campo'
-        refTelefone.current.innerText= ''
-       }else if(nome != '' && filter.length>0 && telefone != ''){
-        refNome.current.innerText= ''
+        refPhone.current.innerText= ''
+       }else if(name != '' && filter.length>0 && phone != ''){
+        refName.current.innerText= ''
         refEmail.current.innerText = 'Email ja utilizado'
-        refTelefone.current.innerText= ''
+        refPhone.current.innerText= ''
        }else{
         const admLocal = getAdmLocalStorage()
         if(admLocal){
-        refNome.current.innerText= ''
+        refName.current.innerText= ''
         refEmail.current.innerText= ''
-        refTelefone.current.innerText= ''
+        refPhone.current.innerText= ''
     
         const criarUser = await fetch(`https://consultant-db.onrender.com/consultants`,{
           method: "POST",
           body: JSON.stringify(
-            {idConsultant :hexAleatorio, name:nome,email,password:passwordAleatory,phone: telefone, role:'Consultor',
+            {idConsultant :aleatoryHex, name:name,email,password:passwordAleatory,phone: phone, role:'Consultor',
             memberSince:date,avatar:'',idResponsibleAdm: admLocal.idadm,position : ''
           }
           ),
@@ -94,8 +93,9 @@ export default function IncluirConsultores(){
             "Content-Type": "application/json"
           }
         })
+        
         const templateParams = {
-          to_name : nome,
+          to_name : name,
           admResponsavell : admLocal.name,
           senha : passwordAleatory,
           email : email
@@ -125,11 +125,11 @@ export default function IncluirConsultores(){
       </div>
       <form onSubmit={(ev)=>createConsultor(ev)} className={style.form}>
       <label htmlFor="">Nome</label>
-      <p ref={refNome} className={style.errorSpan}></p>
+      <p ref={refName} className={style.errorSpan}></p>
       <input 
       type="text" 
-      value={nome}
-      onChange={(ev)=>setNome(ev.currentTarget.value)}
+      value={name}
+      onChange={(ev)=>setName(ev.currentTarget.value)}
       />
       <label htmlFor="">Email</label>
       <p ref={refEmail} className={style.errorSpan}></p>
@@ -139,11 +139,11 @@ export default function IncluirConsultores(){
       onChange={(ev)=>setEmail(ev.currentTarget.value)}
       />
       <label htmlFor="">Telefone</label>
-      <p ref={refTelefone} className={style.errorSpan}></p>
+      <p ref={refPhone} className={style.errorSpan}></p>
       <input 
       type="text" 
-      value={telefone}
-      onChange={(ev)=>setTelefone(ev.currentTarget.value)}
+      value={phone}
+      onChange={(ev)=>setPhone(ev.currentTarget.value)}
       />
       <button>Cadastrar-se</button>
       </form>

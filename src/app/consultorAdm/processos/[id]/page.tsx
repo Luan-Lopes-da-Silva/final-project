@@ -15,23 +15,23 @@ type Params = {
 }
 
 const Process:React.FC<ProcessProps> = ({params})=>{
-  const refBanco = useRef<HTMLHeadingElement>(null)
-  const refParcelas = useRef<HTMLHeadingElement>(null)
-  const refValor = useRef<HTMLHeadingElement>(null)
+  const refBank = useRef<HTMLHeadingElement>(null)
+  const refTaxs = useRef<HTMLHeadingElement>(null)
+  const refValue = useRef<HTMLHeadingElement>(null)
   const refEmail = useRef<HTMLHeadingElement>(null)
-  const refNome = useRef<HTMLHeadingElement>(null)
+  const refName = useRef<HTMLHeadingElement>(null)
   const refTelefone = useRef<HTMLHeadingElement>(null)
   const firstCircle = useRef<HTMLDivElement>(null)
   const secondCircle = useRef<HTMLDivElement>(null)
   const thirdCircle = useRef<HTMLDivElement>(null)
   const fourthCircle = useRef<HTMLDivElement>(null)
-  const clienteNome = useRef<HTMLHeadingElement>(null)
-  const clienteTelefone = useRef<HTMLHeadingElement>(null)
+  const clientName = useRef<HTMLHeadingElement>(null)
+  const clientPhone = useRef<HTMLHeadingElement>(null)
   const clienteEmail = useRef<HTMLHeadingElement>(null)
   const messageRef = useRef<HTMLHeadingElement>(null)
   const hideInputsRef = useRef<HTMLDivElement>(null)
   const [status,setStatus] = useState('')
-  const [etapa,setEtapa] = useState('')
+  const [step,setStep] = useState('')
   const [message,setMessage] = useState('')
   
   type User = {
@@ -48,47 +48,23 @@ const Process:React.FC<ProcessProps> = ({params})=>{
   useEffect(()=>{
   const url = process.env.NEXT_PUBLIC_APIURL
   const getProcess = async() =>{
-    function getLocalStorage(): User  {
-      const dataString = localStorage.getItem('Usuario Logado')
-      const defaultUser:User = {
-        avatar: 'Undefined',
-        email:  'Undefined',
-        id: 12,
-        idConsultor: 'Undefined',
-        nome: 'Undefined',
-        telefone: 'Undefined',
-        memberSince: 'Undefined',
-        role: 'Undefined'
-      }
-  
-      if(dataString){
-        return JSON.parse(dataString)
-      }else{
-        alert('Você não se encontra logado iremos te redirecionar pra página de login.') 
-        setTimeout(()=>{
-        location.href = 'consultorAdm/login'
-        },500)   
-        return defaultUser
-      }
-    }
-  const userLocal = getLocalStorage() 
   const operation = await fetch(`${url}/processos/${params.id}`)
   const conversedOperation = await operation.json()
   
  
 
-  if(refBanco.current && refValor.current && refParcelas.current && refNome.current && refEmail.current && clienteEmail.current && clienteNome.current && clienteTelefone.current && firstCircle.current && secondCircle.current && thirdCircle.current && fourthCircle.current && refTelefone.current && messageRef.current){
-    refBanco.current.innerText = `Banco: ${conversedOperation[0].banco}`
-    refValor.current.innerText = `Valor: ${conversedOperation[0].valorimovel}`
-    refParcelas.current.innerText = `Parcelas: ${conversedOperation[0].numeroparcelas}`
+  if(refBank.current && refValue.current && refTaxs.current && refName.current && refEmail.current && clienteEmail.current && clientName.current && clientPhone.current && firstCircle.current && secondCircle.current && thirdCircle.current && fourthCircle.current && refTelefone.current && messageRef.current){
+    refBank.current.innerText = `Banco: ${conversedOperation[0].banco}`
+    refValue.current.innerText = `Valor: ${conversedOperation[0].valorimovel}`
+    refTaxs.current.innerText = `Parcelas: ${conversedOperation[0].numeroparcelas}`
   
-    refNome.current.innerText = `Nome : ${conversedOperation[0].nomeconsultor}`
+    refName.current.innerText = `Nome : ${conversedOperation[0].nomeconsultor}`
     refEmail.current.innerText = `Email : ${conversedOperation[0].emailconsultor}`
     refTelefone.current.innerText = `Telefone : ${conversedOperation[0].telefoneconsultor}`
   
-    clienteNome.current.innerText = `Nome : ${conversedOperation[0].nomecliente}`
+    clientName.current.innerText = `Nome : ${conversedOperation[0].nomecliente}`
     clienteEmail.current.innerText = `Email : ${conversedOperation[0].emailcliente}`
-    clienteTelefone.current.innerText = `Telefone : ${conversedOperation[0].telefonecliente}`
+    clientPhone.current.innerText = `Telefone : ${conversedOperation[0].telefonecliente}`
   
     
   
@@ -191,14 +167,14 @@ const Process:React.FC<ProcessProps> = ({params})=>{
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
   var nomeDoMes = nomesDosMeses[numeroMes];
-  if(etapa === 'Emissao do Contrato' && status === 'Aceita'){
+  if(step === 'Emissao do Contrato' && status === 'Aceita'){
     const userDb = await fetch(`${url}/processos/${params.id}`,{
       method: "PUT",
       body: JSON.stringify(
         {
           mesFinalizado: nomeDoMes,
           status,
-          etapa,
+          etapa:step,
           message:message
         }
       ),
@@ -229,7 +205,7 @@ const Process:React.FC<ProcessProps> = ({params})=>{
       body: JSON.stringify(
         {
           status,
-          etapa,
+          etapa:step,
           message:message,
           mesFinalizado: ''
         }
@@ -247,7 +223,7 @@ const Process:React.FC<ProcessProps> = ({params})=>{
           to_name : conversedOperation[0].nomecliente,
           cliente:conversedOperation[0].emailcliente,
           consultor:conversedOperation[0].nomeconsultor,
-          etapa : etapa,
+          etapa : step,
           status : status,
           message : messageRef.current.innerText
         }
@@ -267,19 +243,19 @@ const Process:React.FC<ProcessProps> = ({params})=>{
   <div className={style.geralContainer}>
   <div className={style.section}>
     <h1>Dados do Imovel</h1>
-    <h3 ref={refBanco}></h3>
-    <h3 ref={refParcelas}></h3>
-    <h3 ref={refValor}></h3>
+    <h3 ref={refBank}></h3>
+    <h3 ref={refTaxs}></h3>
+    <h3 ref={refValue}></h3>
   </div>
   <div className={style.section}>
     <h1>Dados do Proponente</h1>
-    <h3 ref={clienteNome}></h3>
+    <h3 ref={clientName}></h3>
     <h3 ref={clienteEmail}></h3>
-    <h3 ref={clienteTelefone}></h3>
+    <h3 ref={clientPhone}></h3>
   </div>
   <div className={style.section}>
     <h1>Dados do Consultor</h1>
-    <h3 ref={refNome}></h3>
+    <h3 ref={refName}></h3>
     <h3 ref={refEmail}></h3>
     <h3 ref={refTelefone}></h3>
   </div>
@@ -313,8 +289,8 @@ const Process:React.FC<ProcessProps> = ({params})=>{
     <select
     id="etapa"
     name="etapa"
-    value={etapa}
-    onChange={(ev)=>setEtapa(ev.currentTarget.value)}
+    value={step}
+    onChange={(ev)=>setStep(ev.currentTarget.value)}
     >
       <option value="Escolha uma opção">Escolha uma opção</option>
       <option value="Recolhimento de Documentos">Recolhimento de Documentos</option>

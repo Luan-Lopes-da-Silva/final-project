@@ -57,20 +57,20 @@ export default function RegisterPageAdm(){
   type createUserFormData = z.infer<typeof createAdmFormSchema>
   const { register, handleSubmit, watch, formState: { errors } } = useForm<createUserFormData>({resolver:zodResolver(createAdmFormSchema)})
 
-  function gerarHexAleatorio(){
-  const caracteresHex = '0123456789ABCDEFGHIJKLMNOPRSTUVWXYZ'
-  let hexAleatorio = '#'
+  function generateAleatoryHex(){
+  const hexCharac = '0123456789ABCDEFGHIJKLMNOPRSTUVWXYZ'
+  let aleatoryHex = '#'
 
   for (let i = 0; i<4; i++){
-    const indiceAleatorio = Math.floor(Math.random()* caracteresHex.length)
-    hexAleatorio += caracteresHex.charAt(indiceAleatorio)
+    const indiceAleatorio = Math.floor(Math.random()* hexCharac.length)
+    aleatoryHex += hexCharac.charAt(indiceAleatorio)
   }
-  return hexAleatorio
+  return aleatoryHex
   }
 
 
 
-  const generatePassword = gerarHexAleatorio()
+  const generatePassword = generateAleatoryHex()
 
 
     async function createAdm(data:createUserFormData){

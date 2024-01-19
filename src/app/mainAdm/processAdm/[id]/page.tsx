@@ -5,42 +5,26 @@ import style from '@/src/styles/processoConsultor.module.scss'
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 
 export default function ProcessAdm({params}:any){
-  const refBanco = useRef<HTMLHeadingElement>(null)
-  const refParcelas = useRef<HTMLHeadingElement>(null)
-  const refValor = useRef<HTMLHeadingElement>(null)
-  const refEmail = useRef<HTMLHeadingElement>(null)
+  const bankRef = useRef<HTMLHeadingElement>(null)
+  const InstallmentsRef = useRef<HTMLHeadingElement>(null)
+  const valueRef = useRef<HTMLHeadingElement>(null)
+  const emailRef = useRef<HTMLHeadingElement>(null)
   const refNome = useRef<HTMLHeadingElement>(null)
-  const refTelefone = useRef<HTMLHeadingElement>(null)
+  const phoneRef = useRef<HTMLHeadingElement>(null)
   const firstCircle = useRef<HTMLDivElement>(null)
   const secondCircle = useRef<HTMLDivElement>(null)
   const thirdCircle = useRef<HTMLDivElement>(null)
   const fourthCircle = useRef<HTMLDivElement>(null)
-  const clienteNome = useRef<HTMLHeadingElement>(null)
-  const clienteTelefone = useRef<HTMLHeadingElement>(null)
+  const clientName = useRef<HTMLHeadingElement>(null)
+  const clientPhone = useRef<HTMLHeadingElement>(null)
   const clienteEmail = useRef<HTMLHeadingElement>(null)
   const messageRef = useRef<HTMLHeadingElement>(null)
   const hideInputsRef = useRef<HTMLDivElement>(null)
   const [status,setStatus] = useState('')
-  const [etapa,setEtapa] = useState('')
+  const [step,setStep] = useState('')
   const [message,setMessage] = useState('')
   
   
-
-  type UserAdm = {
-    name: string
-    email: string
-    phone: string
-  }
-
-
-  const getLocalStorage = ()=>{
-    const user = localStorage.getItem('Usuario Logado')
-    if(user){
-    const userParse = JSON.parse(user)
-    return userParse
-    }
-  }
-
 
   useEffect(()=>{
   const getProcess = async () =>{
@@ -48,28 +32,28 @@ export default function ProcessAdm({params}:any){
     const conversedOperation = await operation.json()
 
     
-    if(refBanco.current && refValor.current && refParcelas.current && refNome.current && refEmail.current && clienteEmail.current && clienteNome.current && clienteTelefone.current && firstCircle.current && secondCircle.current && thirdCircle.current && fourthCircle.current && refTelefone.current && messageRef.current){
-      refBanco.current.innerText = `Banco: ${conversedOperation.banco}`
-      refValor.current.innerText = `Valor: ${conversedOperation.valorImovel}`
-      refParcelas.current.innerText = `Parcelas: ${conversedOperation.numeroParcelas}`
+    if(bankRef.current && valueRef.current && InstallmentsRef.current && refNome.current && emailRef.current && clienteEmail.current && clientName.current && clientPhone.current && firstCircle.current && secondCircle.current && thirdCircle.current && fourthCircle.current && phoneRef.current && messageRef.current){
+      bankRef.current.innerText = `Banco: ${conversedOperation.banco}`
+      valueRef.current.innerText = `Valor: ${conversedOperation.valorImovel}`
+      InstallmentsRef.current.innerText = `Parcelas: ${conversedOperation.numeroParcelas}`
     
       refNome.current.innerText = `Nome : ${conversedOperation.nomeConsultor}`
-      refEmail.current.innerText = `Email : ${conversedOperation.emailConsultor}`
-      refTelefone.current.innerText = `Telefone : ${conversedOperation.telefoneConsultor}`
+      emailRef.current.innerText = `Email : ${conversedOperation.emailConsultor}`
+      phoneRef.current.innerText = `Telefone : ${conversedOperation.telefoneConsultor}`
     
-      clienteNome.current.innerText = `Nome : ${conversedOperation.nomeCliente}`
+      clientName.current.innerText = `Nome : ${conversedOperation.nomeCliente}`
       clienteEmail.current.innerText = `Email : ${conversedOperation.emailCliente}`
-      clienteTelefone.current.innerText = `Telefone : ${conversedOperation.telefoneCliente}`
+      clientPhone.current.innerText = `Telefone : ${conversedOperation.telefoneCliente}`
     
       
     
-       if(conversedOperation.etapa === 'Recolhimento de Documentos' && conversedOperation.status === 'Em Andamento' || conversedOperation.status === 'Em andamento'){
+       if(conversedOperation.step === 'Recolhimento de Documentos' && conversedOperation.status === 'Em Andamento' || conversedOperation.status === 'Em andamento'){
         firstCircle.current.style.backgroundColor = 'Yellow'
         messageRef.current.innerText = 'Os interessados no financiamento imobiliário devem fornecer documentação pessoal, comprovantes de renda, e outros documentos necessários para a análise do banco.'
-       }else if(conversedOperation.etapa === 'Recolhimento de Documentos' && conversedOperation.status === 'Recusada'){
+       }else if(conversedOperation.step === 'Recolhimento de Documentos' && conversedOperation.status === 'Recusada'){
         firstCircle.current.style.backgroundColor = 'Red'
         messageRef.current.innerText = conversedOperation.message
-       }else if(conversedOperation.etapa === 'Recolhimento de Documentos' && conversedOperation.status === 'Aceita'){
+       }else if(conversedOperation.step === 'Recolhimento de Documentos' && conversedOperation.status === 'Aceita'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Yellow'
         const dbChanges = await fetch(`http://localhost:3000/organicos/${params.id}`,{
@@ -77,7 +61,7 @@ export default function ProcessAdm({params}:any){
           body: JSON.stringify(
           {
             status: 'Em Andamento',
-            etapa: 'Analise Bancaria',
+            step: 'Analise Bancaria',
             message: 'Parabéns! Recebemos seus documentos. Estamos iniciando a análise para o financiamento do seu imóvel. Em breve, entraremos em contato'
           }
         ),
@@ -86,15 +70,15 @@ export default function ProcessAdm({params}:any){
         }
         })
         messageRef.current.innerText = 'Parabéns! Recebemos seus documentos. Estamos iniciando a análise para o financiamento do seu imóvel. Em breve, entraremos em contato.'
-       }else if(conversedOperation.etapa === 'Analise Bancaria' && conversedOperation.status === 'Em Andamento'){
+       }else if(conversedOperation.step === 'Analise Bancaria' && conversedOperation.status === 'Em Andamento'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Yellow'
-        messageRef.current.innerText = 'O banco revisa os documentos fornecidos, avalia a capacidade financeira do solicitante e verifica a viabilidade do financiamento. Essa etapa inclui a verificação de histórico de crédito e outros critérios de elegibilidade.'
-       }else if(conversedOperation.etapa === 'Analise Bancaria' && conversedOperation.status === 'Recusada'){
+        messageRef.current.innerText = 'O banco revisa os documentos fornecidos, avalia a capacidade financeira do solicitante e verifica a viabilidade do financiamento. Essa step inclui a verificação de histórico de crédito e outros critérios de elegibilidade.'
+       }else if(conversedOperation.step === 'Analise Bancaria' && conversedOperation.status === 'Recusada'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Red'
         messageRef.current.innerText = conversedOperation.message
-       }else if(conversedOperation.etapa === 'Analise Bancaria' && conversedOperation.status === 'Aceita'){
+       }else if(conversedOperation.step === 'Analise Bancaria' && conversedOperation.status === 'Aceita'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Green'
         const dbChanges = await fetch(`http://localhost:3000/organicos/${params.id}`,{
@@ -102,26 +86,26 @@ export default function ProcessAdm({params}:any){
           body: JSON.stringify(
           {
             status: 'Em Andamento',
-            etapa: 'Vistoria de Imovel',
-            message: 'Ótima notícia! Sua análise bancária foi aprovada. Agora, avançaremos para a próxima etapa do financiamento imobiliário.'
+            step: 'Vistoria de Imovel',
+            message: 'Ótima notícia! Sua análise bancária foi aprovada. Agora, avançaremos para a próxima step do financiamento imobiliário.'
           }
         ),
         headers: {
           "Content-Type": "application/json"
         }
         })
-        messageRef.current.innerText = 'Ótima notícia! Sua análise bancária foi aprovada. Agora, avançaremos para a próxima etapa do financiamento imobiliário.'
-       }else if(conversedOperation.etapa === 'Vistoria de Imovel' && conversedOperation.status === 'Em Andamento'){
+        messageRef.current.innerText = 'Ótima notícia! Sua análise bancária foi aprovada. Agora, avançaremos para a próxima step do financiamento imobiliário.'
+       }else if(conversedOperation.step === 'Vistoria de Imovel' && conversedOperation.status === 'Em Andamento'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Green'
         thirdCircle.current.style.backgroundColor = 'Yellow'
         messageRef.current.innerText = 'Uma vistoria é realizada no imóvel para avaliar suas condições físicas e determinar seu valor de mercado. Isso é crucial para o banco garantir que o imóvel ofereça a segurança necessária para o financiamento.'
-       }else if(conversedOperation.etapa === 'Vistoria de Imovel' && conversedOperation.status === 'Recusada'){
+       }else if(conversedOperation.step === 'Vistoria de Imovel' && conversedOperation.status === 'Recusada'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Green'
         thirdCircle.current.style.backgroundColor = 'Red'
         messageRef.current.innerText = conversedOperation.message
-       }else if(conversedOperation.etapa === 'Vistoria de Imovel' && conversedOperation.status === 'Aceita'){
+       }else if(conversedOperation.step === 'Vistoria de Imovel' && conversedOperation.status === 'Aceita'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Green'
         thirdCircle.current.style.backgroundColor = 'Green'
@@ -130,7 +114,7 @@ export default function ProcessAdm({params}:any){
           body: JSON.stringify(
           {
             status: 'Em Andamento',
-            etapa: 'Emissao do Contrato',
+            step: 'Emissao do Contrato',
             message: 'A vistoria do seu imóvel foi concluída com sucesso! Estamos prosseguindo para as etapas finais do financiamento. Logo teremos novidades.'
           }
         ),
@@ -139,15 +123,15 @@ export default function ProcessAdm({params}:any){
         }
         })
         messageRef.current.innerText = 'A vistoria do seu imóvel foi concluída com sucesso! Estamos prosseguindo para as etapas finais do financiamento. Logo teremos novidades.'
-       }else if(conversedOperation.etapa === 'Emissao do Contrato' && conversedOperation.status === 'Em Andamento'){
+       }else if(conversedOperation.step === 'Emissao do Contrato' && conversedOperation.status === 'Em Andamento'){
        fourthCircle.current.style.backgroundColor = 'Yellow'
-       }else if(conversedOperation.etapa === 'Emissao do Contrato' && conversedOperation.status === 'Recusada'){
+       }else if(conversedOperation.step === 'Emissao do Contrato' && conversedOperation.status === 'Recusada'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Green'
         thirdCircle.current.style.backgroundColor = 'Green'
         fourthCircle.current.style.backgroundColor = 'Red'
         messageRef.current.innerText = conversedOperation.message
-       }else if(conversedOperation.etapa === 'Emissao do Contrato' && conversedOperation.status === 'Aceita'){
+       }else if(conversedOperation.step === 'Emissao do Contrato' && conversedOperation.status === 'Aceita'){
         firstCircle.current.style.backgroundColor = 'Green'
         secondCircle.current.style.backgroundColor = 'Green'
         thirdCircle.current.style.backgroundColor = 'Green'
@@ -157,7 +141,7 @@ export default function ProcessAdm({params}:any){
           body: JSON.stringify(
           {
             status: 'Aceita',
-            etapa: 'Emissao do Contrato',
+            step: 'Emissao do Contrato',
             message: 'Parabéns! Seu financiamento foi aprovado, e o contrato está pronto para assinatura. Em breve, você será o(a) proprietário(a) do seu novo lar.'
           }
         ),
@@ -187,7 +171,7 @@ export default function ProcessAdm({params}:any){
         body: JSON.stringify(
           {
             status: conversedOperation.status,
-            etapa:conversedOperation.etapa,
+            step:conversedOperation.step,
             message: message
           }
         ),
@@ -214,14 +198,14 @@ export default function ProcessAdm({params}:any){
       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
     var nomeDoMes = nomesDosMeses[numeroMes];
-    if(etapa === 'Emissao do Contrato' && status === 'Aceita'){
+    if(step === 'Emissao do Contrato' && status === 'Aceita'){
       const userDb = await fetch(`http://localhost:3000/organicos/${params.id}`,{
         method: "PATCH",
         body: JSON.stringify(
           {
             mesFinalizado: nomeDoMes,
             status,
-            etapa,
+            step,
             message:message
           }
         ),
@@ -237,7 +221,7 @@ export default function ProcessAdm({params}:any){
         body: JSON.stringify(
           {
             status,
-            etapa,
+            step,
             message:message
           }
         ),
@@ -254,21 +238,21 @@ export default function ProcessAdm({params}:any){
       <div className={style.geralContainer}>
   <div className={style.section}>
     <h1>Dados do Imovel</h1>
-    <h3 ref={refBanco}></h3>
-    <h3 ref={refParcelas}></h3>
-    <h3 ref={refValor}></h3>
+    <h3 ref={bankRef}></h3>
+    <h3 ref={InstallmentsRef}></h3>
+    <h3 ref={valueRef}></h3>
   </div>
   <div className={style.section}>
     <h1>Dados do Proponente</h1>
-    <h3 ref={clienteNome}></h3>
+    <h3 ref={clientName}></h3>
     <h3 ref={clienteEmail}></h3>
-    <h3 ref={clienteTelefone}></h3>
+    <h3 ref={clientPhone}></h3>
   </div>
   <div className={style.section}>
     <h1>Dados do Consultor</h1>
     <h3 ref={refNome}></h3>
-    <h3 ref={refEmail}></h3>
-    <h3 ref={refTelefone}></h3>
+    <h3 ref={emailRef}></h3>
+    <h3 ref={phoneRef}></h3>
   </div>
   <div className={style.section}>
     <h1>Status do Processo</h1>
@@ -298,8 +282,8 @@ export default function ProcessAdm({params}:any){
   <form onSubmit={(ev)=>alteraStatus(ev)} className={style.form}>
     <label htmlFor="">Alterar Etapa</label>
     <select
-    value={etapa}
-    onChange={(ev)=>setEtapa(ev.currentTarget.value)}
+    value={step}
+    onChange={(ev)=>setStep(ev.currentTarget.value)}
     >
       <option value="Escolha uma opção">Escolha uma opção</option>
       <option value="Recolhimento de Documentos">Recolhimento de Documentos</option>
@@ -333,7 +317,7 @@ export default function ProcessAdm({params}:any){
     <button>Mudar Status</button>
   </form>
   <article className={style.step}>
-    <h4>O que a etapa do meu processo significa?</h4>
+    <h4>O que a step do meu processo significa?</h4>
     <p ref={messageRef}></p>
   </article>
   </div>

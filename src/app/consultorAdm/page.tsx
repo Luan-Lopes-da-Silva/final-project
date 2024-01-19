@@ -10,10 +10,10 @@ import React from 'react'
 
 
 export default function Home(){
-  const refProcessos = useRef<HTMLSpanElement>(null)
-  const refFinalizados = useRef<HTMLSpanElement>(null)
-  const refProcessosTotais = useRef<HTMLSpanElement>(null)
-  const refFinalizadosTotais = useRef<HTMLSpanElement>(null)
+  const processRef = useRef<HTMLSpanElement>(null)
+  const finishedRef = useRef<HTMLSpanElement>(null)
+  const totalProcessRef = useRef<HTMLSpanElement>(null)
+  const totalFinishedProcess = useRef<HTMLSpanElement>(null)
   const tasksContainer = useRef<HTMLDivElement>(null)
   const refForm = useRef<HTMLFormElement>(null)
   const [nameTask,setNameTask] = useState('')
@@ -43,15 +43,15 @@ export default function Home(){
     avatar: string
     email: string
     id: number
-    idConsultor: string
-    nome: string
-    telefone: string
+    idconsultant: string
+    name: string
+    phone: string
   }
 
   type Task = {
     name: string | null
     task: string | null
-    idConsultor: string | null
+    idconsultant: string | null
     id?:number 
   }
 
@@ -82,9 +82,9 @@ export default function Home(){
       avatar: 'Undefined',
       email:  'Undefined',
       id: 12,
-      idConsultor: 'Undefined',
-      nome: 'Undefined',
-      telefone: 'Undefined'
+      idconsultant: 'Undefined',
+      name: 'Undefined',
+      phone: 'Undefined'
   }
 
     if(dataString){
@@ -93,9 +93,9 @@ export default function Home(){
       return  defaultUser
     }
   }
+
   const handleButtonClick = async(ev:any)=>{
-    const buttonElement = ev.currentTarget as HTMLButtonElement | null;
-        
+    const buttonElement = ev.currentTarget as HTMLButtonElement | null;      
           if (buttonElement && buttonElement.parentElement) {
             tasksContainer.current?.removeChild(buttonElement.parentElement);
             try {
@@ -144,7 +144,7 @@ export default function Home(){
       const task:Task = {
         name: nameTask,
         task: summaryTask,
-        idConsultor: loginUser.idConsultor
+        idconsultant: loginUser.idconsultant
       }
       
      const createTask = await fetch(`https://db-tasks-1oaa.onrender.com/tasks`,{
@@ -158,7 +158,7 @@ export default function Home(){
      const tasksDb = await fetch('https://db-tasks-1oaa.onrender.com/tasks')
      const tasksConversed: Task2[] = await tasksDb.json()
      
-     const filter:Task2[] = tasksConversed.filter(task=>(task.idconsultor === loginUser.idConsultor))
+     const filter:Task2[] = tasksConversed.filter(task=>(task.idconsultor === loginUser.idconsultant))
      
     
 
@@ -188,17 +188,17 @@ export default function Home(){
   const renderTasks = async () => {
     if(localStorage.getItem('Usuario Logado')){
       const loginUser:User = getLocalStorage()
+      
       const task:Task = {
         name: nameTask,
         task: summaryTask,
-        idConsultor: loginUser.idConsultor
+        idconsultant: loginUser.idconsultant
       }
       
-  
       const tasksDb = await fetch('https://db-tasks-1oaa.onrender.com/tasks')
       const tasksConversed: Task2[] = await tasksDb.json()
       
-      const filter:Task2[] = tasksConversed.filter(task=>(task.idconsultor === loginUser.idConsultor))
+      const filter:Task2[] = tasksConversed.filter(task=>(task.idconsultor === loginUser.idconsultant))
       
   
      for(let i=0; i<filter.length; i++){
@@ -230,34 +230,34 @@ export default function Home(){
     try {
       const insertInfos = async () =>{
         const loginUser:User = getLocalStorage()
-          const processos = await fetch (`${url}/processos`)
-          const processosJson: Process[] = await processos.json()
+          const process = await fetch (`${url}/processos`)
+          const processJson: Process[] = await process.json()
           const data = new Date()
-          const numeroMes = data.getMonth()
-          var nomesDosMeses = [
+          const numberMonth = data.getMonth()
+          var nameOfMonths = [
             'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
             'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
           ];
-          var nomeDoMes = nomesDosMeses[numeroMes];
-          const filterTotal: Process[] = processosJson.filter(process=>(process.idconsultor === loginUser.idconsultant))
-          const totalMensal =filterTotal.filter(process=>(process.mesinicio === nomeDoMes))
-          const mensalFinalizado = filterTotal.filter(process=>(process.mesfinalizado === nomeDoMes))
-          console.log(mensalFinalizado)
+          var nameOfMonth = nameOfMonths[numberMonth];
+          const filterTotal: Process[] = processJson.filter(process=>(process.idconsultor === loginUser.idconsultant))
+          const totalMensal =filterTotal.filter(process=>(process.mesinicio === nameOfMonth))
+          const finishedMonth = filterTotal.filter(process=>(process.mesfinalizado === nameOfMonth))
+      
           const totalFinalizados = filterTotal.filter(process=> (process.status === 'Aceita'))
-          if(refFinalizados.current && refFinalizadosTotais.current && refProcessos.current && refProcessosTotais.current){
+          if(finishedRef.current && totalFinishedProcess.current && processRef.current && totalProcessRef.current){
             if(filterTotal.length<1){
-              refProcessos.current.innerText = '0'
-              refFinalizados.current.innerText = '0'
-              refProcessosTotais.current.innerText = '0'
-              refFinalizadosTotais.current.innerText = '0'
+              processRef.current.innerText = '0'
+              finishedRef.current.innerText = '0'
+              totalProcessRef.current.innerText = '0'
+              totalFinishedProcess.current.innerText = '0'
               }else if(totalMensal.length<1){
-              refProcessos.current.innerText = '0'
-              refFinalizados.current.innerText = '0'
+              processRef.current.innerText = '0'
+              finishedRef.current.innerText = '0'
               }else{
-              refProcessos.current.innerText = `${totalMensal.length}`
-              refFinalizados.current.innerText = `${mensalFinalizado.length}`
-              refProcessosTotais.current.innerText = `${filterTotal.length}`
-              refFinalizadosTotais.current.innerText = `${totalFinalizados.length}`
+              processRef.current.innerText = `${totalMensal.length}`
+              finishedRef.current.innerText = `${finishedMonth.length}`
+              totalProcessRef.current.innerText = `${filterTotal.length}`
+              totalFinishedProcess.current.innerText = `${totalFinalizados.length}`
               }
           }
         }
@@ -283,11 +283,11 @@ export default function Home(){
             <article className={style.card}>
               <div className={style.totais}>
                 <p>Totais</p>
-                <span ref={refProcessos}>0</span>
+                <span ref={processRef}>0</span>
               </div>
               <div className={style.finalizados}>
               <p>Finalizados</p>
-              <span ref={refFinalizados}>0</span>
+              <span ref={finishedRef}>0</span>
               </div>
             </article>
           </section>
@@ -298,11 +298,11 @@ export default function Home(){
             <article className={style.card}>
               <div className={style.totais}>
                 <p>Totais</p>
-                <span ref={refProcessosTotais}>0</span>
+                <span ref={totalProcessRef}>0</span>
               </div>
               <div className={style.finalizados}>
               <p>Finalizados</p>
-              <span ref={refFinalizadosTotais}>0</span>
+              <span ref={totalFinishedProcess}>0</span>
               </div>
             </article>
           </section>
